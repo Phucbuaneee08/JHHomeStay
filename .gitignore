@@ -1,0 +1,10 @@
+/node_modules
+/.idea
+.env
+.env.dev
+
+/models/_multi-tenant
+/middleware/_multi-tenant
+/modules/_multi-tenant
+
+package-lock.json
