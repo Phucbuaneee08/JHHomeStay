@@ -1,13 +1,10 @@
 //require thư viện mongoose
 const mongoose = require('mongoose');
-//kết nối với MongoDB Compass
-// mongoose.connect('mongodb://localhost/Model',{  //khi chạy trên local thì để ý hàm này
-//     useNewUrlParser:true,
-//     useUnifiedTopology:true
-// });
 
 const Schema = mongoose.Schema;
+//tạo ra quan hệ Signaturers
 const Signatures = new Schema({
+    //tạo thuộc tính name
     name:{
         type:String,
         require:true
