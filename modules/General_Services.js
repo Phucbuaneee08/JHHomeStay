@@ -17,6 +17,7 @@ const General_Services = new Schema({
     collection:General_Services,
 }
 )
+
 //tạo biến model
 const GSModel = mongoose.model('General_Services',General_Services);
 
