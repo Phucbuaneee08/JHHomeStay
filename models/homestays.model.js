@@ -62,8 +62,4 @@ const HomestaysSchema = new Schema(
     }
 );
 
-module.exports = (db) => {
-    if(!db.models.Homestays)
-        return db.model('Homestays', HomestaysSchema);
-    return db.models.Homestays;
-}
+module.exports = mongoose.model('Homestays', HomestaysSchema);

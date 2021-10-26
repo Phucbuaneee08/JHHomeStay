@@ -26,8 +26,4 @@ const RoomsSchema= new Schema({
 
 });
 
-module.exports = (db) => {
-    if (!db.models.Rooms)
-        return db.model('Rooms', RoomsSchema);
-    return db.models.Rooms;
-}
+module.exports = mongoose.model('Rooms', RoomsSchema);

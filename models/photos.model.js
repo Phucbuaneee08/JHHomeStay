@@ -20,8 +20,4 @@ const PhotosSchema = new Schema (
     }
 );
 
-module.exports = (db) => {
-    if (!db.models.Photos)
-        return db.model('Photos', PhotosSchema);
-    return db.models.Photos;
-}
+module.exports = mongoose.model('Photos', PhotosSchema);

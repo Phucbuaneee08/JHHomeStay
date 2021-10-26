@@ -42,8 +42,4 @@ const BillsSchema= new Schema({
 
 });
 
-module.exports = (db) => {
-    if (!db.models.Bills)
-        return db.model('Bills', BillsSchema);
-    return db.models.Bills;
-}
+module.exports = mongoose.model('Bills', BillsSchema);

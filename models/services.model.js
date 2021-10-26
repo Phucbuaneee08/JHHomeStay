@@ -16,8 +16,4 @@ const ServicesSchema= new Schema({
     }
 });
 
-module.exports = (db) => {
-    if (!db.models.Services)
-        return db.model('Services', ServicesSchema);
-    return db.models.Services;
-}
+module.exports = mongoose.model('Services', ServicesSchema);

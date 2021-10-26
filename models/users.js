@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 // tạo ra quan hệ Users
-const Users = new Schema({
+const UsersSchema = new Schema({
     name: 
     {
         type:String,
@@ -81,17 +81,7 @@ const Users = new Schema({
     
     token: String
    
-},{
-    collection:'Users'
-}
+});
 
-);
-//tạo ra biến model
- const UsersModel =mongoose.model('Users',Users);
-
- module.exports = (db) => {
-    if (!db.models.Users)
-        return db.model('Users', UsersSchema);
-    return db.models.Users;
- }
+ module.exports = mongoose.model('Users', UsersSchema)
 
