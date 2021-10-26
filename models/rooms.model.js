@@ -22,8 +22,29 @@ const RoomsSchema= new Schema({
         type: Schema.Types.ObjectId,
         required: true
     }
-
-
 });
 
+RoomsSchema.virtual('amenities', {
+    ref: 'RoomsAmenities',
+    localField: '_id',
+    foreignField: 'roomsId'
+});
+
+RoomsSchema.virtual('bills', {
+    ref: 'BillsRooms',
+    localField: '_id',
+    foreignField: 'roomsId'
+})
+
+RoomsSchema.virtual('homestays', {
+    ref: 'Homestays',
+    localField: '_id',
+    foreignField: 'roomsId'
+})
+
+RoomsSchema.virtual('photos', {
+    ref: 'Photos',
+    localField: '_id',
+    foreignField: 'roomsId'
+})
 module.exports = mongoose.model('Rooms', RoomsSchema);

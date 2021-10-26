@@ -39,7 +39,12 @@ const BillsSchema= new Schema({
         type: Boolean,
         required: true
     }
+});
 
+BillsSchema.virtual('rooms', {
+    ref: 'BillsRooms',
+    localField: '_id',
+    foreignField: 'roomsId'
 });
 
 module.exports = mongoose.model('Bills', BillsSchema);

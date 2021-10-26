@@ -6,18 +6,18 @@ const PhotosSchema = new Schema (
     {
         url: { //Đường dẫn url cho ảnh phòng, homestay
             type: String,
+            required: true
         },
-        homestayId: { // Id định danh homestay, tham chiếu bảng homestay
+        homestaysId: { // Id định danh homestay, tham chiếu bảng homestays
             type: Schema.Types.ObjectId,
-            ref: 'Homestays'
+            ref: 'Homestays',
+            required: true
         },
-        roomId: { // Id định danh room
+        roomsId: { // Id định danh room, tham chiếu bảng rooms
             type: Schema.Types.ObjectId,
-            ref: 'Rooms'
+            ref: 'Rooms',
+            required: true
         }
-    },{
-        toJSON: { virtuals: true }
-    }
-);
+    });
 
 module.exports = mongoose.model('Photos', PhotosSchema);

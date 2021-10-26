@@ -16,4 +16,16 @@ const ServicesSchema= new Schema({
     }
 });
 
+ServicesSchema.virtual('bills', {
+    ref: 'ServicesBills',
+    localField: '_id',
+    foreignField: 'servicesId'
+})
+
+ServicesSchema.virtual('homestays', {
+    ref: 'ServicesHomestays',
+    localField: '_id',
+    foreignField: 'servicesId'
+})
+
 module.exports = mongoose.model('Services', ServicesSchema);

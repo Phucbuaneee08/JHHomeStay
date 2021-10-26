@@ -1,87 +1,77 @@
-//require thư viện mongoose
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
+
 // tạo ra quan hệ Users
 const UsersSchema = new Schema({
-    name: 
-    {
-        type:String,
+    name: {
+        type: String,
         require:true
     },
-    address:
-    {
-        type:String,
+    address: {
+        type: String,
         require:true
     },
-    
-    role: 
-    {
-        type:String,
+    role: {
+        type: String,
         require:true
     },
-    
-    email: 
-    {
-        type:String,
+    email: {
+        type: String,
         require:true
     },
-    
-    password: 
-    {
-        type:String,
+    password: {
+        type: String,
         require:true
     },
-    
-    phone: 
-    {
-        type:String,
+    phone: {
+        type: String,
         require:true
     },
-    
-    status: 
-    {
-        type:String,
+    status: {
+        type: Number, // 1: active; 2: inactive
         require:true
     },
-    
-    gender: 
-    {
-        type:String,
+    gender: {
+        type: String,
+        enum: [
+            'Male',
+            'Female',
+            'Other'
+        ],
+    },
+    identification: {
+        type: String,
         require:true
     },
-    
-    identification: 
-    {
-        type:String,
+    avatarUrl: {
+        type: String,
         require:true
     },
-    
-    avatarUrl: 
-    {
-        type:String,
-        require:true
-    },
-    
     dateAtWork: {
-        type:Date,
+        type: Date,
         require:true
     },
-    
     dateAtBirth: {
-        type:Date,
+        type: Date,
         require:true
     },
-    
-    resetPasswordToken: 
-    {
-        type:String,
+    resetPasswordToken: {
+        type: String,
         require:true
     },
-    
-    token: String
-   
+    token: [{
+        type: String,
+    }],
+    homestaysId: { // Id định danh homestay, tham chiếu bảng homestays
+        type: Schema.Types.ObjectId,
+        ref: 'Homestays',
+        required: true
+    },
+    usersId: { // super admin tham chiếu tới admin
+        type: Schema.Types.ObjectId,
+        ref: 'Users',
+    }
 });
 
- module.exports = mongoose.model('Users', UsersSchema)
+module.exports = mongoose.model('Users', UsersSchema)
 

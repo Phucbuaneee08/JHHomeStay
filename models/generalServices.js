@@ -10,7 +10,8 @@ const GeneralServicesSchema = new Schema({
         require: true
     },
     homestayId: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Homestays',
         require: true
     }
 });
