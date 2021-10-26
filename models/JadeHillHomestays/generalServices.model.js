@@ -1,7 +1,7 @@
 //require thư viện mongoose
 const mongoose = require('mongoose');
-
 const Schema = mongoose.Schema;
+
 //tạo ra quan hệ GeneralServices
 const GeneralServicesSchema = new Schema({
     //tạo ra thuộc tính name và homeStayId
@@ -16,4 +16,9 @@ const GeneralServicesSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('GeneralServices', GeneralServicesSchema);
+module.exports = (db) => {
+    if (!db.models.GeneralServices) {
+        return db.model('GeneralServices', GeneralServicesSchema);
+    }
+    return db.models.GeneralServices;
+}

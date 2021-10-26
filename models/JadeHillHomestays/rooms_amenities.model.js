@@ -14,4 +14,9 @@ const RoomsAmenitiesSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('RoomsAmenities', RoomsAmenitiesSchema);
+module.exports = (db) => {
+    if (!db.models.RoomsAmenities) {
+        return db.model('RoomsAmenities', RoomsAmenitiesSchema);
+    }
+    return db.models.RoomsAmenities;
+}

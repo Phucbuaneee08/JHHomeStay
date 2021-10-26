@@ -73,5 +73,10 @@ const UsersSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('Users', UsersSchema)
+module.exports = (db) => {
+    if (!db.models.Users) {
+        return db.model('Users', UsersSchema);
+    }
+    return db.models.Users;
+}
 

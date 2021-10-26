@@ -28,4 +28,9 @@ ServicesSchema.virtual('homestays', {
     foreignField: 'servicesId'
 })
 
-module.exports = mongoose.model('Services', ServicesSchema);
+module.exports = (db) => {
+    if (!db.models.Services) {
+        return db.model('Services', ServicesSchema);
+    }
+    return db.models.Services;
+}

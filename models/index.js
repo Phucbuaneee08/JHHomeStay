@@ -1,0 +1,16 @@
+module.exports = {
+    Amenities: require('./JadeHillHomestays/amenities.model'),
+    Bills: require('./JadeHillHomestays/bills.model'),
+    BillsRooms: require('./JadeHillHomestays/bills_rooms.model'),
+    GeneralServices: require('./JadeHillHomestays/generalServices.model'),
+    Homestays: require('./JadeHillHomestays/homestays.model'),
+    HomestaysSignatures: require('./JadeHillHomestays/homestays_signatures.model'),
+    Photos: require('./JadeHillHomestays/photos.model'),
+    Rooms: require('./JadeHillHomestays/rooms.model'),
+    RoomsAmenities: require('./JadeHillHomestays/rooms_amenities.model'),
+    Services: require('./JadeHillHomestays/services.model'),
+    ServicesBills: require('./JadeHillHomestays/services_bills.model'),
+    ServicesHomestays: require('./JadeHillHomestays/services_homestays.model'),
+    Signatures: require('./JadeHillHomestays/signatures.model'),
+    Users: require('./JadeHillHomestays/users.model'),
+}

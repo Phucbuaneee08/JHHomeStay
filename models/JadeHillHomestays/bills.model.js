@@ -47,4 +47,9 @@ BillsSchema.virtual('rooms', {
     foreignField: 'roomsId'
 });
 
-module.exports = mongoose.model('Bills', BillsSchema);
+module.exports = (db) => {
+    if (!db.models.Bills) {
+        return db.model('Bills', BillsSchema);
+    }
+    return db.models.Bills;
+}

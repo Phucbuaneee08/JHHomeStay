@@ -14,4 +14,9 @@ const BillsRoomsSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('BillsRooms', BillsRoomsSchema);
+module.exports = (db) => {
+    if (!db.models.BillsRooms) {
+        return db.model('BillsRooms', BillsRoomsSchema);
+    }
+    return db.models.BillsRooms;
+}

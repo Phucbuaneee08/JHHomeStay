@@ -14,4 +14,9 @@ const ServicesBillsSchema = new Schema({ // Liên kết nhiều nhiều giữa s
     }
 });
 
-module.exports = mongoose.model('ServicesBills', ServicesBillsSchema);
+module.exports = (db) => {
+    if (!db.models.ServicesBills) {
+        return db.model('ServicesBills', ServicesBillsSchema);
+    }
+    return db.models.ServicesBills;
+}

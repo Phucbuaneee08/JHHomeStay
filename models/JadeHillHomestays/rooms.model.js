@@ -47,4 +47,10 @@ RoomsSchema.virtual('photos', {
     localField: '_id',
     foreignField: 'roomsId'
 })
-module.exports = mongoose.model('Rooms', RoomsSchema);
+
+module.exports = (db) => {
+    if (!db.models.Rooms) {
+        return db.model('Rooms', RoomsSchema);
+    }
+    return db.models.Rooms;
+}

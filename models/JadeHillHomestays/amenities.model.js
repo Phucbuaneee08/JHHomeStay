@@ -19,4 +19,9 @@ AmenitiesSchema.virtual('rooms', {
     foreignField: 'roomsId'
 })
 
-module.exports = mongoose.model('Amenities', AmenitiesSchema);
+module.exports = (db) => {
+    if (!db.models.Amenities) {
+        return db.model('Amenities', AmenitiesSchema);
+    }
+    return db.models.Amenities;
+}

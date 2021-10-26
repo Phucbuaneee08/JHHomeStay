@@ -14,4 +14,9 @@ const ServicesHomestaysSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('ServicesHomestays', ServicesHomestaysSchema);
+module.exports = (db) => {
+    if (!db.models.ServicesHomestays) {
+        return db.model('ServicesHomestays', ServicesHomestaysSchema);
+    }
+    return db.models.ServicesHomestays;
+}

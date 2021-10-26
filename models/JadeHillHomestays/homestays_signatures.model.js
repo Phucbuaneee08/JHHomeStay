@@ -14,4 +14,9 @@ const HomestaysSignaturesSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('HomestaysSignatures', HomestaysSignaturesSchema);
+module.exports = (db) => {
+    if (!db.models.HomestaysSignatures) {
+        return db.model('HomestaysSignatures', HomestaysSignaturesSchema);
+    }
+    return db.models.HomestaysSignatures;
+}

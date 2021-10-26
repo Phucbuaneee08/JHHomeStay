@@ -74,4 +74,9 @@ HomestaysSchema.virtual('signatures', {
     foreignField: 'homestaysId'
 })
 
-module.exports = mongoose.model('Homestays', HomestaysSchema);
+module.exports = (db) => {
+    if (!db.models.Homestays) {
+        return db.model('Homestays', HomestaysSchema);
+    }
+    return db.models.Homestays;
+}
