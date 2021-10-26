@@ -1,7 +1,7 @@
 1. Start project
-    npm install
-    npm run start // run in product
-    npm run start:dev // run in local
-
+   step 1: Tạo DB có tên JadeHillHomestays ở local
+   step 2: npm install
+   step 3: npm run start:dev
 2. Description
     name: JadeHillHomestays
+   
