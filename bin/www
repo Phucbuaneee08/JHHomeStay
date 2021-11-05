@@ -26,7 +26,10 @@ var db = mongoose.createConnection(
     `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT || "27017"}/${process.env.DB_NAME}`,
     connectOptions
 );
-
+/**
+ * Khởi tạo biến global là connection của mongoose
+ * */
+global.DB_CONNECTION = db;
 /**
  * Hàm khởi tạo models nếu chưa tồn tại
  * @param {*} db kết nối đến cơ sở dữ liệu nào đó

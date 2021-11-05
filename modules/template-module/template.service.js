@@ -1,5 +1,7 @@
+const {Users} = require("../../models");
 exports.get = async () => {
-    //code here
+    //sample code to connect db of a model
+    Users(DB_CONNECTION).findOne();
 }
 
 exports.getById = async (id) => {
