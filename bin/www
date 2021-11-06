@@ -27,7 +27,6 @@ const db = mongoose.createConnection(
     connectOptions
 );
 
-global.DB_CONNECTION = db;
 /**
  * Hàm khởi tạo models nếu chưa tồn tại
  * @param {*} db kết nối đến cơ sở dữ liệu nào đó
@@ -122,3 +121,4 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+

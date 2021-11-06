@@ -70,11 +70,12 @@ const UsersSchema = new Schema({
     homestaysId: { // Id định danh homestay, tham chiếu bảng homestays
         type: Schema.Types.ObjectId,
         ref: 'Homestays',
-        required: true
+        required: false
     },
     usersId: { // super admin tham chiếu tới admin
         type: Schema.Types.ObjectId,
         ref: 'Users',
+        required: false
     }
 });
 

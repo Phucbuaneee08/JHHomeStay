@@ -1,15 +1,15 @@
 const bcrypt = require('bcrypt');
-
 const {Users} = require("../models");
 const mongoose = require("mongoose");
+const {dbConnect} = require("../helpers/dbHelper");
 
 exports.UserSeed = async function () {
-    Users(DB_CONNECTION).deleteMany().then(function () {
+    Users(dbConnect()).deleteMany().then(function () {
         console.log("user data is cleared");
     }).catch(function (error) {
         console.log(error);
     });
-    await Users(DB_CONNECTION).create([
+    await Users(dbConnect()).create([
         {
             email: 'TuNN@gmail.com',
             password: await bcrypt.hash('1234567890', 10),
@@ -24,5 +24,4 @@ exports.UserSeed = async function () {
         }
     ]);
     console.log('seeded user');
-    await Users(DB_CONNECTION).base.close();
 }
