@@ -1,35 +1,37 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+/* Vì dữ liệu cho cơ sở dữ liệu chưa có đủ nên đang chuyển tất cả require từ true sang false để dễ dàng cho việc
+seed dữ liệu thử nghiệm cho bảng User để test tính năng đăng nhập, xác thực,...*/
 
 // tạo ra quan hệ Users
 const UsersSchema = new Schema({
     name: {
         type: String,
-        require:true
+        require:false
     },
     address: {
         type: String,
-        require:true
+        require:false
     },
     role: {
         type: String,
-        require:true
+        require:false
     },
     email: {
         type: String,
-        require:true
+        require:false
     },
     password: {
         type: String,
-        require:true
+        require:false
     },
     phone: {
         type: String,
-        require:true
+        require:false
     },
     status: {
         type: Number, // 1: active; 2: inactive
-        require:true
+        require:false
     },
     gender: {
         type: String,
@@ -41,23 +43,23 @@ const UsersSchema = new Schema({
     },
     identification: {
         type: String,
-        require:true
+        require:false
     },
     avatarUrl: {
         type: String,
-        require:true
+        require:false
     },
     dateAtWork: {
         type: Date,
-        require:true
+        require:false
     },
     dateAtBirth: {
         type: Date,
-        require:true
+        require:false
     },
     resetPasswordToken: {
         type: String,
-        require:true
+        require:false
     },
     token: [{
         type: String,
@@ -65,7 +67,7 @@ const UsersSchema = new Schema({
     homestaysId: { // Id định danh homestay, tham chiếu bảng homestays
         type: Schema.Types.ObjectId,
         ref: 'Homestays',
-        required: true
+        required: false
     },
     usersId: { // super admin tham chiếu tới admin
         type: Schema.Types.ObjectId,

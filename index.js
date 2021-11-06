@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var i18n = require("i18n");
 var cors = require('cors');
+const {UserSeed} = require("./seed/UserSeed");
 
 // import routers here
 
@@ -32,5 +33,12 @@ i18n.configure({
 app.use(i18n.init);
 
 // user routers here
+const router = express.Router();
+router.use( "/auth", require("./modules/auth/auth.route"));
+app.use(router);
+
+UserSeed().catch(error => {
+    console.log(error)
+});
 
 module.exports = app;
