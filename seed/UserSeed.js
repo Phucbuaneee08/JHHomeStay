@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const { Users } = require("../models");
 const {dbConnect} = require("../helpers/dbHelper");
 
+// Tạo dữ liệu mẫu cho việc test đăng nhập, token
 exports.UserSeed = async function () {
     Users(dbConnect()).deleteMany().then(function () {
         console.log("user data is cleared");
@@ -11,7 +12,7 @@ exports.UserSeed = async function () {
     });
     await Users(dbConnect()).create([
         {
-            role: 'admin',
+            role: 'super_admin',
             email: 'minh@gmail.com',
             password: await bcrypt.hash('1234567890', 10),
             status: 1,
@@ -23,13 +24,13 @@ exports.UserSeed = async function () {
             role: 'super_admin',
         },
         {
-            status: 0,
+            status: 1,
             email: 'tu@gmail.cpm',
             password: await bcrypt.hash('1234567890', 10),
-            role: 'admin',
+            role: 'super_admin',
         },
         {
-            status: 0,
+            status: 1,
             email: 'hoang@gmail.com',
             password: await bcrypt.hash('1234567890', 10),
             role: 'admin',

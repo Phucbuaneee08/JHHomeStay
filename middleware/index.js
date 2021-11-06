@@ -43,10 +43,12 @@ exports.authToken = async function ( req, res, next ) {
     } else {
         try {
             //Kiểm tra người sử dụng -> Kết nối kiểm tra ở database
-            req.user = await Users(dbConnect).findOne({
+            req.user = await Users(dbConnect()).findOne({
                 email: decodedToken.email,
                 role: decodedToken.role,
             });
+            console.log(req.user);
+            console.log("ok");
             next();
         } catch (err) {
             next(err);
@@ -59,7 +61,7 @@ exports.authSuperAdmin = async function ( req, res, next) {
     if (!res.user) {
         try{
             //Truy vấn database để kiểm tra
-            let user = await Users(dbConnect).findOne({
+            let user = await Users(dbConnect()).findOne({
                 email: req.body.email,
                 role: req.body.role,
             });
@@ -87,7 +89,7 @@ exports.authSuperAdmin = async function ( req, res, next) {
 exports.authAdmin = async function ( req, res, next) {
     if (!res.user) {
         try{
-            let user = await Users(dbConnect).findOne({
+            let user = await Users(dbConnect()).findOne({
                 email: req.body.email,
                 role: req.body.role,
             });
