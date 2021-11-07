@@ -22,8 +22,7 @@ exports.authToken = async function ( req, res, next ) {
     if (!access_token) {
         return res.status(401).json({
             success: false,
-            message: "invalid access token",
-            content: "invalid access token"
+            message: "invalid access token"
         });
     }
 
@@ -43,8 +42,7 @@ exports.authToken = async function ( req, res, next ) {
     if ( decodedToken === undefined) {
         return res.status(401).json({
             success: false,
-            message: "invalid access token",
-            content: "Token isn't corrected"
+            message: "invalid access token"
         });
     } else {
         try {
@@ -75,7 +73,6 @@ exports.authSuperAdmin = async function ( req, res, next) {
                 return res.status(401).json({
                     success:false,
                     message: "invalid credential",
-                    content: "your role or your account isn't corrected"
                 });
             } else{
                 next();
@@ -87,8 +84,7 @@ exports.authSuperAdmin = async function ( req, res, next) {
         if ( req.user.role !== 'super_admin' || req.user.status !== 1 ) {
             return res.status(401).json({
                 success: false,
-                message: " invalid credential",
-                content: "your account isn't exist"
+                message: " invalid credential"
             });
         } else next();
     }
@@ -105,8 +101,7 @@ exports.authAdmin = async function ( req, res, next) {
             if ( !user || user.status !== 1 || user.role !== 'admin') {
                 return res.status(401).json({
                     success: false,
-                    message: "invalid credential",
-                    content: "your role or your account isn't corrected"
+                    message: "invalid credential"
                 });
             } else{
                 next();
@@ -118,8 +113,7 @@ exports.authAdmin = async function ( req, res, next) {
         if ( req.user.role !== 'admin' || req.user.status !== 1 ) {
             return res.status(401).json({
                 success: false,
-                message: " invalid credential",
-                content: "your account isn't exist"
+                message: " invalid credential"
             });
         } else next();
     }

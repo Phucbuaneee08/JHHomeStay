@@ -1,4 +1,6 @@
 const AuthService  = require("./auth.service");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // Chuyển file .env sang dạng sử dụng được để lấy thông tin
 require('dotenv').config();
@@ -6,22 +8,40 @@ require('dotenv').config();
 // Xử lí đăng nhập
 exports.login = async (req, res) => {
        try {
-           // Gọi tới hàm kiểm tra trong cơ sở dữ liệu xem có đúng là người dùng
+           // Tìm và lấy ra thông tin User trong database dựa vào email và role
            const data = req.body;
-           const loginUser = await AuthService.checkLogin(data);
+           let user = await AuthService.getByEmailAndRole(data);
 
-           // Nếu kiểm tra OK -> res 200
+           // Kiểm tra mật khẩu dùng bcrypt để đối chiếu mật khẩu trong req và database
+           if ( user.status === 1 ) {
+               if (await bcrypt.compare(req.body.password, user.password)) {
+                   //Tạo token cho người mới đăng nhập
+                   const access_token = jwt.sign({
+                       email: user.email,
+                       role: user.role,
+                   }, process.env.TOKEN_SECRET, {expiresIn: 60 * 60 * 24 * 7});
+                   user.token = access_token;
+
+                   // Thêm token cho user trong database
+                   await AuthService.editUser(user);
+               }
+           }
+
+           // Nếu cần xóa console thì thêm câu lệnh dưới hoặc có thể bỏ đi, sẽ ko ảnh hưởng đến phần code
+           console.clear();
+           // Nếu xác thực đăng nhập thành công, trả lại res 200 và token, thông tin dùng để đăng nhập
            return res.status(200).json({
                success: true,
-               message: ["login_success"],
-               content: loginUser
+               message: "login_success",
+               content: user
            });
+
        } catch (error) {
-           console.log('errorLogin', error);
+           console.log("errorLogin", error);
            // Nếu ko thành công -> 401
            return res.status(401).json({
                success: false,
-               message: Array.isArray(error) ? error : ["login_fail"],
+               message: Array.isArray(error) ? error : "login_fail",
                content: error
            });
        }
@@ -31,22 +51,28 @@ exports.login = async (req, res) => {
 // Xử lí đăng xuất
 exports.logout = async (req, res) => {
     try {
-        // Gọi tới hàm xóa token và trả lại thông tin người dùng khi xóa token
+        // Gọi tới hàm xóa token và trả lại thông tin người dùng đã logout
         const data = req.body;
-        const logout = await AuthService.checkLogout(data);
+        await AuthService.deleteToken(data);
 
-        // Nếu thành công -> res 200
+        // Lấy ra thông tin để xác nhận là đã đăng xuất rồi -> Chủ yếu là để check xem token = null trong database
+        let user = await AuthService.getByEmailAndRole(data);
+        // Nếu cần xóa console thì thêm câu lệnh dưới hoặc có thể bỏ đi, sẽ ko ảnh hưởng đến phần code
+        console.clear();
+
+        // Nếu thành công trả lại res 200
         return res.status(200).json({
             success:true,
-            message: ["logout_success"],
-            content: logout
+            message: "logout_success",
+            content: user
         });
+
     } catch (error) {
         console.log('errorLogOut', error);
-        // Nếu ko thành công -> 401
+        // Nếu ko thành công trả lại 401
         return res.status(401).json({
             success: false,
-            message: Array.isArray(error) ? error : ['logout_fail'],
+            message: Array.isArray(error) ? error : "logout_fail",
             content: error
         });
     }
