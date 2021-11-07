@@ -21,7 +21,9 @@ exports.authToken = async function ( req, res, next ) {
     //Nếu token ko tồn tại -> lỗi
     if (!access_token) {
         return res.status(401).json({
+            success: false,
             message: "invalid access token",
+            content: "invalid access token"
         });
     }
 
@@ -31,14 +33,18 @@ exports.authToken = async function ( req, res, next ) {
         decodedToken = jwt.verify(access_token, process.env.TOKEN_SECRET);
     } catch (err) {
         return res.status(401).json({
-            message:"invalid access token",
+            success: false,
+            message: "invalid access token",
+            content: err
         });
     }
 
     //Nếu token sau giải mã underfined -> Trả lại res lỗi
     if ( decodedToken === undefined) {
         return res.status(401).json({
+            success: false,
             message: "invalid access token",
+            content: "Token isn't corrected"
         });
     } else {
         try {
@@ -47,8 +53,6 @@ exports.authToken = async function ( req, res, next ) {
                 email: decodedToken.email,
                 role: decodedToken.role,
             });
-            console.log(req.user);
-            console.log("ok");
             next();
         } catch (err) {
             next(err);
@@ -69,7 +73,9 @@ exports.authSuperAdmin = async function ( req, res, next) {
             //Nếu ko tồn tại, ko phải super admin -> lỗi
             if ( !user || user.status !== 1 || user.role !== 'super_admin') {
                 return res.status(401).json({
+                    success:false,
                     message: "invalid credential",
+                    content: "your role or your account isn't corrected"
                 });
             } else{
                 next();
@@ -80,7 +86,9 @@ exports.authSuperAdmin = async function ( req, res, next) {
     } else {
         if ( req.user.role !== 'super_admin' || req.user.status !== 1 ) {
             return res.status(401).json({
+                success: false,
                 message: " invalid credential",
+                content: "your account isn't exist"
             });
         } else next();
     }
@@ -96,7 +104,9 @@ exports.authAdmin = async function ( req, res, next) {
 
             if ( !user || user.status !== 1 || user.role !== 'admin') {
                 return res.status(401).json({
+                    success: false,
                     message: "invalid credential",
+                    content: "your role or your account isn't corrected"
                 });
             } else{
                 next();
@@ -107,7 +117,9 @@ exports.authAdmin = async function ( req, res, next) {
     } else {
         if ( req.user.role !== 'admin' || req.user.status !== 1 ) {
             return res.status(401).json({
+                success: false,
                 message: " invalid credential",
+                content: "your account isn't exist"
             });
         } else next();
     }

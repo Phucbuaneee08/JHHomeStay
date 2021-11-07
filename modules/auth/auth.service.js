@@ -42,7 +42,6 @@ exports.checkLogin = async (data) => {
 
 // Xóa token khi người dùng đăng xuất
 exports.checkLogout = async (data) => {
-
     //Xóa token
     await Users(dbConnect()).updateOne(
         {
