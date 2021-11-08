@@ -27,8 +27,6 @@ exports.login = async (req, res) => {
                }
            }
 
-           // Nếu cần xóa console thì thêm câu lệnh dưới hoặc có thể bỏ đi, sẽ ko ảnh hưởng đến phần code
-           console.clear();
            // Nếu xác thực đăng nhập thành công, trả lại res 200 và token, thông tin dùng để đăng nhập
            return res.status(200).json({
                success: true,
@@ -37,7 +35,6 @@ exports.login = async (req, res) => {
            });
 
        } catch (error) {
-           console.log("errorLogin", error);
            // Nếu ko thành công -> 401
            return res.status(401).json({
                success: false,
@@ -58,7 +55,6 @@ exports.logout = async (req, res) => {
         // Lấy ra thông tin để xác nhận là đã đăng xuất rồi -> Chủ yếu là để check xem token = null trong database
         let user = await AuthService.getByEmailAndRole(data);
         // Nếu cần xóa console thì thêm câu lệnh dưới hoặc có thể bỏ đi, sẽ ko ảnh hưởng đến phần code
-        console.clear();
 
         // Nếu thành công trả lại res 200
         return res.status(200).json({
@@ -72,7 +68,7 @@ exports.logout = async (req, res) => {
         // Nếu ko thành công trả lại 401
         return res.status(401).json({
             success: false,
-            message: Array.isArray(error) ? error : "logout_fail",
+            message: "logout_fail",
             content: error
         });
     }
