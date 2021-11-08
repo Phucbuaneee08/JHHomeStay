@@ -20,7 +20,7 @@ const RoomsSchema= new Schema({
     },
     homestayId: {
         type: Schema.Types.ObjectId,
-        required: true
+        required: false
     }
 });
 

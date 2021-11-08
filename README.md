@@ -4,4 +4,5 @@
    step 3: npm run start:dev
 2. Description
     name: JadeHillHomestays
-   
+3. Note :
+    Need to use nodejs version LTS

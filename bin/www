@@ -22,7 +22,7 @@ let connectOptions = process.env.DB_AUTHENTICATION === 'true' ?
       useUnifiedTopology: true,
     }
 
-var db = mongoose.createConnection(
+const db = mongoose.createConnection(
     `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT || "27017"}/${process.env.DB_NAME}`,
     connectOptions
 );
@@ -124,3 +124,4 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
