@@ -1,3 +1,4 @@
+// Tạo dữ liệu mẫu cho việc test đăng nhập, token
 const bcrypt = require('bcrypt');
 const {Users} = require("../models");
 const mongoose = require("mongoose");
@@ -11,17 +12,30 @@ exports.UserSeed = async function () {
     });
     await Users(dbConnect()).create([
         {
-            email: 'TuNN@gmail.com',
+            role: 'super_admin',
+            email: 'minh@gmail.com',
             password: await bcrypt.hash('1234567890', 10),
-            role: 'admin',
             status: 1,
         },
         {
-            email: 'Nhatoccho@gmail.com',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'superAdmin',
             status: 1,
+            email: 'nhat@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'super_admin',
+        },
+        {
+            status: 1,
+            email: 'tu@gmail.cpm',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'super_admin',
+        },
+        {
+            status: 1,
+            email: 'hoang@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
         }
     ]);
-    console.log('seeded user');
+    console.log('seeded user OK!');
+    await dbConnect().close();
 }
