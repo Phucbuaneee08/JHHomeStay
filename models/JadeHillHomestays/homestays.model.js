@@ -65,7 +65,7 @@ const HomestaysSchema = new Schema(
     roomsId: { // Id định danh room
         type: Schema.Types.ObjectId,
         ref: 'Rooms',
-        required: true
+        required: false
     }
 });
 HomestaysSchema.virtual('signatures', {

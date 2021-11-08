@@ -1,9 +1,9 @@
+// Tạo dữ liệu mẫu cho việc test đăng nhập, token
+const bcrypt = require('bcrypt');
+const {Users} = require("../models");
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
-const { Users } = require("../models");
 const {dbConnect} = require("../helpers/dbHelper");
 
-// Tạo dữ liệu mẫu cho việc test đăng nhập, token
 exports.UserSeed = async function () {
     Users(dbConnect()).deleteMany().then(function () {
         console.log("user data is cleared");
@@ -39,4 +39,3 @@ exports.UserSeed = async function () {
     console.log('seeded user OK!');
     await dbConnect().close();
 }
-

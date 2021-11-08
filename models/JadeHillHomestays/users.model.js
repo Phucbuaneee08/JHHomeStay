@@ -15,7 +15,11 @@ const UsersSchema = new Schema({
     },
     role: {
         type: String,
-        require:false
+        require:true,
+        enum: {
+            values:['admin', 'superAdmin'],
+            message: '{VALUE} is not supported, just admin or super admin'
+        }
     },
     email: {
         type: String,
@@ -59,10 +63,11 @@ const UsersSchema = new Schema({
     },
     resetPasswordToken: {
         type: String,
-        require:false
+        require: false
     },
     token: [{
         type: String,
+        required: false
     }],
     homestaysId: { // Id định danh homestay, tham chiếu bảng homestays
         type: Schema.Types.ObjectId,
@@ -72,6 +77,7 @@ const UsersSchema = new Schema({
     usersId: { // super admin tham chiếu tới admin
         type: Schema.Types.ObjectId,
         ref: 'Users',
+        required: false
     }
 });
 
