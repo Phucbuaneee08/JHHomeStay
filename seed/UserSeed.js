@@ -12,10 +12,16 @@ exports.UserSeed = async function () {
     });
     await Users(dbConnect()).create([
         {
-            role: 'super_admin',
+            status: 0,
+            email: 'hoang@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
             email: 'minh@gmail.com',
             password: await bcrypt.hash('1234567890', 10),
-            status: 1,
+            role: 'admin',
         },
         {
             status: 1,
@@ -25,13 +31,7 @@ exports.UserSeed = async function () {
         },
         {
             status: 1,
-            email: 'tu@gmail.cpm',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'super_admin',
-        },
-        {
-            status: 1,
-            email: 'hoang@gmail.com',
+            email: 'tu@gmail.com',
             password: await bcrypt.hash('1234567890', 10),
             role: 'admin',
         }
