@@ -5,6 +5,8 @@ var logger = require('morgan');
 var i18n = require("i18n");
 var cors = require('cors');
 const {UserSeed} = require("./seed/UserSeed");
+const swaggerUi = require("swagger-ui-express");
+const { swaggerJsonData } = require("./api-docs/swagger.js");
 
 // import routers here
 
@@ -35,6 +37,8 @@ app.use(i18n.init);
 // user routers here
 const router = express.Router();
 router.use( "/auth", require("./modules/auth/auth.route"));
+// Api-docs http://localhost:8000/api-docs/
+router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsonData));
 app.use(router);
 
 UserSeed().catch(error => {
