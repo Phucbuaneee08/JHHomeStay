@@ -9,3 +9,4 @@ router.post("/login-super-admin", authSuperAdmin, AuthController.login);
 router.post("/logout", authToken, AuthController.logout);
 
 module.exports = router;
+ 

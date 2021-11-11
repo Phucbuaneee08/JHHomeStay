@@ -94,8 +94,8 @@ const swaggerJsonData =
                         "requestBody": {
                             "description": "Nhập thông tin tài khoản super admin",
                             "content": {
-                                "application/json": {"schema": {"$ref": "#/components/schemas/Users"}},
-                                "application/xml": {"schema": {"$ref": "#/components/schemas/Users"}}
+                                "application/json": {"schema": {"$ref": "#/components/schemas/Logout DTO"}},
+                                "application/xml": {"schema": {"$ref": "#/components/schemas/Logout DTO"}}
                             },
                             "required": true
                         },
@@ -114,6 +114,12 @@ const swaggerJsonData =
                             "role": {"type": "string"},
                             "email":  {"type": "string"},
                             "password": {"type": "string"},
+                        }
+                    },
+                    "Logout DTO": {
+                        "type": "object", "properties": {
+                            "role": {"type": "string"},
+                            "email":  {"type": "string"},
                         }
                     }
                 }, "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}}
