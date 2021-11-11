@@ -8,15 +8,13 @@ const PhotosSchema = new Schema (
             type: String,
             required: true
         },
-        homestaysId: { // Id định danh homestay, tham chiếu bảng homestays
+        homestays: { // Id định danh homestay, tham chiếu bảng homestays
             type: Schema.Types.ObjectId,
-            ref: 'Homestays',
-            required: false
+            ref: 'Homestays'
         },
-        roomsId: { // Id định danh room, tham chiếu bảng rooms
+        rooms: { // Id định danh room, tham chiếu bảng rooms
             type: Schema.Types.ObjectId,
-            ref: 'Rooms',
-            required: false
+            ref: 'Rooms'
         }
     });
 

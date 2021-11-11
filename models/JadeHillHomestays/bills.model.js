@@ -29,7 +29,7 @@ const BillsSchema= new Schema({
     },
     checkoutDate: {
         type: Date,
-        required: true
+        required: false
     },
     price : {
         type: Number,
@@ -38,14 +38,28 @@ const BillsSchema= new Schema({
     active: {
         type: Boolean,
         required: true
-    }
+    },
+    rooms: [{ // danh sách FK tham chiếu tới rooms
+        type: Schema.Types.ObjectId,
+        ref:'Rooms'
+    }],
+    services: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Services'
+    }]
 });
 
 BillsSchema.virtual('rooms', {
-    ref: 'BillsRooms',
-    localField: '_id',
-    foreignField: 'roomsId'
+    ref: 'Rooms',
+    localField: 'rooms',
+    foreignField: '_id'
 });
+
+BillsSchema.virtual('services', {
+    ref: 'Services',
+    localField: 'services',
+    foreignField: '_id'
+})
 
 module.exports = (db) => {
     if (!db.models.Bills) {

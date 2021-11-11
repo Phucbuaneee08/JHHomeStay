@@ -7,13 +7,17 @@ const SignaturesSchema = new Schema({
     type:{ // type: 1 - ...; 2 - ...; 3 - ...; v.v
         type: Number,
         require:true
-    }
+    },
+    homestays: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Homestays'
+    }]
 });
 
 SignaturesSchema.virtual('homestays', {
-    ref: 'HomestaysSignatures',
-    localField: '_id',
-    foreignField: 'signaturesId'
+    ref: 'Homestays',
+    localField: 'homestays',
+    foreignField: '_id'
 })
 
 module.exports = (db) => {

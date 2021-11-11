@@ -13,19 +13,27 @@ const ServicesSchema= new Schema({
     personServe : {
         type: Number,
         required: true
-    }
+    },
+    bills: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Bills'
+    }],
+    homestays: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Homestays'
+    }]
 });
 
 ServicesSchema.virtual('bills', {
-    ref: 'ServicesBills',
-    localField: '_id',
-    foreignField: 'servicesId'
+    ref: 'Bills',
+    localField: 'bills',
+    foreignField: '_id'
 })
 
 ServicesSchema.virtual('homestays', {
-    ref: 'ServicesHomestays',
-    localField: '_id',
-    foreignField: 'servicesId'
+    ref: 'Homestays',
+    localField: 'homestays',
+    foreignField: '_id'
 })
 
 module.exports = (db) => {

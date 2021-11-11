@@ -62,17 +62,42 @@ const HomestaysSchema = new Schema(
     viewRate: { // Đánh giá phong cảnh, view nhìn tại homestay
         type: Number
     },
-    roomsId: { // Id định danh room
+    rooms: [{ // Danh sách Id định danh rooms
         type: Schema.Types.ObjectId,
         ref: 'Rooms',
-        required: false
+    }],
+    signatures: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Signatures'
+    }],
+    services: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Services'
+    }],
+    generalServices: [{
+        type: Schema.Types.ObjectId,
+        ref: 'GeneralServices'
+    }],
+    admin: {
+        type: Schema.Types.ObjectId,
+        ref: 'Users'
+    },
+    superAdmin: {
+        type: Schema.Types.ObjectId,
+        ref: 'Users'
+    },
+    photos: {
+        type: Schema.Types.ObjectId,
+        ref: 'Photos'
     }
 });
 HomestaysSchema.virtual('signatures', {
-    ref: 'HomestaysSignatures',
-    localField: '_id',
-    foreignField: 'homestaysId'
+    ref: 'Signatures',
+    localField: 'signatures',
+    foreignField: '_id'
 })
+
+// Chưa tạo virtual cho services & generalServices để check coi có cần virtual không :v
 
 module.exports = (db) => {
     if (!db.models.Homestays) {

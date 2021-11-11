@@ -10,13 +10,17 @@ const AmenitiesSchema = new Schema({
     type: { // Loại nội thất, ví dụ: Bếp, Tủ lạnh..
         type: String,
         required: true
-    }
+    },
+    rooms: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Rooms'
+    }]
 });
 
 AmenitiesSchema.virtual('rooms', {
-    ref: 'RoomsAmenities',
-    localField: '_id',
-    foreignField: 'roomsId'
+    ref: 'Rooms',
+    localField: 'rooms',
+    foreignField: '_id'
 })
 
 module.exports = (db) => {

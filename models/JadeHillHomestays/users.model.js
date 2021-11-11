@@ -18,7 +18,7 @@ const UsersSchema = new Schema({
         require:true,
         enum: {
             values:['admin', 'super_admin'],
-            message: '{VALUE} is not supported, just admin or super admin'
+            message: '{VALUE} is not supported, just admin or super_admin'
         }
     },
     email: {
@@ -69,16 +69,18 @@ const UsersSchema = new Schema({
         type: String,
         required: false
     }],
-    homestaysId: { // Id định danh homestay, tham chiếu bảng homestays
+    homestaysId: [{ // Id định danh homestay, tham chiếu bảng homestays
         type: Schema.Types.ObjectId,
         ref: 'Homestays',
-        required: false
-    },
-    usersId: { // super admin tham chiếu tới admin
+    }],
+    superAdmin: { // admin tham chiếu tới super_admin
         type: Schema.Types.ObjectId,
         ref: 'Users',
-        required: false
-    }
+    },
+    admins: [{ // super_admin tham chiếu tới admins
+        type: Schema.Types.ObjectId,
+        ref: 'Users',
+    }]
 });
 
 module.exports = (db) => {

@@ -9,11 +9,10 @@ const GeneralServicesSchema = new Schema({
         type: String,
         require: true
     },
-    homestayId: {
+    homestays: [{
         type: Schema.Types.ObjectId,
-        ref: 'Homestays',
-        require: false
-    }
+        ref: 'Homestays'
+    }]
 });
 
 module.exports = (db) => {
