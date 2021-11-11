@@ -58,8 +58,8 @@ const swaggerJsonData =
                             "required": true
                         },
                         "responses": {
-                            "200": {"description": "create_document_success"},
-                            "400": {"description": "create_document_false", "content": {}}
+                            "200": {"description": "login success"},
+                            "401": {"description": "login false", "content": {}}
                         },
                         "x-codegen-request-body-name": "body"
                     }
@@ -79,8 +79,8 @@ const swaggerJsonData =
                             "required": true
                         },
                         "responses": {
-                            "200": {"description": "edit_document_success"},
-                            "400": {"description": "edit_document_false", "content": {}}
+                            "200": {"description": "login success"},
+                            "401": {"description": "login false", "content": {}}
                         },
                         "x-codegen-request-body-name": "body"
                     }
@@ -100,8 +100,8 @@ const swaggerJsonData =
                             "required": true
                         },
                         "responses": {
-                            "200": {"description": "edit_document_success"},
-                            "400": {"description": "edit_document_false", "content": {}}
+                            "200": {"description": "logout success"},
+                            "401": {"description": "logout false", "content": {}}
                         },
                         "x-codegen-request-body-name": "body"
                     }
