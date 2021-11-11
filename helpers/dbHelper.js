@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-exports.dbConnect = () => {
+let dbConnect = () => {
     let connectOptions = process.env.DB_AUTHENTICATION === 'true' ?
         {
             useNewUrlParser: true,
@@ -11,10 +11,8 @@ exports.dbConnect = () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }
-
-    const db = mongoose.createConnection(
-        `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT || "27017"}/${process.env.DB_NAME}`,
-        connectOptions
-    );
-    return db;
+    console.log('DB connected')  ;
+    return mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority',
+        connectOptions);
 }
+exports.db = dbConnect();

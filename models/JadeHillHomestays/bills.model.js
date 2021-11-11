@@ -49,18 +49,6 @@ const BillsSchema= new Schema({
     }]
 });
 
-BillsSchema.virtual('rooms', {
-    ref: 'Rooms',
-    localField: 'rooms',
-    foreignField: '_id'
-});
-
-BillsSchema.virtual('services', {
-    ref: 'Services',
-    localField: 'services',
-    foreignField: '_id'
-})
-
 module.exports = (db) => {
     if (!db.models.Bills) {
         return db.model('Bills', BillsSchema);

@@ -37,12 +37,9 @@ app.use(i18n.init);
 // user routers here
 const router = express.Router();
 router.use( "/auth", require("./modules/auth/auth.route"));
-// Api-docs http://localhost:8000/api-docs/
+
+// api docs here
 router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsonData));
 app.use(router);
-
-UserSeed().catch(error => {
-    console.log(error)
-});
 
 module.exports = app;

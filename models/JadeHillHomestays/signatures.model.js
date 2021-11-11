@@ -14,12 +14,6 @@ const SignaturesSchema = new Schema({
     }]
 });
 
-SignaturesSchema.virtual('homestays', {
-    ref: 'Homestays',
-    localField: 'homestays',
-    foreignField: '_id'
-})
-
 module.exports = (db) => {
     if (!db.models.Signatures) {
         return db.model('Signatures', SignaturesSchema);

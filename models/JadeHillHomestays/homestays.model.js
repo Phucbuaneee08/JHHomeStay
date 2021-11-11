@@ -91,13 +91,6 @@ const HomestaysSchema = new Schema(
         ref: 'Photos'
     }
 });
-HomestaysSchema.virtual('signatures', {
-    ref: 'Signatures',
-    localField: 'signatures',
-    foreignField: '_id'
-})
-
-// Chưa tạo virtual cho services & generalServices để check coi có cần virtual không :v
 
 module.exports = (db) => {
     if (!db.models.Homestays) {

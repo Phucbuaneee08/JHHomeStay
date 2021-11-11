@@ -17,12 +17,6 @@ const AmenitiesSchema = new Schema({
     }]
 });
 
-AmenitiesSchema.virtual('rooms', {
-    ref: 'Rooms',
-    localField: 'rooms',
-    foreignField: '_id'
-})
-
 module.exports = (db) => {
     if (!db.models.Amenities) {
         return db.model('Amenities', AmenitiesSchema);

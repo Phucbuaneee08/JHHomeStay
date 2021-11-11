@@ -9,7 +9,7 @@
 const jwt = require('jsonwebtoken');
 const { Users } = require('../models/index');
 const path = require('path');
-const {dbConnect} = require("../helpers/dbHelper");
+const {db} = require("../helpers/dbHelper");
 
 // Chuyển file .env sang dạng có thể sử dụng được
 require('dotenv').config({path: path.resolve(__dirname, '../.env')});
@@ -47,7 +47,7 @@ exports.authToken = async function ( req, res, next ) {
     } else {
         try {
             //Kiểm tra người sử dụng -> Kết nối kiểm tra ở database
-            req.user = await Users(dbConnect()).findOne({
+            req.user = await Users(db).findOne({
                 email: decodedToken.email,
                 role: decodedToken.role,
             });
@@ -63,7 +63,7 @@ exports.authSuperAdmin = async function ( req, res, next) {
     if (!res.user) {
         try{
             //Truy vấn database để kiểm tra
-            let user = await Users(dbConnect()).findOne({
+            let user = await Users(db).findOne({
                 email: req.body.email,
                 role: req.body.role,
             });
@@ -93,7 +93,7 @@ exports.authSuperAdmin = async function ( req, res, next) {
 exports.authAdmin = async function ( req, res, next) {
     if (!res.user) {
         try{
-            let user = await Users(dbConnect()).findOne({
+            let user = await Users(db).findOne({
                 email: req.body.email,
                 role: req.body.role,
             });

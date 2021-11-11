@@ -1,12 +1,12 @@
 const { Users } = require('../../models');
-const { dbConnect } = require("../../helpers/dbHelper");
+const { db } = require("../../helpers/dbHelper");
 
 // Chuyển file .env sang dạng sử dụng được để lấy thông tin
 require('dotenv').config();
 
 // Lấy thông tin người dùng có email và role giống như trong req
 exports.getByEmailAndRole = async (data) => {
-    return await Users(dbConnect()).findOne({
+    return Users(db).findOne({
         email: data.email,
         role: data.role,
     });
@@ -14,7 +14,7 @@ exports.getByEmailAndRole = async (data) => {
 
 // Thêm trường thông tin token cho user
 exports.editUser = async (data) => {
-    return await Users(dbConnect()).updateOne(
+    return Users(db).updateOne(
         {
             email: data.email,
             role: data.role
@@ -23,7 +23,7 @@ exports.editUser = async (data) => {
 
 // Xóa trường thông tin token khi người dùng log out
 exports.deleteToken = async (data) => {
-    return await Users(dbConnect()).updateOne(
+    return Users(db).updateOne(
         {
             email: data.email,
             role: data.role

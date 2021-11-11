@@ -69,7 +69,7 @@ const UsersSchema = new Schema({
         type: String,
         required: false
     }],
-    homestaysId: [{ // Id định danh homestay, tham chiếu bảng homestays
+    homestays: [{ // Id định danh homestay, tham chiếu bảng homestays
         type: Schema.Types.ObjectId,
         ref: 'Homestays',
     }],
