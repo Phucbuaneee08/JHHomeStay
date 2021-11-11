@@ -2,15 +2,32 @@
 const bcrypt = require('bcrypt');
 const {Users} = require("../models");
 const mongoose = require("mongoose");
-const {dbConnect} = require("../helpers/dbHelper");
 
-exports.UserSeed = async function () {
-    Users(dbConnect()).deleteMany().then(function () {
+let dbConnect = () => {
+    let connectOptions = process.env.DB_AUTHENTICATION === 'true' ?
+        {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            user: process.env.DB_USERNAME,
+            pass: process.env.DB_PASSWORD,
+        } : {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        }
+
+    let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority',
+            connectOptions);
+
+    return db;
+}
+const db = dbConnect();
+let UserSeed = async function () {
+    Users(db).deleteMany().then(function () {
         console.log("user data is cleared");
     }).catch(function (error) {
         console.log(error);
     });
-    await Users(dbConnect()).create([
+    await Users(db).create([
         {
             status: 0,
             email: 'hoang@gmail.com',
@@ -37,5 +54,9 @@ exports.UserSeed = async function () {
         }
     ]);
     console.log('seeded user OK!');
-    await dbConnect().close();
+    await db.close();
 }
+
+// UserSeed().catch(error => {
+//     console.log(error)
+// });
