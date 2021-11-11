@@ -17,7 +17,7 @@ const UsersSchema = new Schema({
         type: String,
         require:true,
         enum: {
-            values:['admin', 'superAdmin'],
+            values:['admin', 'super_admin'],
             message: '{VALUE} is not supported, just admin or super admin'
         }
     },
