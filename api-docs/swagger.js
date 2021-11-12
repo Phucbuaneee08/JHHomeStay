@@ -90,7 +90,6 @@ const swaggerJsonData =
                 "schemas": {
                     "Users": {
                          "type": "object", "properties": {
-                            "role": {"type": "string"},
                             "email":  {"type": "string"},
                             "password": {"type": "string"},
                         }

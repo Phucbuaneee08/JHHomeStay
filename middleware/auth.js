@@ -57,15 +57,14 @@ exports.authToken = async function ( req, res, next ) {
         }
     }
 }
-
-// Xác thực có phải là super admin ko
+// Xác thực có phải là admin hoặc super admin ko
+// Dựa vào email người dùng gửi -> Tìm trong database đối tượng user chứa email đó-> Xác định role của user đó đúng ko
 exports.authRole = async function ( req, res, next) {
-    if (!res.user) {
+    if (!req.user) {
         try{
             //Truy vấn database để kiểm tra
             let user = await Users(db).findOne({
                 email: req.body.email,
-                role: req.body.role,
             });
 
             //Nếu ko tồn tại, ko phải super admin hoặc admin

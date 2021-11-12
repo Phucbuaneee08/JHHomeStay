@@ -7,8 +7,7 @@ require('dotenv').config();
 // Lấy thông tin người dùng có email và role giống như trong req
 exports.getByEmailAndRole = async (data) => {
     return Users(db).findOne({
-        email: data.email,
-        role: data.role,
+        email: data.email
     });
 }
 
@@ -23,8 +22,7 @@ exports.getById = async (data) => {
 exports.editUser = async (data) => {
     return Users(db).updateOne(
         {
-            email: data.email,
-            role: data.role
+            email: data.email
         }, {token: data.token});
 }
 
