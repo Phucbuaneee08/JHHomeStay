@@ -11,12 +11,12 @@ exports.login = async (req, res) => {
            // Tìm và lấy ra thông tin User trong database dựa vào email và role
            const data = req.body;
            let user = await AuthService.getByEmailAndRole(data);
-
+           let access_token;
            // Kiểm tra mật khẩu dùng bcrypt để đối chiếu mật khẩu trong req và database
            if ( user.status === 1 ) {
                if (await bcrypt.compare(req.body.password, user.password)) {
                    //Tạo token cho người mới đăng nhập
-                   const access_token = jwt.sign({
+                   access_token = jwt.sign({
                        email: user.email,
                        role: user.role,
                    }, process.env.TOKEN_SECRET, {expiresIn: 60 * 60 * 24 * 7});
@@ -28,7 +28,7 @@ exports.login = async (req, res) => {
            }
 
            // Nếu xác thực đăng nhập thành công, trả lại res 200 và token, thông tin dùng để đăng nhập
-           return res.status(200).json({
+           return res.header('Authorization', 'Bearer '+ access_token).status(200).json({
                success: true,
                message: "login_success",
                content: user
@@ -53,7 +53,7 @@ exports.logout = async (req, res) => {
         await AuthService.deleteToken(data);
 
         // Lấy ra thông tin để xác nhận là đã đăng xuất rồi -> Chủ yếu là để check xem token = null trong database
-        let user = await AuthService.getByEmailAndRole(data);
+        let user = await AuthService.getById(data);
         // Nếu cần xóa console thì thêm câu lệnh dưới hoặc có thể bỏ đi, sẽ ko ảnh hưởng đến phần code
 
         // Nếu thành công trả lại res 200
