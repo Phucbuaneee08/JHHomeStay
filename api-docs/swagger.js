@@ -1,5 +1,5 @@
 /**
- Khi chạy, vào link ttp://localhost:8000/api-docs/ để mở Swagger
+ Khi chạy, vào link http://localhost:8000/api-docs/ để mở Swagger
  Khi thêm 1 api mới vào swagger cần làm:
  - Thêm đường dẫn vào phần path, thêm các trường thông tin tương tự như mẫu dưới đây
  - Thêm schema trong phần component, để hiển thị mẫu trong phần request body
@@ -21,7 +21,7 @@
                         },
                         "responses": {
                             "200": {"description": "create_document_success"},
-                            "400": {"description": "create_document_false", "content": {}}
+                            "401": {"description": "create_document_false", "content": {}}
                         },
                         "x-codegen-request-body-name": "body"
                     }
@@ -43,35 +43,14 @@ const swaggerJsonData =
                 "description": "Api module Authentication"
             }],
             "paths": {
-                "/auth/login-admin": {
+                "/auth/login": {
                     "post": {
                         "tags": ["Authentication"],
-                        "summary": "Log in with role admin",
-                        "operationId": "LoginAuthAdmin",
+                        "summary": "Log in with role admin or super admin",
+                        "operationId": "Login",
                         "parameters": [],
                         "requestBody": {
-                            "description": "Nhập thông tin tài khoản admin",
-                            "content": {
-                                "application/json": {"schema": {"$ref": "#/components/schemas/Users"}},
-                                "application/xml": {"schema": {"$ref": "#/components/schemas/Users"}}
-                            },
-                            "required": true
-                        },
-                        "responses": {
-                            "200": {"description": "login success"},
-                            "401": {"description": "login false", "content": {}}
-                        },
-                        "x-codegen-request-body-name": "body"
-                    }
-                },
-                "/auth/login-super-admin": {
-                    "post": {
-                        "tags": ["Authentication"],
-                        "summary": "Log in with role super admin",
-                        "operationId": "LoginAuthSuperAdmin",
-                        "parameters": [],
-                        "requestBody": {
-                            "description": "Nhập thông tin tài khoản super admin",
+                            "description": "Nhập thông tin tài khoản admin hoặc super admin",
                             "content": {
                                 "application/json": {"schema": {"$ref": "#/components/schemas/Users"}},
                                 "application/xml": {"schema": {"$ref": "#/components/schemas/Users"}}
@@ -92,7 +71,7 @@ const swaggerJsonData =
                         "operationId": "LogoutAuth",
                         "parameters": [],
                         "requestBody": {
-                            "description": "Nhập thông tin tài khoản super admin",
+                            "description": "Nhập thông tin tài khoản ",
                             "content": {
                                 "application/json": {"schema": {"$ref": "#/components/schemas/Logout DTO"}},
                                 "application/xml": {"schema": {"$ref": "#/components/schemas/Logout DTO"}}
@@ -118,8 +97,7 @@ const swaggerJsonData =
                     },
                     "Logout DTO": {
                         "type": "object", "properties": {
-                            "role": {"type": "string"},
-                            "email":  {"type": "string"},
+                            "_id": {"type": "string"},
                         }
                     }
                 }, "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}}

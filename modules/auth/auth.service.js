@@ -12,6 +12,13 @@ exports.getByEmailAndRole = async (data) => {
     });
 }
 
+// Lấy thông tin người dùng có _id giống như trong req
+exports.getById = async (data) => {
+    return Users(db).findOne({
+        _id: data._id
+    });
+}
+
 // Thêm trường thông tin token cho user
 exports.editUser = async (data) => {
     return Users(db).updateOne(
@@ -25,7 +32,6 @@ exports.editUser = async (data) => {
 exports.deleteToken = async (data) => {
     return Users(db).updateOne(
         {
-            email: data.email,
-            role: data.role
+            _id: data._id
         }, {token: null});
 }

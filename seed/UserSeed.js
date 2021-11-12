@@ -21,7 +21,7 @@ let dbConnect = () => {
     return db;
 }
 const db = dbConnect();
-let UserSeed = async function () {
+exports.UserSeed = async function () {
     Users(db).deleteMany().then(function () {
         console.log("user data is cleared");
     }).catch(function (error) {

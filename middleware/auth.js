@@ -59,7 +59,7 @@ exports.authToken = async function ( req, res, next ) {
 }
 
 // Xác thực có phải là super admin ko
-exports.authSuperAdmin = async function ( req, res, next) {
+exports.authRole = async function ( req, res, next) {
     if (!res.user) {
         try{
             //Truy vấn database để kiểm tra
@@ -68,12 +68,15 @@ exports.authSuperAdmin = async function ( req, res, next) {
                 role: req.body.role,
             });
 
-            //Nếu ko tồn tại, ko phải super admin -> lỗi
-            if ( !user || user.status !== 1 || user.role !== 'super_admin') {
-                return res.status(401).json({
-                    success:false,
-                    message: "invalid credential",
-                });
+            //Nếu ko tồn tại, ko phải super admin hoặc admin
+            if ( !user || user.status !== 1 ) {
+                if ( user.role == 'admin' || user.role == 'super_admin' ) {}
+                else {
+                    return res.status(401).json({
+                        success: false,
+                        message: "invalid credential ",
+                    });
+                }
             } else{
                 next();
             }
@@ -81,40 +84,14 @@ exports.authSuperAdmin = async function ( req, res, next) {
             next(err);
         }
     } else {
-        if ( req.user.role !== 'super_admin' || req.user.status !== 1 ) {
-            return res.status(401).json({
-                success: false,
-                message: " invalid credential"
-            });
-        } else next();
-    }
-}
-
-exports.authAdmin = async function ( req, res, next) {
-    if (!res.user) {
-        try{
-            let user = await Users(db).findOne({
-                email: req.body.email,
-                role: req.body.role,
-            });
-
-            if ( !user || user.status !== 1 || user.role !== 'admin') {
+        if ( req.user.status !== 1 ) {
+            if ( req.user.role == 'admin' || req.user.role == 'super_admin') {}
+            else {
                 return res.status(401).json({
                     success: false,
-                    message: "invalid credential"
+                    message: " invalid credential "
                 });
-            } else{
-                next();
             }
-        } catch (err) {
-            next(err);
-        }
-    } else {
-        if ( req.user.role !== 'admin' || req.user.status !== 1 ) {
-            return res.status(401).json({
-                success: false,
-                message: " invalid credential"
-            });
         } else next();
     }
 }
