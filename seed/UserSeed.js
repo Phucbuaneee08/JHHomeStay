@@ -16,7 +16,7 @@ let dbConnect = () => {
         }
 
     let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority',
-            connectOptions);
+        connectOptions);
 
     return db;
 }
