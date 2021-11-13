@@ -33,6 +33,8 @@ let HomestaysSeed = async function () {
     }).catch(function (error) {
         console.log(error);
     });
+
+    /** danh sách homestays phải đúng thứ tự với danh sách url ở dưới */
     let homestays =  await Homestays(db).create([
         {
             name: "999 CONDOTEL Mường Thanh Viễn Triều",
@@ -262,6 +264,8 @@ let HomestaysSeed = async function () {
             district: "Ba Vì"
         }
     ]);
+
+    /** danh sách url phải đúng thứ tự với danh sách homestays ở trên */
     let photoUrls = [
         "../upload/homestays-photos/999 CONDOTEL Muong Thanh Vien Trieu.jpg",
         "../upload/homestays-photos/Scenia Bay Residences Nha Tran.jpg",
@@ -294,6 +298,8 @@ let HomestaysSeed = async function () {
         "../upload/homestays-photos/Rose villa.jpg",
         "../upload/homestays-photos/An Vui Cottage 19.jpg",
     ]
+
+    // Lưu và cập nhật _id vào mỗi documents (bidirectional)
     for(let i = 0; i < homestays.length; i++) {
         let photo = await Photos(db).create({
             url: photoUrls[i],
