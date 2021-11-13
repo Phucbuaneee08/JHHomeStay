@@ -6,3 +6,7 @@
     name: JadeHillHomestays
 3. Note :
     Need to use nodejs version LTS
+4. Chạy seed
+    * Vào file package.json tìm các lệnh seed
+    * Chạy các lệnh seed. Ví dụ:
+        - npm run seedHomestays
