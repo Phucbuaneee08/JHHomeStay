@@ -262,6 +262,220 @@ let HomestaysSeed = async function () {
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Ba Vì"
+        },
+        // Hoang
+        {
+            name: "Full House Condotel",
+            price: 1650000,
+            type: "Căn hộ chung cư",
+            address: "Đà Lạt, Lâm Đồng, Vietnam ",
+            province: "Lâm Đồng",
+            district: "Đà Lạt"
+        }, {
+            name: "Luxury Villa in supercentral",
+            price: 2050000,
+            type: "Biệt thự",
+            address: "Hải Châu, Đà Nẵng, Vietnam",
+            province: "Đà Nẵng",
+            district: "Hải Châu"
+        }, {
+            name: "Icity Villa Riverfront Danang",
+            price: 8500000,
+            type: "Biệt thự",
+            address: "Hải Châu, Đà Nẵng, Vietnam",
+            province: "Đà Nẵng",
+            district: "Hải Châu"
+        }, {
+            name: "Kaia Residence - Private Terrace - Secret Garden",
+            price: 1140000,
+            type: "Căn hộ Studio",
+            address: "Hải Châu, Đà Nẵng, Vietnam",
+            province: "Đà Nẵng",
+            district: "Hải Châu"
+        }, {
+            name: "Ocean View Home 2736",
+            price: 1500000,
+            type: "Căn hộ chung cư",
+            address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
+            province: "Đà Nẵng",
+            district: "Ngũ Hành Sơn"
+        }, {
+            name: "T P Villa",
+            price: 3500000,
+            type: "Biệt thự",
+            address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
+            province: "Đà Nẵng",
+            district: "Ngũ Hành Sơn"
+        }, {
+            name: "MAI VILLA DA NANG",
+            price: 699000,
+            type: "Biệt thự",
+            address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
+            province: "Đà Nẵng",
+            district: "Ngũ Hành Sơn"
+        }, {
+            name: "Muong Thanh Apartment Sea View",
+            price: 800000,
+            type: "Căn hộ dịch vụ",
+            address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
+            province: "Đà Nẵng",
+            district: "Ngũ Hành Sơn"
+        }, {
+            name: "Suit family apartment",
+            price: 850000,
+            type: "Căn hộ dịch vụ",
+            address: "Hải Châu, Đà Nẵng, Vietnam",
+            province: "Đà Nẵng",
+            district: "Hải Châu"
+        }, {
+            name: "Tropical House Apartment",
+            price: 730000,
+            type: "Căn hộ dịch vụ",
+            address: "Sơn Trà, Đà Nẵng, Vietnam",
+            province: "Đà Nẵng",
+            district: "Sơn Trà"
+        }, {
+            name: "Top Hotel Apartment",
+            price: 650000,
+            type: "Căn hộ dịch vụ",
+            address: "Sơn Trà, Đà Nẵng, Vietnam",
+            province: "Đà Nẵng",
+            district: "Sơn Trà"
+        }, {
+            name: "Bong Villa",
+            price: 3300000,
+            type: "Biệt thự",
+            address: "Sơn Trà, Đà Nẵng, Vietnam",
+            province: "Đà Nẵng",
+            district: "Sơn Trà"
+        }, {
+            name: "Rolex",
+            price: 1700000,
+            type: "Căn hộ Studio",
+            address: "Hải Châu, Đà Nẵng, Vietnam",
+            province: "Đà Nẵng",
+            district: "Hải Châu"
+        }, {
+            name: "ARITA RIVERA",
+            price: 1300000,
+            type: "Căn hộ dịch vụ",
+            address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
+            province: "Đà Nẵng",
+            district: "Ngũ Hành Sơn"
+        },{
+            name: "B245 VILLA VUNG TAU",
+            price: 5500000,
+            type: "Biệt thự",
+            address: "Vũng Tàu, Bà Rịa Vũng Tàu, Vietnam",
+            province: "Bà Rịa Vũng Tàu",
+            district: "Vũng Tàu"
+        },
+        //Nhat
+        {
+            name: "The 1993 Hoi An",
+            price: 420000,
+            type: "Nhà riêng",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "Hai Au Boutique",
+            price: 750000,
+            type: "Biệt thự",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "De An Hoi An",
+            price: 560000,
+            type: "Biệt thự",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "Mali Villa",
+            price: 3000000,
+            type: "Biệt thự",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "Ancient River Villa",
+            price: 400000,
+            type: "Biệt thự",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "Dao Tien homestay",
+            price: 550000,
+            type: "Khác",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "La Vista Villa Hoi An",
+            price: 320000,
+            type: "Biệt thự",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "ABA TRAVEL VILLA",
+            price: 380000,
+            type: "Biệt thự",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "Bespoke Villa",
+            price: 350000,
+            type: "Biệt thự",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "Double Luxury Room",
+            price: 400000,
+            type: "Khác",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "Santori Homestay",
+            price: 5000000,
+            type: "Biệt thự",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "Flame Flowers Homestay",
+            price: 480000,
+            type: "Khác",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "YLANG GARDEN VILLA",
+            price: 9000000,
+            type: "Căn hộ dịch vụ",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "Open Balcony",
+            price: 500000,
+            type: "Khác",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
+        },{
+            name: "Hoi An Majestic villa",
+            price: 850000,
+            type: "Khác",
+            address: "Hội An, Quảng Nam, Việt Nam",
+            province: "Quảng Nam",
+            district: "Hội An"
         }
     ]);
 
@@ -291,12 +505,45 @@ let HomestaysSeed = async function () {
         "../upload/homestays-photos/Sóc Sơn Riverside.jpg",
         "../upload/homestays-photos/Storm Villa.jpg",
         "../upload/homestays-photos/The Moonlight.jpg",
-        "../upload/homestays-photos/Choai Villa Sóc Sơn.jpg",
+        "../upload/homestays-photos/Choai Villa Sóc Sơn.png",
         "../upload/homestays-photos/BAVI Padme Home.jpg",
-        "../upload/homestays-photos/MARS NNM.jpg",
+        "../upload/homestays-photos/MARSNNM.png",
         "../upload/homestays-photos/Xanh Villa 04.jpg",
         "../upload/homestays-photos/Rose villa.jpg",
         "../upload/homestays-photos/An Vui Cottage 19.jpg",
+        //hoang
+        "../upload/homestays-photos/fullhousecondotel_1.png",
+        "../upload/homestays-photos/luxuryvillainsupercentral_1.jpg",
+        "../upload/homestays-photos/icityvillariverfrontdanang_1.jpg",
+        "../upload/homestays-photos/kaiaresidenceprivateterracesecretgarden_1.jpg",
+        "../upload/homestays-photos/oceanviewhome2736_1.jpg",
+        "../upload/homestays-photos/tpvilla_1.jpg",
+        "../upload/homestays-photos/maivilladanang_1.jpg",
+        "../upload/homestays-photos/muongthanhapartmentseaview_1.jpg",
+        "../upload/homestays-photos/suitfamilyapartment_1.jpg",
+        "../upload/homestays-photos/tropicalhouseapartment_1.jpg",
+        "../upload/homestays-photos/tophotelapartment_1.jpg",
+        "../upload/homestays-photos/bongvilla_1.jpg",
+        "../upload/homestays-photos/rolex_1.jpg",
+        "../upload/homestays-photos/aritarivera_1.jpg",
+        "../upload/homestays-photos/b245villavungtau_1.jpg",
+        //Nhat
+        "../upload/homestays-photos/The 1993 Hoi An.jpg",
+        "../upload/homestays-photos/Hai Au Boutique.jpg",
+        "../upload/homestays-photos/De An Hoi An.jpg",
+        "../upload/homestays-photos/Mali Villa.jpg",
+        "../upload/homestays-photos/Ancient River Villa.jpg",
+        "../upload/homestays-photos/Dao Tien homestay.png",
+        "../upload/homestays-photos/La Vista Villa Hoi An.jpg",
+        "../upload/homestays-photos/ABA TRAVEL VILLA.png",
+        "../upload/homestays-photos/Bespoke Villa.jpg",
+        "../upload/homestays-photos/Double Luxury Room.jpg",
+        "../upload/homestays-photos/Santori Homestay.jpg",
+        "../upload/homestays-photos/Flame Flowers Homestay.jpg",
+        "../upload/homestays-photos/YLANG GARDEN VILLA.jpg",
+        "../upload/homestays-photos/Open Balcony.jpg",
+        "../upload/homestays-photos/Hoi An Majestic villa.jpg"
+
     ]
 
     // Lưu và cập nhật _id vào mỗi documents (bidirectional)
