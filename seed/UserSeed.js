@@ -20,8 +20,7 @@ let dbConnect = () => {
 
     return db;
 }
-const db = dbConnect();
-exports.UserSeed = async function () {
+UserSeed = async function () {
     Users(db).deleteMany().then(function () {
         console.log("user data is cleared");
     }).catch(function (error) {
@@ -56,7 +55,3 @@ exports.UserSeed = async function () {
     console.log('seeded user OK!');
     await db.close();
 }
-
-// UserSeed().catch(error => {
-//     console.log(error)
-// });

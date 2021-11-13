@@ -4,7 +4,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "start:dev": "cross-env NODE_ENV=dev nodemon ./bin/www ",
-    "seedUser": "node ./seed/UserSeed.js"
+    "seedUsers": "node ./seed/UserSeed.js",
+    "seedHomestays": "node ./seed/HomestaysSeed.js"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",

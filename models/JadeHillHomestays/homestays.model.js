@@ -78,18 +78,18 @@ const HomestaysSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'GeneralServices'
     }],
-    admin: {
+    admin:[ {
         type: Schema.Types.ObjectId,
         ref: 'Users'
-    },
+    }],
     superAdmin: {
         type: Schema.Types.ObjectId,
         ref: 'Users'
     },
-    photos: {
+    photos: [{
         type: Schema.Types.ObjectId,
         ref: 'Photos'
-    }
+    }]
 });
 
 module.exports = (db) => {
