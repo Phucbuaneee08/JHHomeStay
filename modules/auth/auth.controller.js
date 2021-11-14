@@ -1,6 +1,7 @@
 const AuthService  = require("./auth.service");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const {pseudoRandomBytes} = require("crypto");
 
 // Chuyển file .env sang dạng sử dụng được để lấy thông tin
 require('dotenv').config();
@@ -24,6 +25,12 @@ exports.login = async (req, res) => {
 
                    // Thêm token cho user trong database
                    await AuthService.editUser(user);
+               } else {
+                   return res.status(401).json({
+                       success: false,
+                       message: Array.isArray(error) ? error : "login_fail",
+                       content: error
+                   });
                }
            }
 

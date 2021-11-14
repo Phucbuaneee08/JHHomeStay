@@ -20,6 +20,7 @@ let dbConnect = () => {
 
     return db;
 }
+const db = dbConnect();
 UserSeed = async function () {
     Users(db).deleteMany().then(function () {
         console.log("user data is cleared");
