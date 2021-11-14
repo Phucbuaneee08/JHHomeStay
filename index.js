@@ -7,6 +7,7 @@ var cors = require('cors');
 const {UserSeed} = require("./seed/UserSeed");
 const swaggerUi = require("swagger-ui-express");
 const { swaggerJsonData } = require("./api-docs/swagger.js");
+const { Users } = require('./seed/UserSeed');
 
 // import routers here
 
@@ -42,4 +43,7 @@ router.use( "/auth", require("./modules/auth/auth.route"));
 router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsonData));
 app.use(router);
 
+/*UserSeed().catch( err => {
+    console.log(err);
+})*/
 module.exports = app;
