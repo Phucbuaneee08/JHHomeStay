@@ -80,7 +80,10 @@ exports.authRole = async function ( req, res, next) {
                 next();
             }
         } catch (err) {
-            next(err);
+            return res.status(401).json({
+                success: false,
+                message: " invalid credential "
+            });
         }
     } else {
         if ( req.user.status !== 1 ) {
