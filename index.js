@@ -21,6 +21,7 @@ const corsOptions = {
 
 process.env.TZ = 'Asia/Ho_Chi_Minh';
 
+app.use('/upload', express.static('upload'));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
