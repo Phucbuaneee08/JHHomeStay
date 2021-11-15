@@ -47,4 +47,5 @@ app.use(router);
 /*UserSeed().catch( err => {
     console.log(err);
 })*/
+
 module.exports = app;
