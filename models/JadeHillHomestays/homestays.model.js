@@ -41,25 +41,32 @@ const HomestaysSchema = new Schema(
     description: { // Mô tả về homestay
         type: String
     },
-    rate: { // Đánh giá, theo sao
-        type: Number
-    },
-    available: { // Khả năng phục vụ, còn bao nhiêu phòng
-        type: Boolean
-    },
-    cleanRate: { // Đánh giá mức độ sạch sẽ
-        type: Number
-    },
-    serviceRate: { //Đánh giá dịch vụ
-        type: Number
-    },
-    valueRate: { // Đánh giá giá trị
-        type: Number
-    },
-    accuracyRate: { // Đánh giá sự chính xác, làm việc chuẩn của homestay
-        type: Number
-    },
-    viewRate: { // Đánh giá phong cảnh, view nhìn tại homestay
+    rates: [
+        {
+            cleanRate: { // Đánh giá mức độ sạch sẽ
+                type: Number
+            },
+            serviceRate: { //Đánh giá dịch vụ
+                type: Number
+            },
+            valueRate: { // Đánh giá giá trị
+                type: Number
+            },
+            accuracyRate: { // Đánh giá sự chính xác, làm việc chuẩn của homestay
+                type: Number
+            },
+            description: { // Mô tả chi tiết
+                type: String
+            },
+            userName: { // Tên của người đánh giá
+                type: String
+            },
+            createdAt: { // Ngày tạo đánh giá
+                type: Date
+            }
+        }
+    ],
+    available: { // Số lượng phòng còn trống
         type: Number
     },
     rooms: [{ // Danh sách Id định danh rooms
