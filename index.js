@@ -39,7 +39,7 @@ app.use(i18n.init);
 // user routers here
 const router = express.Router();
 router.use( "/auth", require("./modules/auth/auth.route"));
-
+router.use("/homestays", require("./modules/user/interact-homestays/homestays.route"));
 // api docs here
 router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsonData));
 app.use(router);

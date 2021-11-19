@@ -14,9 +14,10 @@ let dbConnect = () => {
             useUnifiedTopology: true,
         }
 
-    let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority',
+    // let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority',
+    //     connectOptions);
+    let db =  mongoose.createConnection('mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
         connectOptions);
-
     return db;
 }
 const db = dbConnect();

@@ -1,6 +1,7 @@
 const {Homestays} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 exports.getRankingHomestays = async (quantity) => {
+    console.log(quantity);
     const homestays = await Homestays(db).aggregate([
         {
             $set: {
@@ -14,16 +15,17 @@ exports.getRankingHomestays = async (quantity) => {
             $sort: { totalRate: -1}
         },
         {
-            $limit: quantity
+            $limit: Number(quantity)
         }
     ]);
+    console.log(homestays);
     return homestays;
 }
 
 exports.createRating = async (id, rate) => {
     const homestay = await Homestays(db).findByIdAndUpdate(id, {
-        $push: {rate: rate}
-    })
+        $push: {rates: rate}
+    }, {new: true})
     return homestay;
 }
 
