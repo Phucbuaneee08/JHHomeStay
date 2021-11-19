@@ -44,8 +44,8 @@ const HomestaysSchema = new Schema(
     rate: { // Đánh giá, theo sao
         type: Number
     },
-    available: { // Khả năng phục vụ, còn bao nhiêu phòng
-        type: Boolean
+    available: { // Khả năng phục vụ, mấy người
+        type: Number
     },
     cleanRate: { // Đánh giá mức độ sạch sẽ
         type: Number

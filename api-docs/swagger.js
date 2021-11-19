@@ -84,6 +84,26 @@ const swaggerJsonData =
                         },
                         "x-codegen-request-body-name": "body"
                     }
+                },
+                "/homestay/information/{id}": {
+                    "get": {
+                        "tags": ["Homestays"],
+                        "summary": "Get full infomation about a homestay with id",
+                        "operationId": "getAHomestay",
+                        "parameters": [{
+                            "name": "id",
+                            "in": "path",
+                            "description": "Nhập id của homestay cần lấy ra thông tin chi tiết",
+                            "schema": {"type": "string"},
+                            "require": true
+                        }],
+                        "requestBody": [],
+                        "responses": {
+                            "200": {"description": "lấy dữ liệu homestay thành công "},
+                            "404": {"description": "id không đúng ", "content": {}}
+                        },
+                        "x-codegen-request-body-name": "body"
+                    }
                 }
             },
             "components": {

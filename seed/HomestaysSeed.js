@@ -1,5 +1,4 @@
-// Tạo dữ liệu mẫu cho các homestays
-const {Homestays, Photos} = require("../models");
+const {Homestays, Photos, GeneralServices, Services} = require("../models");
 const mongoose = require("mongoose");
 
 let dbConnect = () => {
@@ -13,21 +12,24 @@ let dbConnect = () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }
-
+    // Cơ sở dữ liệu Atlas
+    /*
     let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority',
+        connectOptions);  */
+    // Cơ sở dữ liệu cục bộ
+    let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays',
         connectOptions);
-
     return db;
 }
 const db = dbConnect();
-
-let HomestaysSeed = async function () {
+// Tạo dữ liệu mẫu cho các homestays, khi seed chuyển let thành exports.   , còn ko thì chuyển lại thành let
+exports.HomestaysSeed = async function () {
     Homestays(db).deleteMany().then(function () {
         console.log("Homestays is cleared");
     }).catch(function (error) {
         console.log(error);
     });
-    
+
     Photos(db).deleteMany().then(function () {
         console.log("Photos is cleared");
     }).catch(function (error) {
@@ -36,13 +38,21 @@ let HomestaysSeed = async function () {
 
     /** danh sách homestays phải đúng thứ tự với danh sách url ở dưới */
     let homestays =  await Homestays(db).create([
-        {
+        {// Làm 10 cái phía dưới nhá
             name: "999 CONDOTEL Mường Thanh Viễn Triều",
             price: 999000,
             type:"Căn hộ",
             address:"Nha Trang, Khánh Hòa, Vietnam",
             province:"Khánh Hòa",
             district:"Nha Trang",
+            description:"Đéo cho mô tả đấy :v", // Cần điền
+            rate: 4,// Cần điền
+            available:2,// Cần điền, mấy người
+            cleanRate: 4,// Cần điền
+            serviceRate:5,// Cần điền
+            valueRate: 3,// Cần điền
+            accuracyRate: 3,// Cần điền
+            viewRate:5// Cần điền
         },
         {
             name: "Scenia Bay Residences Nha Trang",
@@ -481,68 +491,68 @@ let HomestaysSeed = async function () {
 
     /** danh sách url phải đúng thứ tự với danh sách homestays ở trên */
     let photoUrls = [
-        "../upload/homestays-photos/999 CONDOTEL Muong Thanh Vien Trieu.jpg",
-        "../upload/homestays-photos/Scenia Bay Residences Nha Tran.jpg",
-        "../upload/homestays-photos/Wonderland 24H Apartments.jpg",
-        "../upload/homestays-photos/Shoho Hotel Nha Trang.jpg",
-        "../upload/homestays-photos/Diamond Villa.jpg",
-        "../upload/homestays-photos/Relaxing 2 BR Apartment.jpg",
-        "../upload/homestays-photos/Paralia Nha Trang.jpg",
-        "../upload/homestays-photos/LeJardin De Papa.jpg",
-        "../upload/homestays-photos/Oriana Villa Đà Lạt 102.jpg",
-        "../upload/homestays-photos/Le Petit Prince.jpg",
-        "../upload/homestays-photos/Nhà Mình homestay.jpg",
-        "../upload/homestays-photos/Cối Xay Gió Homestay and Coffee.jpg",
-        "../upload/homestays-photos/Blue Light - Villa.jpg",
-        "../upload/homestays-photos/H-Long Hotel Dalat.jpg",
-        "../upload/homestays-photos/RỐN STUDIO.jpg",
-        "../upload/homestays-photos/AN VILLA15.jpg",
-        "../upload/homestays-photos/Villas.jpg",
-        "../upload/homestays-photos/Stream House.jpg",
-        "../upload/homestays-photos/1001 Lakeside Villas.jpg",
-        "../upload/homestays-photos/Biệt thự hoa hồng BT4.jpg",
-        "../upload/homestays-photos/Embossi Garden.jpg",
-        "../upload/homestays-photos/Sóc Sơn Riverside.jpg",
-        "../upload/homestays-photos/Storm Villa.jpg",
-        "../upload/homestays-photos/The Moonlight.jpg",
-        "../upload/homestays-photos/Choai Villa Sóc Sơn.png",
-        "../upload/homestays-photos/BAVI Padme Home.jpg",
-        "../upload/homestays-photos/MARSNNM.png",
-        "../upload/homestays-photos/Xanh Villa 04.jpg",
-        "../upload/homestays-photos/Rose villa.jpg",
-        "../upload/homestays-photos/An Vui Cottage 19.jpg",
+        "/upload/homestays-photos/999 CONDOTEL Muong Thanh Vien Trieu.jpg",
+        "/upload/homestays-photos/Scenia Bay Residences Nha Tran.jpg",
+        "/upload/homestays-photos/Wonderland 24H Apartments.jpg",
+        "/upload/homestays-photos/Shoho Hotel Nha Trang.jpg",
+        "/upload/homestays-photos/Diamond Villa.jpg",
+        "/upload/homestays-photos/Relaxing 2 BR Apartment.jpg",
+        "/upload/homestays-photos/Paralia Nha Trang.jpg",
+        "/upload/homestays-photos/LeJardin De Papa.jpg",
+        "/upload/homestays-photos/Oriana Villa Da Lat 102.jpg",
+        "/upload/homestays-photos/Le Petit Prince.jpg",
+        "/upload/homestays-photos/Nha Minh homestay.jpg",
+        "/upload/homestays-photos/Coi Xay Gio Homestay and Coffee.jpg",
+        "/upload/homestays-photos/Blue Light - Villa.jpg",
+        "/upload/homestays-photos/H-Long Hotel Dalat.jpg",
+        "/upload/homestays-photos/RON STUDIO.jpg",
+        "/upload/homestays-photos/AN VILLA15.jpg",
+        "/upload/homestays-photos/Villas.jpg",
+        "/upload/homestays-photos/Stream House.jpg",
+        "/upload/homestays-photos/1001 Lakeside Villas.jpg",
+        "/upload/homestays-photos/Biệt thự hoa hồng BT4.jpg",
+        "/upload/homestays-photos/Embossi Garden.jpg",
+        "/upload/homestays-photos/Sóc Sơn Riverside.jpg",
+        "/upload/homestays-photos/Storm Villa.jpg",
+        "/upload/homestays-photos/The Moonlight.jpg",
+        "/upload/homestays-photos/Choai Villa Sóc Sơn.png",
+        "/upload/homestays-photos/BAVI Padme Home.jpg",
+        "/upload/homestays-photos/MARSNNM.png",
+        "/upload/homestays-photos/Xanh Villa 04.jpg",
+        "/upload/homestays-photos/Rose villa.jpg",
+        "/upload/homestays-photos/An Vui Cottage 19.jpg",
         //hoang
-        "../upload/homestays-photos/fullhousecondotel_1.png",
-        "../upload/homestays-photos/luxuryvillainsupercentral_1.jpg",
-        "../upload/homestays-photos/icityvillariverfrontdanang_1.jpg",
-        "../upload/homestays-photos/kaiaresidenceprivateterracesecretgarden_1.jpg",
-        "../upload/homestays-photos/oceanviewhome2736_1.jpg",
-        "../upload/homestays-photos/tpvilla_1.jpg",
-        "../upload/homestays-photos/maivilladanang_1.jpg",
-        "../upload/homestays-photos/muongthanhapartmentseaview_1.jpg",
-        "../upload/homestays-photos/suitfamilyapartment_1.jpg",
-        "../upload/homestays-photos/tropicalhouseapartment_1.jpg",
-        "../upload/homestays-photos/tophotelapartment_1.jpg",
-        "../upload/homestays-photos/bongvilla_1.jpg",
-        "../upload/homestays-photos/rolex_1.jpg",
-        "../upload/homestays-photos/aritarivera_1.jpg",
-        "../upload/homestays-photos/b245villavungtau_1.jpg",
+        "/upload/homestays-photos/fullhousecondotel_1.png",
+        "/upload/homestays-photos/luxuryvillainsupercentral_1.jpg",
+        "/upload/homestays-photos/icityvillariverfrontdanang_1.jpg",
+        "/upload/homestays-photos/kaiaresidenceprivateterracesecretgarden_1.jpg",
+        "/upload/homestays-photos/oceanviewhome2736_1.jpg",
+        "/upload/homestays-photos/tpvilla_1.jpg",
+        "/upload/homestays-photos/maivilladanang_1.jpg",
+        "/upload/homestays-photos/muongthanhapartmentseaview_1.jpg",
+        "/upload/homestays-photos/suitfamilyapartment_1.jpg",
+        "/upload/homestays-photos/tropicalhouseapartment_1.jpg",
+        "/upload/homestays-photos/tophotelapartment_1.jpg",
+        "/upload/homestays-photos/bongvilla_1.jpg",
+        "/upload/homestays-photos/rolex_1.jpg",
+        "/upload/homestays-photos/aritarivera_1.jpg",
+        "/upload/homestays-photos/b245villavungtau_1.jpg",
         //Nhat
-        "../upload/homestays-photos/The 1993 Hoi An.jpg",
-        "../upload/homestays-photos/Hai Au Boutique.jpg",
-        "../upload/homestays-photos/De An Hoi An.jpg",
-        "../upload/homestays-photos/Mali Villa.jpg",
-        "../upload/homestays-photos/Ancient River Villa.jpg",
-        "../upload/homestays-photos/Dao Tien homestay.png",
-        "../upload/homestays-photos/La Vista Villa Hoi An.jpg",
-        "../upload/homestays-photos/ABA TRAVEL VILLA.png",
-        "../upload/homestays-photos/Bespoke Villa.jpg",
-        "../upload/homestays-photos/Double Luxury Room.jpg",
-        "../upload/homestays-photos/Santori Homestay.jpg",
-        "../upload/homestays-photos/Flame Flowers Homestay.jpg",
-        "../upload/homestays-photos/YLANG GARDEN VILLA.jpg",
-        "../upload/homestays-photos/Open Balcony.jpg",
-        "../upload/homestays-photos/Hoi An Majestic villa.jpg"
+        "/upload/homestays-photos/The 1993 Hoi An.jpg",
+        "/upload/homestays-photos/Hai Au Boutique.jpg",
+        "/upload/homestays-photos/De An Hoi An.jpg",
+        "/upload/homestays-photos/Mali Villa.jpg",
+        "/upload/homestays-photos/Ancient River Villa.jpg",
+        "/upload/homestays-photos/Dao Tien homestay.png",
+        "/upload/homestays-photos/La Vista Villa Hoi An.jpg",
+        "/upload/homestays-photos/ABA TRAVEL VILLA.png",
+        "/upload/homestays-photos/Bespoke Villa.jpg",
+        "/upload/homestays-photos/Double Luxury Room.jpg",
+        "/upload/homestays-photos/Santori Homestay.jpg",
+        "/upload/homestays-photos/Flame Flowers Homestay.jpg",
+        "/upload/homestays-photos/YLANG GARDEN VILLA.jpg",
+        "/upload/homestays-photos/Open Balcony.jpg",
+        "/upload/homestays-photos/Hoi An Majestic villa.jpg"
 
     ]
 
@@ -556,10 +566,52 @@ let HomestaysSeed = async function () {
         await Homestays(db).findByIdAndUpdate(homestays[i]._id,
             {$push: {photos: photo._id}})
     }
-    console.log('seeded user OK!');
+
+    /** danh sách generalServices phải đúng thứ tự với danh sách homestays ở trên */
+    let generalServicesName = [
+        // Làm thêm 7 cái cho đủ 10 cái như này
+        "Bể bơi",
+        "Phòng karaoke",
+        "Suối nước nóng"
+    ]
+    // Gán theo thứ tự các generalServices cho các homestay
+    // Hiện tại đang seed dữ liệu kiểu 1 - 1 , sau sẽ chỉnh lại thành 1 - n sau
+    for(let i = 0; i < generalServicesName.length; i++) {
+        let generalServices = await GeneralServices(db).create({
+            name: generalServicesName[i],
+            homestays: homestays[i]._id,
+        })
+        // cập nhật _id của generalService vào homestays
+        await Homestays(db).findByIdAndUpdate(homestays[i]._id,
+            {$push: {generalServices: generalServices._id}})
+    }
+
+    /** danh sách services phải đúng thứ tự với danh sách homestays ở trên */
+    let servicesName = [
+        { // Làm 10 cái như này
+            name: "Lẩu thái",
+            pricePerUnit: 300000,
+            personServe: 6
+        }
+    ]
+    // Gán theo thứ tự các Services cho các homestay
+    // Hiện tại đang seed dữ liệu kiểu 1 - 1 , sau sẽ chỉnh lại thành 1 - n sau
+    for(let i = 0; i < servicesName.length; i++) {
+        let services = await Services(db).create({
+            name: servicesName[i].name,
+            pricePerUnit: servicesName[i].pricePerUnit,
+            personServe: servicesName[i].personServe,
+            homestays: homestays[i]._id,
+        })
+        // cập nhật _id của generalService vào homestays
+        await Homestays(db).findByIdAndUpdate(homestays[i]._id,
+            {$push: {services: services._id}})
+    }
+    console.log('seeded homestays OK!');
     await db.close();
 }
-
+/*
 HomestaysSeed().catch(error => {
     console.log(error)
 });
+*/

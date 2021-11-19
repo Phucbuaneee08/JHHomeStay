@@ -8,6 +8,7 @@ const {UserSeed} = require("./seed/UserSeed");
 const swaggerUi = require("swagger-ui-express");
 const { swaggerJsonData } = require("./api-docs/swagger.js");
 const { Users } = require('./seed/UserSeed');
+const { HomestaysSeed } = require('./seed/HomestaysSeed');
 
 // import routers here
 
@@ -39,12 +40,20 @@ app.use(i18n.init);
 // user routers here
 const router = express.Router();
 router.use( "/auth", require("./modules/auth/auth.route"));
-
+// Trỏ tới router ở file information-homestays
+router.use( "/homestay", require("./modules/user/information-homestays/minh-hoang/homestays.route"));
 // api docs here
 router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsonData));
 app.use(router);
 
 /*UserSeed().catch( err => {
     console.log(err);
-})*/
+})
+*/
+HomestaysSeed().catch(error => {
+    console.log(error)
+});
+
+
+
 module.exports = app;
