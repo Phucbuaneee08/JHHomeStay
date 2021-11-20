@@ -1,1 +1,0 @@
-// dùng để khởi tạo các giá trị ban đầu cho DB

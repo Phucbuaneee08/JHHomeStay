@@ -38,21 +38,26 @@ exports.HomestaysSeed = async function () {
 
     /** danh sách homestays phải đúng thứ tự với danh sách url ở dưới */
     let homestays =  await Homestays(db).create([
-        {// Làm 10 cái phía dưới nhá
+        {// Làm 10 cái phía dưới nhá, làm theo mẫu dưới đây nhá
             name: "999 CONDOTEL Mường Thanh Viễn Triều",
             price: 999000,
             type:"Căn hộ",
             address:"Nha Trang, Khánh Hòa, Vietnam",
             province:"Khánh Hòa",
             district:"Nha Trang",
-            description:"Đéo cho mô tả đấy :v", // Cần điền
-            rate: 4,// Cần điền
-            available:2,// Cần điền, mấy người
-            cleanRate: 4,// Cần điền
-            serviceRate:5,// Cần điền
-            valueRate: 3,// Cần điền
-            accuracyRate: 3,// Cần điền
-            viewRate:5// Cần điền
+            description:"Tóm tắt về 999 CONDOTEL Mường Thanh Viễn Triều\n Vị trí rất đẹp và thuận tiện ở Nha Trang\n Gần công viên Nha Trang, Lotteria, trung tâm mua sắm với môi trường ngoài trời yên tĩnh\n Bạn hoàn toàn có thể trải nghiệm những dịch vụ cao cấp tại đây",
+            available: 3,
+            rates: [
+                {
+                    cleanRate: 4,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Minh",
+                    createdAt: new Date("12/08/2019")
+                },
+            ]
         },
         {
             name: "Scenia Bay Residences Nha Trang",
