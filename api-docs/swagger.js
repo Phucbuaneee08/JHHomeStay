@@ -30,78 +30,148 @@
 
 const swaggerJsonData =
     {
-            "openapi": "3.0.3",
-            "info": {
-                "title": "Api NMCNMP",
-                "description": "Chứa danh sách các Api và test",
-                "contact": {"email": "minhctthvn2@gmail.com"},
-                "version": "1.0.5"
-            },
-            "servers": [{"url": "http://localhost:8000"}],
-            "tags": [ {
-                "name": "Authentication",
-                "description": "Api module Authentication"
-            }],
-            "paths": {
-                "/auth/login": {
-                    "post": {
-                        "tags": ["Authentication"],
-                        "summary": "Log in with role admin or super admin",
-                        "operationId": "Login",
-                        "parameters": [],
-                        "requestBody": {
-                            "description": "Nhập thông tin tài khoản admin hoặc super admin",
-                            "content": {
-                                "application/json": {"schema": {"$ref": "#/components/schemas/Users"}},
-                                "application/xml": {"schema": {"$ref": "#/components/schemas/Users"}}
-                            },
-                            "required": true
+        "openapi": "3.0.3",
+        "info": {
+            "title": "Api NMCNMP",
+            "description": "Chứa danh sách các Api và test",
+            "contact": {"email": "minhctthvn2@gmail.com"},
+            "version": "1.0.5"
+        },
+        "servers": [{"url": "http://localhost:8000"}],
+        "tags": [ {
+            "name": "Authentication",
+            "description": "Api module Authentication"
+        }],
+        "paths": {
+            "/auth/login": {
+                "post": {
+                    "tags": ["Authentication"],
+                    "summary": "Log in with role admin or super admin",
+                    "operationId": "Login",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập thông tin tài khoản admin hoặc super admin",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/Users"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/Users"}}
                         },
-                        "responses": {
-                            "200": {"description": "login success"},
-                            "401": {"description": "login false", "content": {}}
-                        },
-                        "x-codegen-request-body-name": "body"
-                    }
-                },
-                "/auth/logout": {
-                    "post": {
-                        "tags": ["Authentication"],
-                        "summary": "Log out account",
-                        "operationId": "LogoutAuth",
-                        "parameters": [],
-                        "requestBody": {
-                            "description": "Nhập thông tin tài khoản ",
-                            "content": {
-                                "application/json": {"schema": {"$ref": "#/components/schemas/Logout DTO"}},
-                                "application/xml": {"schema": {"$ref": "#/components/schemas/Logout DTO"}}
-                            },
-                            "required": true
-                        },
-                        "responses": {
-                            "200": {"description": "logout success"},
-                            "401": {"description": "logout false", "content": {}}
-                        },
-                        "x-codegen-request-body-name": "body"
-                    }
+                        "required": true
+                    },
+                    "responses": {
+                        "200": {"description": "login success"},
+                        "401": {"description": "login false", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
                 }
             },
-            "components": {
-                "schemas": {
-                    "Users": {
-                         "type": "object", "properties": {
-                            "email":  {"type": "string"},
-                            "password": {"type": "string"},
-                        }
+            "/auth/logout": {
+                "post": {
+                    "tags": ["Authentication"],
+                    "summary": "Log out account",
+                    "operationId": "LogoutAuth",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập thông tin tài khoản ",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/Logout DTO"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/Logout DTO"}}
+                        },
+                        "required": true
                     },
-                    "Logout DTO": {
-                        "type": "object", "properties": {
-                            "_id": {"type": "string"},
+                    "responses": {
+                        "200": {"description": "logout success"},
+                        "401": {"description": "logout false", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/homestays/ranking": {
+                "get": {
+                    "tags": ["Homestays"],
+                    "summary": "Get top ${quantity} ranking homestays",
+                    "operationId": "RankingHomestays",
+                    "parameters": [{
+                        "in": "query",
+                        "name": "quantity",
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "require": true
+                    }],
+                    "responses": {
+                        "200": {"description": "get ranking homestays success"},
+                        "401": {"description": "get ranking homestays false", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/homestays/rate/:id": {
+                "post": {
+                    "tags": ["Homestays"],
+                    "summary": "Create new rate",
+                    "operationId": "CreateRate",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập thông tin rate và id của homestay",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/Rate"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/Rate"}}
+                        },
+                        "required": true
+                    },
+                    "responses": {
+                        "200": {"description": "create new rate success"},
+                        "401": {"description": "create new rate false", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+        },
+        "components": {
+            "schemas": {
+                "Users": {
+                    "type": "object", "properties": {
+                        "email":  {"type": "string"},
+                        "password": {"type": "string"},
+                    }
+                },
+                "Logout DTO": {
+                    "type": "object", "properties": {
+                        "_id": {"type": "string"},
+                    }
+                },
+                "Rate": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "rate": {
+                            "type": "object",
+                            "properties": {
+                                "cleanRate": {
+                                    "type": "number"
+                                },
+                                "serviceRate": {
+                                    "type": "number"
+                                },
+                                "valueRate": {
+                                    "type": "number"
+                                },
+                                "accuracyRate": {
+                                    "type": "number"
+                                },
+                                "description": {
+                                    "type": "string"
+                                }
+                            }
                         }
                     }
-                }, "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}}
-            },
-            "security": [{"bearerAuth": []}]
+                }
+            }, "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}}
+        },
+        "security": [{"bearerAuth": []}]
     }
+
 exports.swaggerJsonData = swaggerJsonData;
 
