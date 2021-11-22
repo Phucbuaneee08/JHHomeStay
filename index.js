@@ -46,8 +46,8 @@ router.use( "/homestay", require("./modules/user/information-homestays/minh-hoan
 router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsonData));
 app.use(router);
 
-HomestaysSeed().catch(error => {
-    console.log(error)
-});
+/*UserSeed().catch( err => {
+    console.log(err);
+})*/
 
 module.exports = app;
