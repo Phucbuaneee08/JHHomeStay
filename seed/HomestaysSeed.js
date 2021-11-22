@@ -1,5 +1,4 @@
-// Tạo dữ liệu mẫu cho các homestays
-const {Homestays, Photos} = require("../models");
+const {Homestays, Photos, GeneralServices, Services} = require("../models");
 const mongoose = require("mongoose");
 
 let dbConnect = () => {
@@ -13,22 +12,24 @@ let dbConnect = () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }
-
-    // let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority',
-    //     connectOptions);
-    let db =  mongoose.createConnection('mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
+    // Cơ sở dữ liệu Atlas
+    /*
+    let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority',
+        connectOptions);  */
+    // Cơ sở dữ liệu cục bộ
+    let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays',
         connectOptions);
     return db;
 }
 const db = dbConnect();
-
-let HomestaysSeed = async function () {
+// Tạo dữ liệu mẫu cho các homestays, khi seed chuyển let thành exports.   , còn ko thì chuyển lại thành let
+exports.HomestaysSeed = async function () {
     Homestays(db).deleteMany().then(function () {
         console.log("Homestays is cleared");
     }).catch(function (error) {
         console.log(error);
     });
-    
+
     Photos(db).deleteMany().then(function () {
         console.log("Photos is cleared");
     }).catch(function (error) {
@@ -37,13 +38,26 @@ let HomestaysSeed = async function () {
 
     /** danh sách homestays phải đúng thứ tự với danh sách url ở dưới */
     let homestays =  await Homestays(db).create([
-        {
+        {// Làm 10 cái phía dưới nhá, làm theo mẫu dưới đây nhá
             name: "999 CONDOTEL Mường Thanh Viễn Triều",
             price: 999000,
             type:"Căn hộ",
             address:"Nha Trang, Khánh Hòa, Vietnam",
             province:"Khánh Hòa",
             district:"Nha Trang",
+            description:"Tóm tắt về 999 CONDOTEL Mường Thanh Viễn Triều\n Vị trí rất đẹp và thuận tiện ở Nha Trang\n Gần công viên Nha Trang, Lotteria, trung tâm mua sắm với môi trường ngoài trời yên tĩnh\n Bạn hoàn toàn có thể trải nghiệm những dịch vụ cao cấp tại đây",
+            available: 3,
+            rates: [
+                {
+                    cleanRate: 4,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Minh",
+                    createdAt: new Date("12/08/2019")
+                },
+            ]
         },
         {
             name: "Scenia Bay Residences Nha Trang",
@@ -52,6 +66,19 @@ let HomestaysSeed = async function () {
             address:"Nha Trang, Khánh Hòa, Vietnam",
             province:"Khánh Hòa",
             district:"Nha Trang",
+            description: "Nơi đây có hệ thống hạ tầng tiện ích và dịch vụ đồng bộ, khép kín bao gồm: các trung tâm chăm sóc sức khỏe và làm đẹp như bể bơi ngoài trời, bể bơi trong nhà (4 mùa), khu tập gym, khu vui chơi trẻ em, trường học, hệ thống nhà hàng, siêu thị mua sắm, hầm đỗ xe thông minh …",
+            available: 3,
+            rates: [
+                {
+                    cleanRate: 3,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 3,
+                    description: "Nơi đây có hệ thống hạ tầng tiện ích và dịch vụ đồng bộ, khép kín bao gồm: các trung tâm chăm sóc sức khỏe và làm đẹp như bể bơi ngoài trời, bể bơi trong nhà (4 mùa), khu tập gym, khu vui chơi trẻ em, trường học, hệ thống nhà hàng, siêu thị mua sắm, hầm đỗ xe thông minh …",
+                    userName: "Hoàng",
+                    createdAt: new Date("01/01/2019")
+                },
+            ]
         },
         {
             name: "Wonderland 24H Apartments",
@@ -59,7 +86,20 @@ let HomestaysSeed = async function () {
             type:"Căn hộ",
             address:"Nha Trang, Khánh Hòa, Vietnam",
             province:"Khánh Hòa",
-            district:"Nha Trang"
+            district:"Nha Trang",
+            description: "Khu vực sát bên cạnh Bến cáp treo Vinpearl và Cảng du lịch Nha Trang, rất thuận tiện cho nhóm bạn, hoặc gia đình có nhu cầu đi chơi đảo, Vinpearl",
+            available: 3,
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 3,
+                    valueRate: 5,
+                    accuracyRate: 4,
+                    description: "Khu vực sát bên cạnh Bến cáp treo Vinpearl và Cảng du lịch Nha Trang, rất thuận tiện cho nhóm bạn, hoặc gia đình có nhu cầu đi chơi đảo, Vinpearl",
+                    userName: "Tú",
+                    createdAt: new Date("12/12/2018")
+                },
+            ]
         },
         {
             name: "Shoho Hotel Nha Trang",
@@ -67,7 +107,20 @@ let HomestaysSeed = async function () {
             type:"Hotel",
             address:"Nha Trang, Khánh Hòa, Vietnam",
             province:"Khánh Hòa",
-            district:"Nha Trang"
+            district:"Nha Trang",
+            description: "Ngoài việc tận hưởng không gian vô cùng ấm áp và lãng mạn bên người ấy. Couple Nest còn mang đến những món ăn đặc biệt được phục vụ tại phòng, trên chiếc bàn trang trí đẹp mắt trong không gian lãng mạn chỉ có hai người. Cùng với nhiều dịch vụ được chuẩn bị vô cùng chu đáo và chuyên nghiệp.",
+            available: 3,
+            rates: [
+                {
+                    cleanRate: 3,
+                    serviceRate: 3,
+                    valueRate: 4,
+                    accuracyRate: 3,
+                    description: "Ngoài việc tận hưởng không gian vô cùng ấm áp và lãng mạn bên người ấy. Couple Nest còn mang đến những món ăn đặc biệt được phục vụ tại phòng, trên chiếc bàn trang trí đẹp mắt trong không gian lãng mạn chỉ có hai người. Cùng với nhiều dịch vụ được chuẩn bị vô cùng chu đáo và chuyên nghiệp.",
+                    userName: "Quỳnh Anh",
+                    createdAt: new Date("12/01/2020")
+                },
+            ]
         },
         {
             name: "Diamond Villa",
@@ -75,7 +128,20 @@ let HomestaysSeed = async function () {
             type:"Biệt thự",
             address:"Nha Trang, Khánh Hòa, Vietnam",
             province:"Khánh Hòa",
-            district:"Nha Trang"
+            district:"Nha Trang",
+            description: "Phòng riêng dành cho 2 người\nPhòng có nhà vệ sinh riêng, nước nóng lạnh, có sẵn khăn tắm, dầu gội và sữa tắm\nPhòng ở cạnh phòng khách nên có thể có tiếng ồn, bạn cân nhắc nhé. Nomad có quy định không làm ồn sau 22h nên bạn có thể yên tâm ngủ ngon vào buổi tối\nCó ăn sáng",
+            available: 3,
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 3,
+                    accuracyRate: 2,
+                    description: "Phòng riêng dành cho 2 người\nPhòng có nhà vệ sinh riêng, nước nóng lạnh, có sẵn khăn tắm, dầu gội và sữa tắm\nPhòng ở cạnh phòng khách nên có thể có tiếng ồn, bạn cân nhắc nhé. Nomad có quy định không làm ồn sau 22h nên bạn có thể yên tâm ngủ ngon vào buổi tối\nCó ăn sáng",
+                    userName: "Đạt",
+                    createdAt: new Date("01/08/2018")
+                },
+            ]
         },
         {
             name: "Relaxing 2 BR Apartment",
@@ -83,7 +149,20 @@ let HomestaysSeed = async function () {
             type:"Căn hộ",
             address:"Nha Trang, Khánh Hòa, Vietnam",
             province:"Khánh Hòa",
-            district:"Nha Trang"
+            district:"Nha Trang",
+            description: "Phòng Superior Twin Room với 2 giường 1,1m, phù hợp với những nhóm bạn muốn hưởng kỳ nghỉ bên nhau thật đầm ấm, sang trọng. Ngoài ra, Home Vu Apartments còn có các loại phòng Superior Double và Standard, giúp quý khách tiết kiệm chi phí khi đi du lịch.",
+            available: 3,
+            rates: [
+                {
+                    cleanRate: 2,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 3,
+                    description: "Phòng Superior Twin Room với 2 giường 1,1m, phù hợp với những nhóm bạn muốn hưởng kỳ nghỉ bên nhau thật đầm ấm, sang trọng. Ngoài ra, Home Vu Apartments còn có các loại phòng Superior Double và Standard, giúp quý khách tiết kiệm chi phí khi đi du lịch.",
+                    userName: "Bình",
+                    createdAt: new Date("12/12/2020")
+                },
+            ]
         },
         {
             name: "Paralia Nha Trang",
@@ -91,7 +170,20 @@ let HomestaysSeed = async function () {
             type:"Căn hộ",
             address:"Nha Trang, Khánh Hòa, Vietnam",
             province:"Khánh Hòa",
-            district:"Nha Trang"
+            district:"Nha Trang",
+            description: "Đội ngũ nhân viên nhiệt tình, kinh nghiệm, Home Vu Apartments – Nha Trang rất hân hạnh được phục vụ quý khách! Niềm vui, sự hài lòng và thoải mái của khách hàng luôn là điều hạnh phúc nhất đối với tôi. Đến với chúng tôi các bạn sẽ luôn nhận được những nụ cười và những tiện ích tốt nhất.",
+            available: 3,
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 5,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Đội ngũ nhân viên nhiệt tình, kinh nghiệm, Home Vu Apartments – Nha Trang rất hân hạnh được phục vụ quý khách! Niềm vui, sự hài lòng và thoải mái của khách hàng luôn là điều hạnh phúc nhất đối với tôi. Đến với chúng tôi các bạn sẽ luôn nhận được những nụ cười và những tiện ích tốt nhất.",
+                    userName: "Loan",
+                    createdAt: new Date("11/11/2018")
+                },
+            ]
         },
         {
             name: "LeJardin De Papa",
@@ -99,7 +191,20 @@ let HomestaysSeed = async function () {
             type:"Nhà riêng",
             address:"Đà Lạt, Lâm Đồng, Việt Nam",
             province:"Lâm Đồng",
-            district:"Đà Lạt"
+            district:"Đà Lạt",
+            description: "Hệ thống báo cháy tự động, điều hòa nhiệt độ, tủ lạnh, máy đun nước nóng, bồn tắm và máy sấy tóc… cũng là những tiện nghi có trong mỗi phòng. Đặc biệt, tất cả các căn hộ đều được trang bị đầy đủ các dụng cụ làm bếp, phục vụ quý khách có nhu cầu tự nấu nướng cho kỳ nghỉ của mình.",
+            available: 3,
+            rates: [
+                {
+                    cleanRate: 3,
+                    serviceRate: 3,
+                    valueRate: 3,
+                    accuracyRate: 3,
+                    description: "Hệ thống báo cháy tự động, điều hòa nhiệt độ, tủ lạnh, máy đun nước nóng, bồn tắm và máy sấy tóc… cũng là những tiện nghi có trong mỗi phòng. Đặc biệt, tất cả các căn hộ đều được trang bị đầy đủ các dụng cụ làm bếp, phục vụ quý khách có nhu cầu tự nấu nướng cho kỳ nghỉ của mình.",
+                    userName: "Tú",
+                    createdAt: new Date("01/02/2019")
+                },
+            ]
         },
         {
             name: "Oriana Villa Đà Lạt 102",
@@ -107,7 +212,20 @@ let HomestaysSeed = async function () {
             type:"Biệt thự",
             address:"Đà Lạt, Lâm Đồng, Việt Nam",
             province:"Lâm Đồng",
-            district:"Đà Lạt"
+            district:"Đà Lạt",
+            description:"·Căn hộ được thiết kế với nhiều lựa chọn bố trí hợp lý và được trang bị theo tiêu chuẩn cao cấp 4 sao với ban công riêng và cảnh quan đẹp\n\n·Có nhiều dịch vụ tại chỗ khác nhau như giặt ủi, dịch vụ vệ sinh, Wi-Fi miễn phí tốc độ cao, an ninh 24/7\n\n·Dịch vụ khách hàng đặc biệt được cung cấp",
+            available: 3,
+            rates: [
+                {
+                    cleanRate: 2,
+                    serviceRate: 3,
+                    valueRate: 4,
+                    accuracyRate: 4,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Nhật",
+                    createdAt: new Date("12/08/2019")
+                },
+            ]
         },
         {
             name: "Le Petit Prince",
@@ -115,7 +233,19 @@ let HomestaysSeed = async function () {
             type:"Căn hộ",
             address:"Đà Lạt, Lâm Đồng, Việt Nam",
             province:"Lâm Đồng",
-            district:"Đà Lạt"
+            district:"Đà Lạt",
+            description:"·Thang máy ra vào căn hộ với hệ thống thẻ khóa an ninh\n\n·Phòng khách được thiết kế theo phong cách hiện đại với ghế sofa và khu vực ăn uống riêng\n\n·Nhà bếp được trang bị đầy đủ với bếp điện và máy hút mùi điện, lò vi sóng, tủ lạnh, ấm điện, đồ thủy tinh, đồ sành sứ, dao kéo",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 5,
+                    valueRate: 4,
+                    accuracyRate: 4,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Châu",
+                    createdAt: new Date("01/10/2021")
+                },
+            ]
         },
         {
             name: "Nhà Mình homestay",
@@ -557,10 +687,95 @@ let HomestaysSeed = async function () {
         await Homestays(db).findByIdAndUpdate(homestays[i]._id,
             {$push: {photos: photo._id}})
     }
-    console.log('seeded user OK!');
+
+    /** danh sách generalServices phải đúng thứ tự với danh sách homestays ở trên */
+    let generalServicesName = [
+        // Làm thêm 7 cái cho đủ 10 cái như này
+        "Bể bơi",
+        "Phòng karaoke",
+        "Suối nước nóng",
+        "Coffee bên hồ",
+        "Dọn phòng",
+        "Cho thuê xe tự lái",
+        "Dịch vụ giặt ủi",
+        "Massage trị liệu",
+        "Xông hơi",
+        "Thuê hướng dẫn viên du lịch"
+    ]
+    // Gán theo thứ tự các generalServices cho các homestay
+    // Hiện tại đang seed dữ liệu kiểu 1 - 1 , sau sẽ chỉnh lại thành 1 - n sau
+    for(let i = 0; i < generalServicesName.length; i++) {
+        let generalServices = await GeneralServices(db).create({
+            name: generalServicesName[i],
+            homestays: homestays[i]._id,
+        })
+        // cập nhật _id của generalService vào homestays
+        await Homestays(db).findByIdAndUpdate(homestays[i]._id,
+            {$push: {generalServices: generalServices._id}})
+    }
+
+    /** danh sách services phải đúng thứ tự với danh sách homestays ở trên */
+    let servicesName = [
+        { // Làm 10 cái như này
+            name: "Lẩu thái",
+            pricePerUnit: 300000,
+            personServe: 6
+        },{ // Làm 10 cái như này
+            name: "Buffet",
+            pricePerUnit: 1000000,
+            personServe: 5
+        },{ // Làm 10 cái như này
+            name: "Karaoke",
+            pricePerUnit: 500000,
+            personServe: 6
+        },{ // Làm 10 cái như này
+            name: "Tiệc mini",
+            pricePerUnit: 500000,
+            personServe: 4
+        },{ // Làm 10 cái như này
+            name: "Lẩu hải sản",
+            pricePerUnit: 250000,
+            personServe: 6
+        },{ // Làm 10 cái như này
+            name: "BBQ Kinh",
+            pricePerUnit: 200000,
+            personServe: 5
+        },{ // Làm 10 cái như này
+            name: "Nướng",
+            pricePerUnit: 200000,
+            personServe: 4
+        },{ // Làm 10 cái như này
+            name: "Cơm bình dân",
+            pricePerUnit: 50000,
+            personServe: 1
+        },{ // Làm 10 cái như này
+            name: "Gỏi",
+            pricePerUnit: 500000,
+            personServe: 6
+        },{ // Làm 10 cái như này
+            name: "Đặt vé máy bay",
+            pricePerUnit: 1000000,
+            personServe: 1
+        }
+    ]
+    // Gán theo thứ tự các Services cho các homestay
+    // Hiện tại đang seed dữ liệu kiểu 1 - 1 , sau sẽ chỉnh lại thành 1 - n sau
+    for(let i = 0; i < servicesName.length; i++) {
+        let services = await Services(db).create({
+            name: servicesName[i].name,
+            pricePerUnit: servicesName[i].pricePerUnit,
+            personServe: servicesName[i].personServe,
+            homestays: homestays[i]._id,
+        })
+        // cập nhật _id của generalService vào homestays
+        await Homestays(db).findByIdAndUpdate(homestays[i]._id,
+            {$push: {services: services._id}})
+    }
+    console.log('seeded homestays OK!');
     await db.close();
 }
-
+/*
 HomestaysSeed().catch(error => {
     console.log(error)
 });
+*/
