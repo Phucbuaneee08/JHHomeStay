@@ -23,7 +23,7 @@ let dbConnect = () => {
 }
 const db = dbConnect();
 // Tạo dữ liệu mẫu cho các homestays, khi seed chuyển let thành exports.   , còn ko thì chuyển lại thành let
-exports.HomestaysSeed = async function () {
+HomestaysSeed = async function () {
     Homestays(db).deleteMany().then(function () {
         console.log("Homestays is cleared");
     }).catch(function (error) {
@@ -774,8 +774,7 @@ exports.HomestaysSeed = async function () {
     console.log('seeded homestays OK!');
     await db.close();
 }
-/*
+
 HomestaysSeed().catch(error => {
     console.log(error)
 });
-*/
