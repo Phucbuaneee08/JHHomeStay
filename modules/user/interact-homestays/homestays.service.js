@@ -12,7 +12,7 @@ exports.getRankingHomestays = async (quantity) => {
             }
         },
         {
-            $sort: { totalRate: -1}
+            $sort: { totalRate: 1}
         },
         {
             $limit: Number(quantity)

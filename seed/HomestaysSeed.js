@@ -771,10 +771,11 @@ HomestaysSeed = async function () {
         await Homestays(db).findByIdAndUpdate(homestays[i]._id,
             {$push: {services: services._id}})
     }
-    console.log('seeded homestays OK!');
     await db.close();
 }
 
-HomestaysSeed().catch(error => {
+HomestaysSeed().then(() => {
+    console.log("Homestays seed ok!!")
+}).catch(error => {
     console.log(error)
 });
