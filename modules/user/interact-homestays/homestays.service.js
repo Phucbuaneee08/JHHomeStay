@@ -41,7 +41,7 @@ exports.getRankingHomestays = async (quantity) => {
             }
         },
         {
-            $sort: {"totalRates" : -1}
+            $sort: {"averageRates" : -1}
         },
         {
             $limit: Number(5)
