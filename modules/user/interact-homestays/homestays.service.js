@@ -1,7 +1,6 @@
 const {Homestays} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 exports.getRankingHomestays = async (quantity) => {
-    console.log(quantity);
     const homestays = await Homestays(db).aggregate([
         {
             $unwind: {
@@ -44,7 +43,7 @@ exports.getRankingHomestays = async (quantity) => {
             $sort: {"averageRates" : -1}
         },
         {
-            $limit: Number(5)
+            $limit: Number(quantity)
         }
     ]);
     return homestays;
