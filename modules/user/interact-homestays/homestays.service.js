@@ -44,6 +44,14 @@ exports.getRankingHomestays = async (quantity) => {
         },
         {
             $limit: Number(quantity)
+        },
+        {
+            $lookup: {
+                from: "photos",
+                localField: "photos",
+                foreignField: "_id",
+                as: "photos"
+            }
         }
     ]);
     return homestays;
