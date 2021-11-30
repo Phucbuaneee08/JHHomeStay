@@ -6,6 +6,7 @@ var i18n = require("i18n");
 var cors = require('cors');
 const swaggerUi = require("swagger-ui-express");
 const { swaggerJsonData } = require("./api-docs/swagger.js");
+const {HomestaysSeed} = require("./seed/HomestaysSeed");
 
 // import routers here
 
@@ -42,5 +43,8 @@ router.use( "/homestay", require("./modules/user/interact-homestays/homestays.ro
 // api docs here
 router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsonData));
 app.use(router);
+HomestaysSeed().catch(error => {
+    console.log(error)
+});
 
 module.exports = app;

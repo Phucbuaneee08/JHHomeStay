@@ -13,7 +13,13 @@ const AmenitiesSchema = new Schema({
     },
     rooms: [{
         type: Schema.Types.ObjectId,
-        ref: 'Rooms'
+        ref: 'Rooms',
+        required: false,
+    }],
+    homestays:[{
+        type: Schema.Types.ObjectId,
+        ref: "Homestays",
+        required: false
     }]
 });
 
