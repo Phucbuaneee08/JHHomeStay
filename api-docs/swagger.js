@@ -145,6 +145,72 @@ const swaggerJsonData =
                     },
                     "x-codegen-request-body-name": "body"
                 }
+            },
+            "/homestay/filter": {
+                "get": {
+                    "tags": ["Homestays"],
+                    "summary": "Filter homestays by information",
+                    "operationId": "filterHomestays",
+                    "parameters": [
+                        {  "name": "province",
+                            "in": "query",
+                            "schema": {"type": "string"},
+                           "require": false},
+                        {
+                            "name": "type",
+                            "in": "query",
+                            "schema": {"type": "string"},
+                            "require": false},
+                        {
+                            "name": "amenities",
+                            "in": "query",
+                            "schema":{
+                                "type":"array",
+                                "items": {
+                                    "type":"string",
+                                },
+                                "minItems":0
+                            },
+                            "require": false},
+                        {
+                            "name": "generalServices",
+                            "in": "query",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                },
+                                "minItems":0
+                            },
+                            "require": false},
+                        {
+                            "name": "lowPrice",
+                            "in": "query",
+                            "schema": {"type": "number"},
+                            "require": false},
+                        {
+                            "name": "highPrice",
+                            "in": "query",
+                            "schema": {"type": "number"},
+                            "require": false},
+                        {
+                            "name": "slide",
+                            "in": "query",
+                            "schema": {"type": "number"},
+                            "require": false},
+                        {
+                            "name": "rate",
+                            "in": "query",
+                            "schema": {"type": "number"},
+                            "require": false},
+                    ],
+                    "requestBody": [],
+                    "responses": {
+                        "200": {"description": "Filter thành công "},
+                        "404": {"description": "Filter có lỗi ", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
             }
         },
         "components": {

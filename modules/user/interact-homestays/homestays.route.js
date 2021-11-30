@@ -6,5 +6,6 @@ const router = express.Router();
 router.get("/ranking", HomestaysController.getRankingHomestays);
 router.post("/rate/:id", HomestaysController.createRatingOfHomestay);
 router.get("/information/:id", HomestaysController.getHomestayById);
+router.get("/filter", HomestaysController.getHomestayByFilter);
 
 module.exports = router;

@@ -63,9 +63,12 @@ const HomestaysSchema = new Schema(
                 },
                 createdAt: { // Ngày tạo đánh giá
                     type: Date
-                }
-            }
+                },
+            },
         ],
+        averageRate :{ //Rate trung bình
+            type: Number
+        },
         available: { // Số lượng phòng còn trống
             type: Number
         },
@@ -76,6 +79,10 @@ const HomestaysSchema = new Schema(
         signatures: [{
             type: Schema.Types.ObjectId,
             ref: 'Signatures'
+        }],
+        amenities:[{
+            type:Schema.Types.ObjectId,
+            ref:'Amenities'
         }],
         services: [{
             type: Schema.Types.ObjectId,
