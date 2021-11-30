@@ -1,6 +1,5 @@
 const {Homestays, Photos, GeneralServices, Services, Amenities} = require("../models");
 const mongoose = require("mongoose");
-const {home} = require("nodemon/lib/utils");
 
 let dbConnect = () => {
     let connectOptions = process.env.DB_AUTHENTICATION === 'true' ?
@@ -24,8 +23,7 @@ let dbConnect = () => {
 }
 const db = dbConnect();
 
-// Tạo dữ liệu mẫu cho các homestays, khi seed chuyển let thành exports.   , còn ko thì chuyển lại thành let
-exports.HomestaysSeed = async function () {
+HomestaysSeed = async function () {
     Homestays(db).deleteMany().then(function () {
         console.log("Homestays is cleared");
     }).catch(function (error) {
@@ -903,7 +901,7 @@ exports.HomestaysSeed = async function () {
     // Gán theo thứ tự các Amenities cho các homestay
     // Hiện tại đang seed dữ liệu kiểu 1 - 1 , sau sẽ chỉnh lại thành 1 - n sau
     for(let i = 0; i < amenitiesName.length; i++) {
-        let homestaysID = new Array();
+        let homestaysID = [];
         for (let j = 0; j < 25; j ++) {
             homestaysID[j]= homestays[i+j*2]._id;
         }
@@ -922,7 +920,6 @@ exports.HomestaysSeed = async function () {
     console.log('seeded homestays OK!');
     await db.close();
 }
-
-// HomestaysSeed().catch(error => {
-//     console.log(error)
-// });
+HomestaysSeed().catch(error => {
+    console.log(error)
+});
