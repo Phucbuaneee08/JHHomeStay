@@ -118,7 +118,12 @@ const swaggerJsonData =
                             "application/xml": {"schema": {"$ref": "#/components/schemas/Rate"}}
                         },
                         "x-codegen-request-body-name": "body"
-                    }
+                    },
+                    "responses": {
+                        "200": {"description": "Rate thành công "},
+                        "404": {"description": "Rate không thành công ", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
                 },
             },
             "/homestay/information/{id}": {

@@ -917,9 +917,11 @@ HomestaysSeed = async function () {
         }
 
     }
-    console.log('seeded homestays OK!');
     await db.close();
 }
-HomestaysSeed().catch(error => {
+
+HomestaysSeed().then(() => {
+    console.log("Homestays seed ok!!")
+}).catch(error => {
     console.log(error)
 });

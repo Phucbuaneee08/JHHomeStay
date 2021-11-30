@@ -3,24 +3,59 @@ const {db} = require("../../../helpers/dbHelper");
 const {compare} = require("bcrypt");
 const HomestaysQtyEachSlice = 16;
 exports.getRankingHomestays = async (quantity) => {
-    console.log(quantity);
     const homestays = await Homestays(db).aggregate([
         {
-            $set: {
-                totalRate: {$sum: {
-                    $sum: ["$rates.cleanRate", "$rates.serviceRate", "$rates.valueRate", "$rates.accuracyRate"]
+            $unwind: {
+                path: "$rates",
+                preserveNullAndEmptyArrays: true
+            }
+        },
+        {
+            $group: {
+                _id: "$_id",
+                homestays: { $first: "$$ROOT" },
+                rates: { $push:
+                        {
+                            "_id": "$rates._id",
+                            "cleanRate": "$rates.cleanRate",
+                            "serviceRate": "$rates.serviceRate",
+                            "valueRate": "$rates.valueRate",
+                            "accuracyRate": "$rates.accuracyRate",
+                            "description": "$rates.description",
+                            "userName": "$rates.userName",
+                            "createdAt": "$rates.createdAt",
+                        }},
+                countRates: {$sum: 1},
+                totalRates: {
+                    $sum: {
+                        $sum: ["$rates.cleanRate", "$rates.serviceRate", "$rates.valueRate", "$rates.accuracyRate"]
                     }
                 }
             }
         },
         {
-            $sort: { totalRate: -1}
+            $replaceRoot: { "newRoot": { "$mergeObjects": ["$homestays", { totalRates: "$totalRates" }, { countRates: "$countRates"}, {rates: "$rates"}]} }
+        },
+        {
+            $set: {
+                averageRates: {$divide: ["$totalRates", {$multiply: ["$countRates", 4]}]}
+            }
+        },
+        {
+            $sort: {"averageRates" : -1}
         },
         {
             $limit: Number(quantity)
+        },
+        {
+            $lookup: {
+                from: "photos",
+                localField: "photos",
+                foreignField: "_id",
+                as: "photos"
+            }
         }
     ]);
-    console.log(homestays);
     return homestays;
 }
 
