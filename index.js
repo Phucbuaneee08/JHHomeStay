@@ -40,7 +40,7 @@ router.use( "/auth", require("./modules/auth/auth.route"));
 // Trỏ tới router ở file information-homestays
 router.use( "/homestays", require("./modules/user/interact-homestays/homestays.route"));
 // api docs here
-router.use('/update',require('./modules/admin/update-homestays/update.router'))
+router.use('/admins',require('./modules/admin/update-homestays/update.router'))
 
 router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsonData));
 app.use(router);

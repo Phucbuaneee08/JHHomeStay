@@ -149,7 +149,7 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 }
             },
-            "/update/updateHomestays":{
+            "/admins/updateHomestays":{
                 "post": {
                     "tags": ["Admin"],
                     "summary":"Update information in Homestays with _id",
@@ -170,7 +170,7 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 },
             },
-            "/update/deleteInformationInHomestays":{
+            "/admins/deleteInformationInHomestays":{
                 "post": {
                     "tags": ["Admin"],
                     "summary":"Delete information in Homestays with _id",
@@ -192,7 +192,7 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 },
             },
-            "/update/createInformationForHomestays":{
+            "/admins/createInformationForHomestays":{
                 "post": {
                     "tags": ["Admin"],
                     "summary":"Create information in Homestays with _id",
