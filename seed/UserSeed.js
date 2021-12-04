@@ -58,6 +58,8 @@ UserSeed = async function () {
     console.log('seeded user OK!');
     await db.close();
 }
-UserSeed().catch( err => {
+UserSeed().then(() => {
+    console.log(" user seed ok")
+}).catch( err => {
     console.log(err);
 })

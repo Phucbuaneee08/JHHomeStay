@@ -126,7 +126,7 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 },
             },
-            "/homestay/information/{id}": {
+            "/homestays/information/{id}": {
                 "get": {
                     "tags": ["Homestays"],
                     "summary": "Get full infomation about a homestay with id",
@@ -146,7 +146,7 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 }
             },
-            "/homestay/filter": {
+            "/homestays/filter": {
                 "get": {
                     "tags": ["Homestays"],
                     "summary": "Filter homestays by information",
