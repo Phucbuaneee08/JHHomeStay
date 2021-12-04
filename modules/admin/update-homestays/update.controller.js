@@ -118,8 +118,6 @@ exports.updateHomestay = async (req,res)=>{
     
 }
 
-
-
 //Xóa thông tin trong homestays
 /*****************************************************************************************
  *                                                                                       *
