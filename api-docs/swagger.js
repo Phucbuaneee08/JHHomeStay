@@ -41,6 +41,9 @@ const swaggerJsonData =
         "tags": [ {
             "name": "Authentication",
             "description": "Api module Authentication"
+        },{
+            "name":"Admin",
+            "description": "Api module Admin"
         }],
         "paths": {
             "/auth/login": {
@@ -145,6 +148,70 @@ const swaggerJsonData =
                     },
                     "x-codegen-request-body-name": "body"
                 }
+            },
+            "/update/updateHomestays":{
+                "post": {
+                    "tags": ["Admin"],
+                    "summary":"Update information in Homestays with _id",
+                    "opertationId":"updateHomestays",
+                    "parameters":[],
+                    "requestBody": {
+                        "description": "Nhập tất cả các trường đơn của bản ghi muốn thay đổi",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/UpdateHomestay"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/UpdateHomestay"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Update success"},
+                        "404": {"description": "Can not found"},
+                        "403":{"description": "update fail, _id is not exist"}
+                    },
+                    "x-codegen-request-body-name": "body"
+                },
+            },
+            "/update/deleteInformationInHomestays":{
+                "post": {
+                    "tags": ["Admin"],
+                    "summary":"Delete information in Homestays with _id",
+                    "opertationId":"deleteHomestays",
+                    "parameters":[],
+                    "requestBody": {
+                        "description": "Nhập _id của bản ghi muốn xóa",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/DeleteHomestay"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/DeleteHomestay"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Update success"},
+                        "402": {"description": "Can not found, _id is not correct"},
+                        "403": {"description": "delete fail, _id is not exist"},
+                        "404": {"description": "Exception"},
+                    },
+                    "x-codegen-request-body-name": "body"
+                },
+            },
+            "/update/createInformationForHomestays":{
+                "post": {
+                    "tags": ["Admin"],
+                    "summary":"Create information in Homestays with _id",
+                    "opertationId":"createHomestays",
+                    "parameters":[],
+                    "requestBody": {
+                        "description": "Nhập _id của trường mà nó được tham chiếu tới và thông tin của tất cả các trường đơn mà admin muốn tạo",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/CreateHomestay"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/CreateHomestay"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "create success"},
+                        "403": {"description": "create fail, typeData is not correct"},
+                        "404": {"description": "Exception"},
+                    },
+                    "x-codegen-request-body-name": "body"
+                },
             }
         },
         "components": {
@@ -187,7 +254,40 @@ const swaggerJsonData =
                             }
                         }
                     }
+                },
+                "UpdateHomestay":{
+                    "type": "object", "properties":{
+                        "_id":         {"type": "string"},
+                        "name":        {"type": "string"},
+                        "price":       {"type": "number"},
+                        "type":        {"type": "number"},
+                        "address":     {"type": "string"},
+                        "province":    {"type": "string"},
+                        "district":    {"type": "string"},
+                        "description": {"type": "string"},
+                        "available":   {"type": "number"},
+                        "area":        {"type": "number"},
+                        "pricePerUnit":{"type": "number"},
+                        "personServe": {"type": "number"}
+                    }
+                },
+                "DeleteHomestays":{
+                    "type": "object", "properties":{
+                        "_id":         {"type": "string"}, 
+                    }
+                },
+                "CreateHomestay":{
+                    "type": "object", "properties":{
+                        "_id":         {"type": "string"},
+                        "name":        {"type": "string"},
+                        "price":       {"type": "number"},
+                        "pricePerUnit":{"type": "number"},
+                        "personServe": {"type": "number"},
+                        "type":        {"type": "number"},
+                        "area":        {"type": "number"},
+                    }
                 }
+
             }, "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}}
         },
         "security": [{"bearerAuth": []}]
