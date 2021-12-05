@@ -21,7 +21,7 @@ const BillsSchema= new Schema({
     homestayId: {
         type: Schema.Types.ObjectId,
         ref : 'Homestays',
-        required: true,
+        required: false,
     },
     checkinDate: {
         type: Date,

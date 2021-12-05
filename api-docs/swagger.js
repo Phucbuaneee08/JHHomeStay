@@ -149,7 +149,7 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 }
             },
-            "/admins/updateHomestays":{
+            "/admins/updateInformationForHomestays":{
                 "post": {
                     "tags": ["Admin"],
                     "summary":"Update information in Homestays with _id",
@@ -164,29 +164,6 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Update success"},
-                        "404": {"description": "Can not found"},
-                        "403":{"description": "update fail, _id is not exist"}
-                    },
-                    "x-codegen-request-body-name": "body"
-                },
-            },
-            "/admins/deleteInformationInHomestays":{
-                "post": {
-                    "tags": ["Admin"],
-                    "summary":"Delete information in Homestays with _id",
-                    "opertationId":"deleteHomestays",
-                    "parameters":[],
-                    "requestBody": {
-                        "description": "Nhập _id của bản ghi muốn xóa",
-                        "content": {
-                            "application/json": {"schema": {"$ref": "#/components/schemas/DeleteHomestay"}},
-                            "application/xml": {"schema": {"$ref": "#/components/schemas/DeleteHomestay"}}
-                        },
-                    },
-                    "responses": {
-                        "200": {"description": "Update success"},
-                        "402": {"description": "Can not found, _id is not correct"},
-                        "403": {"description": "delete fail, _id is not exist"},
                         "404": {"description": "Exception"},
                     },
                     "x-codegen-request-body-name": "body"
@@ -207,7 +184,6 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "create success"},
-                        "403": {"description": "create fail, typeData is not correct"},
                         "404": {"description": "Exception"},
                     },
                     "x-codegen-request-body-name": "body"
@@ -264,27 +240,71 @@ const swaggerJsonData =
                         "address":     {"type": "string"},
                         "province":    {"type": "string"},
                         "district":    {"type": "string"},
+                        "latitude":    {"type": "string"},
+                        "longitude":   {"type": "string"},
+                        "area":        {"type": "number"},
                         "description": {"type": "string"},
                         "available":   {"type": "number"},
+                        "rooms":[{
+                        "_id":         {"type": "string"},
+                        "name":        {"type": "string"},
+                        "price":       {"type": "number"},
                         "area":        {"type": "number"},
+                        "available":   {"type": "number"}
+                        }],
+                        "services":[{
+                        "_id":         {"type": "string"},    
+                        "name":        {"type": "string"},
                         "pricePerUnit":{"type": "number"},
-                        "personServe": {"type": "number"}
-                    }
-                },
-                "DeleteHomestays":{
-                    "type": "object", "properties":{
-                        "_id":         {"type": "string"}, 
+                        "personServe": {"type": "number"}    
+                        }],
+                        "generalServices":[{
+                        "_id":         {"type": "string"},
+                        "name":        {"type": "string"},
+                        }],
+                        "signatures":[{
+                        "_id":         {"type": "string"},
+                        "type":        {"type": "number"},
+                        }],
+                        "amenities":[{
+                        "_id":         {"type": "string"},
+                        "name":        {"type": "string"},
+                        "type":        {"type": "number"},
+                        }],
+                        "photos":[{
+                        "_id":         {"type": "string"},
+                        "url":         {"type": "string"}
+                        }]
                     }
                 },
                 "CreateHomestay":{
                     "type": "object", "properties":{
                         "_id":         {"type": "string"},
+                        "rooms":[{
                         "name":        {"type": "string"},
                         "price":       {"type": "number"},
-                        "pricePerUnit":{"type": "number"},
-                        "personServe": {"type": "number"},
-                        "type":        {"type": "number"},
                         "area":        {"type": "number"},
+                        "available":   {"type": "number"}
+                        }],
+                        "services":[{    
+                        "name":        {"type": "string"},
+                        "pricePerUnit":{"type": "number"},
+                        "personServe": {"type": "number"}    
+                        }],
+                        "generalServices":[{
+                        "name":        {"type": "string"},
+                        }],
+                        "signatures":[{
+                        "type":        {"type": "number"},
+                        }],
+                        "amenities":[{
+                        "_idRoom":     {"type": "string"},
+                        "name":        {"type": "string"},
+                        "type":        {"type": "number"},
+                        }],
+                        "photos":[{
+                        "url":         {"type": "string"}
+                        }]
                     }
                 }
 
