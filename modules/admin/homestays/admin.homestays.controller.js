@@ -3,79 +3,40 @@ const UpdateServices = require('./admin.homestays.service');
 const {db} = require("../../../helpers/dbHelper");
 
 //Sửa thông tin homestay: name, price, type, adress, provice, district, description, available
-/*************************************************************************************
- *                                                                                   *
- *  - Dữ liệu đầu vào là những trường muốn sửa đổi + _id của Bảng chứa các trường đó *     
- *                                                                                   *
- *  Luồng xử lý của updateHomestay:                                                  *
- *  + Trả về _id và các trường muốn sửa, trường nào để trống coi như không sửa       *
- *  + Hệ thống sẽ tự xử lý và cập nhật vào dataBase                                  *
- *  + Cập nhật thành công hệ thống sẽ thông báo thành công                           *
- *  + Chưa tìm được lỗi ngoại lệ                                                     *
- *                                                                                   *                               
- *************************************************************************************/
 
 exports.updateInformationForHomestay = async (req,res) => {
     try{
-        //Dữ liệu homestays mới lấy từ request
-        const data = req.body;
-        let modifiedCount=0;
-        //Update cho homestays 
-        const modifiedCount1 = await UpdateServices.updateHomestaysById(data);
-        //Update cho services
-        let modifiedCount2 = 0;
-        if(typeof(data.services) !== "undefined" && data.services.length !== 0){
-            for(let i=0;i<data.services.length;i++){
-            let count = await UpdateServices.updateServicesById(data.services[i]);   
-            modifiedCount2 +=count;
-            }
+    //Dữ liệu homestays mới lấy từ request
+        const data= req.body;
+
+    //Update cho homestays 
+        await UpdateServices.updateHomestaysById(data);
+
+    //Update cho services
+        if(typeof( data.services ) !== "undefined" && data.services.length !== 0){
+            const Index = await UpdateServices.updateServicesById(data);
         }
-        //Update cho generalServices
-        let modifiedCount3 = 0;
-        if(typeof(data.generalServices) !== "undefined" && data.generalServices.length !== 0){
-            for(let i=0;i<data.generalServices.length;i++){
-            let count = await UpdateServices.updateGeneralServicesById(data.generalServices[i]);   
-            modifiedCount3 +=count;
-            }
+
+    // Update cho generalServices
+        if(typeof( data.generalServices ) !== "undefined" && data.generalServices.length !== 0){
+            await UpdateServices.updateGeneralServicesById(data);
         }
-        //Update cho Rooms
-        let modifiedCount4 = 0;
-        if(typeof(data.rooms) !== "undefined" && data.rooms.length !== 0){
-            for(let i = 0; i < data.rooms.length; i++){
-            let count = await UpdateServices.updateRoomsById(data.rooms[i]);   
-            modifiedCount4 +=count;
+        
+    //Update cho Amemities
+        if( typeof( data.amenities ) !== "undefined" && data.amenities.length !== 0){
+            await UpdateServices.updateAmenitiesById(data);
             }
-        }
-        //Update cho Signatures
-        let modifiedCount5 = 0;
-        if(typeof(data.signatures) !== "undefined" && data.signatures.length !== 0){
-            for(let i = 0;i < data.signatures.length; i++){
-            let count = await UpdateServices.updateSignaturesById(data.signatures[i]);   
-            modifiedCount5 +=count;
+        
+    //Update cho Photos
+        if(typeof( data.photos ) !== "undefined" && data.photos.length !== 0){
+            await UpdateServices.updatePhotosById(data);
             }
-        }
-        //Update cho Amemities
-        let modifiedCount6 = 0;
-        if( typeof(data.amenities) !== "undefined" && data.amenities.length !== 0){
-            for(let i = 0; i < data.amenities.length;i++){
-            let count = await UpdateServices.updateAmenitiesById(data.amenities[i]);   
-            modifiedCount6 +=count;
-            }
-        }
-        //Update cho Photos
-        let modifiedCount7 = 0;
-        if(typeof(data.photos) !== "undefined" && data.photos.length !== 0){
-            for(let i = 0;i < data.photos.length; i++){
-            let count = await UpdateServices.updatePhotosById(data.photos[i]);   
-            modifiedCount7 +=count;
-            }
-        }
-        modifiedCount = modifiedCount1+modifiedCount2+modifiedCount3+modifiedCount4+modifiedCount5+modifiedCount6+modifiedCount7;
-        return res.status(200).json({
-            success: true,
-            message: "Update success",
-            content: "Số trường đã bị thay đổi: " + modifiedCount
-    })
+
+            return res.status(200).json({
+                success: true,
+                message: "Update success",
+                content: ""
+        })
     }
     catch(Error){
         //Lỗi không xác định
@@ -101,7 +62,7 @@ exports.updateInformationForHomestay = async (req,res) => {
 exports.createInformationForHomestay = async (req,res) => {
     try{
         //Lấy về dữ liệu trong body của request
-        const data = req.body;
+        constdata= req.body;
         if(typeof(data._id) == "undefined" || data._id === ""){
             return res.status(403).json({
                 success: false,
