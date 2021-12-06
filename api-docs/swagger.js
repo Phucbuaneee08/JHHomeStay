@@ -162,6 +162,11 @@ const swaggerJsonData =
                             "schema": {"type": "string"},
                             "require": false},
                         {
+                            "name": "averageRates",
+                            "in": "query",
+                            "schema": {"type": "number"},
+                            "require": false},
+                        {
                             "name": "amenities",
                             "in": "query",
                             "schema":{
@@ -184,22 +189,17 @@ const swaggerJsonData =
                             },
                             "require": false},
                         {
-                            "name": "lowPrice",
+                            "name": "minPrice",
                             "in": "query",
                             "schema": {"type": "number"},
                             "require": false},
                         {
-                            "name": "highPrice",
+                            "name": "maxPrice",
                             "in": "query",
                             "schema": {"type": "number"},
                             "require": false},
                         {
-                            "name": "slide",
-                            "in": "query",
-                            "schema": {"type": "number"},
-                            "require": false},
-                        {
-                            "name": "rate",
+                            "name": "slice",
                             "in": "query",
                             "schema": {"type": "number"},
                             "require": false},

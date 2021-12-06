@@ -76,7 +76,6 @@ HomestaysSeed = async function () {
                     createdAt: new Date("12/08/2019")
                 },
             ],
-            averageRate: 4.3
         },
         {
             name: "Scenia Bay Residences Nha Trang",
@@ -98,7 +97,6 @@ HomestaysSeed = async function () {
                     createdAt: new Date("01/01/2019")
                 },
             ],
-            averageRate: 4.5
         },
         {
             name: "Wonderland 24H Apartments",
@@ -120,7 +118,6 @@ HomestaysSeed = async function () {
                     createdAt: new Date("12/12/2018")
                 },
             ],
-            averageRate: 4.6
         },
         {
             name: "Shoho Hotel Nha Trang",
@@ -142,7 +139,6 @@ HomestaysSeed = async function () {
                     createdAt: new Date("12/01/2020")
                 },
             ],
-            averageRate: 4.3
         },
         {
             name: "Diamond Villa",
@@ -164,7 +160,6 @@ HomestaysSeed = async function () {
                     createdAt: new Date("01/08/2018")
                 },
             ],
-            averageRate: 3.9
         },
         {
             name: "Relaxing 2 BR Apartment",
@@ -186,7 +181,6 @@ HomestaysSeed = async function () {
                     createdAt: new Date("12/12/2020")
                 },
             ],
-            averageRate: 4.9
         },
         {
             name: "Paralia Nha Trang",
@@ -208,7 +202,6 @@ HomestaysSeed = async function () {
                     createdAt: new Date("11/11/2018")
                 },
             ],
-            averageRate: 4.8
         },
         {
             name: "LeJardin De Papa",
@@ -230,7 +223,6 @@ HomestaysSeed = async function () {
                     createdAt: new Date("01/02/2019")
                 },
             ],
-            averageRate: 4.6
         },
         {
             name: "Oriana Villa Đà Lạt 102",
@@ -252,7 +244,6 @@ HomestaysSeed = async function () {
                     createdAt: new Date("12/08/2019")
                 },
             ],
-            averageRate: 4.7
         },
         {
             name: "Le Petit Prince",
@@ -273,7 +264,6 @@ HomestaysSeed = async function () {
                     createdAt: new Date("01/10/2021")
                 },
             ],
-            averageRate: 4.2
         },
         {
             name: "Nhà Mình homestay",
@@ -282,7 +272,6 @@ HomestaysSeed = async function () {
             address:"Đà Lạt, Lâm Đồng, Việt Nam",
             province:"Lâm Đồng",
             district:"Đà Lạt",
-            averageRate: 4.3
         },
         {
             name: "Cối Xay Gió Homestay and Coffee",
@@ -291,7 +280,6 @@ HomestaysSeed = async function () {
             address:"Đà Lạt, Lâm Đồng, Việt Nam",
             province:"Lâm Đồng",
             district:"Đà Lạt",
-            averageRate: 4.1
         },
         {
             name: "Blue Light - Villa",
@@ -300,7 +288,6 @@ HomestaysSeed = async function () {
             address:"Đà Lạt, Lâm Đồng, Việt Nam",
             province:"Lâm Đồng",
             district:"Đà Lạt",
-            averageRate: 4.2
         },
         {
             name: "H-Long Hotel Dalat",
@@ -309,7 +296,6 @@ HomestaysSeed = async function () {
             address:"Đà Lạt, Lâm Đồng, Việt Nam",
             province:"Lâm Đồng",
             district:"Đà Lạt",
-            averageRate: 4.3
         },
         {
             name: "RỐN STUDIO",
@@ -318,7 +304,6 @@ HomestaysSeed = async function () {
             address:"Đà Lạt, Lâm Đồng, Việt Nam",
             province:"Lâm Đồng",
             district:"Đà Lạt",
-            averageRate: 4.4
         },
         // minh
         {
@@ -328,7 +313,6 @@ HomestaysSeed = async function () {
             address: "Thạch Thất, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Thạch Thất",
-            averageRate: 4.5
         }, {
             name: "Villas",
             price: 4999000,
@@ -336,7 +320,6 @@ HomestaysSeed = async function () {
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Ba Vì",
-            averageRate: 4.6
         }, {
             name: "Stream House",
             price: 9500000,
@@ -344,7 +327,6 @@ HomestaysSeed = async function () {
             address: "Sóc Sơn, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Sóc Sơn",
-            averageRate: 4.7
         }, {
             name: "1001 Lakeside Villas",
             price: 4900000,
@@ -352,7 +334,6 @@ HomestaysSeed = async function () {
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Ba Vì",
-            averageRate: 4.8
         }, {
             name: "Biệt thự hoa hồng BT4",
             price: 4699000,
@@ -360,7 +341,6 @@ HomestaysSeed = async function () {
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Ba Vì",
-            averageRate: 4.9
         }, {
             name: "Embossi Garden",
             price: 4000000,
@@ -368,7 +348,6 @@ HomestaysSeed = async function () {
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Ba Vì",
-            averageRate: 5.0
         }, {
             name: "Sóc Sơn Riverside",
             price: 4500000,
@@ -376,7 +355,6 @@ HomestaysSeed = async function () {
             address: "Sóc Sơn, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Sóc Sơn",
-            averageRate: 4.9
         }, {
             name: "Storm Villa",
             price: 4500000,
@@ -384,7 +362,6 @@ HomestaysSeed = async function () {
             address: "Sóc Sơn, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Sóc Sơn",
-            averageRate: 4.8
         }, {
             name: "The Moonlight",
             price: 4500000,
@@ -392,7 +369,6 @@ HomestaysSeed = async function () {
             address: "Sóc Sơn, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Sóc Sơn",
-            averageRate: 4.7
         }, {
             name: "Choai Villa Sóc Sơn",
             price: 4500000,
@@ -400,7 +376,6 @@ HomestaysSeed = async function () {
             address: "Sóc Sơn, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Sóc Sơn",
-            averageRate: 4.6
         }, {
             name: "BAVI Padme Home",
             price: 4500000,
@@ -408,7 +383,6 @@ HomestaysSeed = async function () {
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Ba Vì",
-            averageRate: 4.5
         }, {
             name: "MARS NNM",
             price: 4500000,
@@ -416,7 +390,6 @@ HomestaysSeed = async function () {
             address: "Thạch Thất, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Thạch Thất",
-            averageRate: 4.4
         }, {
             name: "Xanh Villa 04",
             price: 4500000,
@@ -424,7 +397,6 @@ HomestaysSeed = async function () {
             address: "Thạch Thất, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Thạch Thất",
-            averageRate: 4.3
         }, {
             name: "Rose villa",
             price: 4000000,
@@ -432,7 +404,6 @@ HomestaysSeed = async function () {
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Ba Vì",
-            averageRate: 4.2
         }, {
             name: "An Vui Cottage 19",
             price: 4000000,
@@ -440,7 +411,6 @@ HomestaysSeed = async function () {
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Ba Vì",
-            averageRate: 4.1
         },
         // Hoang
         {
@@ -450,7 +420,6 @@ HomestaysSeed = async function () {
             address: "Đà Lạt, Lâm Đồng, Vietnam ",
             province: "Lâm Đồng",
             district: "Đà Lạt",
-            averageRate: 4.0
         }, {
             name: "Luxury Villa in supercentral",
             price: 2050000,
@@ -458,7 +427,6 @@ HomestaysSeed = async function () {
             address: "Hải Châu, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
             district: "Hải Châu",
-            averageRate: 3.9
         }, {
             name: "Icity Villa Riverfront Danang",
             price: 8500000,
@@ -466,7 +434,6 @@ HomestaysSeed = async function () {
             address: "Hải Châu, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
             district: "Hải Châu",
-            averageRate: 3.8
         }, {
             name: "Kaia Residence - Private Terrace - Secret Garden",
             price: 1140000,
@@ -474,7 +441,6 @@ HomestaysSeed = async function () {
             address: "Hải Châu, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
             district: "Hải Châu",
-            averageRate: 3.7
         }, {
             name: "Ocean View Home 2736",
             price: 1500000,
@@ -482,7 +448,6 @@ HomestaysSeed = async function () {
             address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
             district: "Ngũ Hành Sơn",
-            averageRate: 3.6
         }, {
             name: "T P Villa",
             price: 3500000,
@@ -490,7 +455,6 @@ HomestaysSeed = async function () {
             address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
             district: "Ngũ Hành Sơn",
-            averageRate: 3.5
         }, {
             name: "MAI VILLA DA NANG",
             price: 699000,
@@ -498,7 +462,6 @@ HomestaysSeed = async function () {
             address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
             district: "Ngũ Hành Sơn",
-            averageRate: 4.1
         }, {
             name: "Muong Thanh Apartment Sea View",
             price: 800000,
@@ -506,7 +469,6 @@ HomestaysSeed = async function () {
             address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
             district: "Ngũ Hành Sơn",
-            averageRate: 4.2
         }, {
             name: "Suit family apartment",
             price: 850000,
@@ -514,7 +476,6 @@ HomestaysSeed = async function () {
             address: "Hải Châu, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
             district: "Hải Châu",
-            averageRate: 4.3
         }, {
             name: "Tropical House Apartment",
             price: 730000,
@@ -522,7 +483,6 @@ HomestaysSeed = async function () {
             address: "Sơn Trà, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
             district: "Sơn Trà",
-            averageRate: 4.4
         }, {
             name: "Top Hotel Apartment",
             price: 650000,
@@ -530,7 +490,6 @@ HomestaysSeed = async function () {
             address: "Sơn Trà, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
             district: "Sơn Trà",
-            averageRate: 4.5
         }, {
             name: "Bong Villa",
             price: 3300000,
@@ -538,7 +497,6 @@ HomestaysSeed = async function () {
             address: "Sơn Trà, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
             district: "Sơn Trà",
-            averageRate: 4.6
         }, {
             name: "Rolex",
             price: 1700000,
@@ -546,7 +504,6 @@ HomestaysSeed = async function () {
             address: "Hải Châu, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
             district: "Hải Châu",
-            averageRate: 4.7
         }, {
             name: "ARITA RIVERA",
             price: 1300000,
@@ -554,7 +511,6 @@ HomestaysSeed = async function () {
             address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
             district: "Ngũ Hành Sơn",
-            averageRate: 4.8
         },{
             name: "B245 VILLA VUNG TAU",
             price: 5500000,
@@ -562,7 +518,6 @@ HomestaysSeed = async function () {
             address: "Vũng Tàu, Bà Rịa Vũng Tàu, Vietnam",
             province: "Bà Rịa Vũng Tàu",
             district: "Vũng Tàu",
-            averageRate: 4.9
         },
         //Nhat
         {
@@ -572,7 +527,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.8
         },{
             name: "Hai Au Boutique",
             price: 750000,
@@ -580,7 +534,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.7
         },{
             name: "De An Hoi An",
             price: 560000,
@@ -588,7 +541,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.6
         },{
             name: "Mali Villa",
             price: 3000000,
@@ -596,7 +548,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.5
         },{
             name: "Ancient River Villa",
             price: 400000,
@@ -604,7 +555,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.4
         },{
             name: "Dao Tien homestay",
             price: 550000,
@@ -612,7 +562,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.3
         },{
             name: "La Vista Villa Hoi An",
             price: 320000,
@@ -620,7 +569,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.2
         },{
             name: "ABA TRAVEL VILLA",
             price: 380000,
@@ -628,7 +576,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.1
         },{
             name: "Bespoke Villa",
             price: 350000,
@@ -636,7 +583,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.0
         },{
             name: "Double Luxury Room",
             price: 400000,
@@ -644,7 +590,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.1
         },{
             name: "Santori Homestay",
             price: 5000000,
@@ -652,7 +597,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.2
         },{
             name: "Flame Flowers Homestay",
             price: 480000,
@@ -660,7 +604,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.3
         },{
             name: "YLANG GARDEN VILLA",
             price: 9000000,
@@ -668,7 +611,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.4
         },{
             name: "Open Balcony",
             price: 500000,
@@ -676,7 +618,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.5
         },{
             name: "Hoi An Majestic villa",
             price: 850000,
@@ -684,7 +625,6 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-            averageRate: 4.6
         }
     ]);
 
@@ -920,8 +860,3 @@ HomestaysSeed = async function () {
     await db.close();
 }
 
-HomestaysSeed().then(() => {
-    console.log("Homestays seed ok!!")
-}).catch(error => {
-    console.log(error)
-});

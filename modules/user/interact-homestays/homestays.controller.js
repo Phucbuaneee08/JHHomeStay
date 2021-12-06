@@ -4,7 +4,6 @@ exports.getRankingHomestays = async (req, res) => {
     try {
         const { quantity } = req.query;
         const homestays = await HomestaysService.getRankingHomestays(quantity);
-
         res.status(200).json({
             success: true,
             messages: ["get_ranking_homestays_success"],
@@ -62,37 +61,43 @@ exports.getHomestayById = async (req, res) => {
 }
 
 exports.getHomestayByFilter = async (req, res) => {
-
     try {
         // Lấy thông tin filter ở query parameters: province, type, lowPrice, highPrice, các mảng amenities và generalServices
         const data = req.query;
+
         const province = (data.province)?data.province:null;
         const type = (data.type)?data.type:null;
-        const rate = (data.rate)?data.rate:0;
-        const lowPrice = (data.lowPrice)?data.lowPrice:null;
-        const highPrice = (data.highPrice)?data.highPrice:null;
-        const amenitiesArray = (data.amenities)?data.amenities: null;
-        const generalServicesArray = (data.generalServices)?data.generalServices: null;
+        const averageRates = (data.averageRates)?data.averageRates:0;
+        const minPrice = (data.minPrice)?data.minPrice:null;
+        const maxPrice = (data.maxPrice)?data.maxPrice:null;
+        const amenities = (data.amenities)?data.amenities: null;
+        const generalServices = (data.generalServices)?data.generalServices: null;
 
         //Lấy số hiệu slide trả về, ban đầu auto là 1.
-        const slide = (data.slide)?data.slide:0;
-
-        //Từ mảng amenities và generalServices đã lấy được từ query parameter, lấy các documents cần thiết
-        const amenities = await HomestaysService.getAmenitiesByID(amenitiesArray);
-        const generalServices = await HomestaysService.getGeneralServiceByID(generalServicesArray);
+        const slice = (data.slice)?data.slice:0;
 
         // Truy xuất cơ sở dữ liệu bằng filter để lấy mảng homestays
-        let homestayArray = await HomestaysService.getHomestayByFilter(province, type, rate, lowPrice, highPrice, generalServices, amenities, slide);
+        let homestayArray = (await HomestaysService.getHomestayByFilter(province, type, averageRates, minPrice, maxPrice, generalServices, amenities, slice)).homestays;
+        let sliceTotal = (await HomestaysService.getHomestayByFilter(province, type, averageRates, minPrice, maxPrice, generalServices, amenities, slice)).sliceTotal;
+
         // Nếu thành công trả lại res 200 và toàn bộ thông tin các homestay
-        return res.status(200).json({
+        if (sliceTotal === 0) {
+            return res.status(400).json({
+                success: true,
+                content: sliceTotal,
+                message : "No slice"
+            })
+        }
+        else return res.status(200).json({
             success: true,
-            content: homestayArray
+            content: { homestays: homestayArray, sliceTotal : sliceTotal },
+            message: sliceTotal + " slice"
         });
     } catch (error) {
         // Nếu ko thành công -> 404
         return res.status(404).json({
             success: false,
-            message: Array.isArray(error) ? error : "No homestays can be found by this filter",
+            message: Array.isArray(error) ? error : "Some error founded!",
             content: error
         });
     }
