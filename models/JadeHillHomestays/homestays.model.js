@@ -13,7 +13,7 @@ const HomestaysSchema = new Schema(
             type: Number,
             required: true
         },
-        type: { // Loại homestay
+        type: { // Loại homestay -> đổi thành 1 collection
             type: String,
             required: true
         },
@@ -66,17 +66,9 @@ const HomestaysSchema = new Schema(
                 },
             },
         ],
-        available: { // Số lượng phòng còn trống
+        available: { // Trạng thái của homestays
             type: Number
         },
-        rooms: [{ // Danh sách Id định danh rooms
-            type: Schema.Types.ObjectId,
-            ref: 'Rooms',
-        }],
-        signatures: [{
-            type: Schema.Types.ObjectId,
-            ref: 'Signatures'
-        }],
         amenities:[{
             type:Schema.Types.ObjectId,
             ref:'Amenities'
@@ -89,7 +81,7 @@ const HomestaysSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'GeneralServices'
         }],
-        admin:[ {
+        admin:[{
             type: Schema.Types.ObjectId,
             ref: 'Users'
         }],

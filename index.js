@@ -39,12 +39,12 @@ const router = express.Router();
 router.use( "/auth", require("./modules/auth/auth.route"));
 
 // Trỏ tới router ở file information-homestays
-router.use( "/homestays", require("./modules/user/interact-homestays/homestays.route"));
+router.use( "/homestays", require("./modules/user/homestays/user.homestays.route"));
 
 // Trỏ tới router ở file booking-homestays
-router.use("/admin", require("./modules/admin/bills/bills.route"));
+router.use("/admin", require("./modules/admin/bills/admin.bills.route"));
 // api docs here
-router.use('/admins',require('./modules/admin/update-homestays/update.router'))
+router.use('/admins',require('./modules/admin/homestays/admin.homestays.route'))
 
 router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsonData));
 app.use(router);

@@ -1,4 +1,4 @@
-const HomestaysService = require('./homestays.service');
+const HomestaysService = require('./user.homestays.service');
 
 exports.getRankingHomestays = async (req, res) => {
     try {

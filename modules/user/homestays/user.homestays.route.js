@@ -1,5 +1,5 @@
 const express = require("express");
-const HomestaysController = require("./homestays.controller");
+const HomestaysController = require("./user.homestays.controller");
 const router = express.Router();
 
 // Chức năng đánh giá homestays

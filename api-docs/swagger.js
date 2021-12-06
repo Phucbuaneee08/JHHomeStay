@@ -215,8 +215,8 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 }
             },
-            "/admins/updateInformationForHomestays":{
-                "post": {
+            "/admins/update/homestays":{
+                "put": {
                     "tags": ["Admin"],
                     "summary":"Update information in Homestays with _id",
                     "opertationId":"updateHomestays",
@@ -235,9 +235,29 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 },
             },
-            "/admin/bills-of-admin/{id}": {
+            "/admins/create/homestays":{
+                "post": {
+                    "tags": ["Admin"],
+                    "summary":"Create information in Homestays with _id",
+                    "opertationId":"updateHomestays",
+                    "parameters":[],
+                    "requestBody": {
+                        "description": "Nhập tất cả các trường đơn của bản ghi muốn tao",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/UpdateHomestay"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/UpdateHomestay"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Update success"},
+                        "404": {"description": "Exception"},
+                    },
+                    "x-codegen-request-body-name": "body"
+                },
+            },
+            "/admins/bills-of-admin/{id}": {
                 "get": {
-                    "tags": ["Bills"],
+                    "tags": ["Admin"],
                     "summary": "Get bills of admin by admin 's id",
                     "operationId": "getBillsOfAdmin",
                     "parameters": [{

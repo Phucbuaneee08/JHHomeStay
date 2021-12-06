@@ -11,7 +11,7 @@ exports.getBillsByAdminId = async (id) => {
     *  để trả lại cho client, vì trường bill lúc này là mảng các ObjectId nên phải populate
     *  để thay thế các id đó bằng thông tin cụ thể của bills
     */
-    return await Homestays(db).find(
+    return Homestays(db).find(
         {
             admin: id
         }, {

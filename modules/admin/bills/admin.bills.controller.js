@@ -1,4 +1,4 @@
-const BillsService = require('./bills.service');
+const BillsService = require('./admin.bills.service');
 
 //API trả về danh sách các bills theo admin (gửi về bills của các homestays mà admin X có)
 exports.getBillsByAdminId = async (req, res) => {
