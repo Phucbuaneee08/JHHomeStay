@@ -6,18 +6,18 @@ const RoomsSchema= new Schema({
         type: String,
         required: true
     },
-    price :{
-        type: Number,
-        required: true
-    },
+    // price :{ Không cần trường này nữa vì mình thực hiện đặt theo homestays
+    //     type: Number,
+    //     required: true
+    // },
     area : {
         type: Number,
         required: true
     },
-    available: {
-        type: Number, //1 cho chua co nguoi dat, 2 cho dang co nguoi dat, 3 cho da co nguoi dat//
-        required: true
-    },
+    // available: { Không cần trường này nữa vì mình thực hiện đặt theo homestays
+    //     type: Number, //1 cho chua co nguoi dat, 2 cho dang co nguoi dat, 3 cho da co nguoi dat//
+    //     required: true
+    // },
     homestays: {
         type: Schema.Types.ObjectId,
         required: false

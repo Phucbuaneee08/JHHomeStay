@@ -100,6 +100,10 @@ const HomestaysSchema = new Schema(
         photos: [{
             type: Schema.Types.ObjectId,
             ref: 'Photos'
+        }],
+        bills: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Bills'
         }]
     },
     {toJSON: { virtuals: true },

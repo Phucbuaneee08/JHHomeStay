@@ -211,6 +211,26 @@ const swaggerJsonData =
                     },
                     "x-codegen-request-body-name": "body"
                 }
+            },
+            "/admin/bills-of-admin/{id}": {
+                "get": {
+                    "tags": ["Bills"],
+                    "summary": "Get bills of admin by admin 's id",
+                    "operationId": "getBillsOfAdmin",
+                    "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nhập id của admin cần lấy ra danh sách các bills",
+                        "schema": {"type": "string"},
+                        "require": true
+                    }],
+                    "requestBody": [],
+                    "responses": {
+                        "200": {"description": "lấy dữ liệu thành công "},
+                        "404": {"description": "admin 's id không đúng ", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
             }
         },
         "components": {

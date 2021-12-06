@@ -1,5 +1,6 @@
-const {Homestays, Photos, GeneralServices, Services, Amenities} = require("../models");
+const {Homestays, Photos, GeneralServices, Services, Amenities, Bills, Users} = require("../models");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 let dbConnect = () => {
     let connectOptions = process.env.DB_AUTHENTICATION === 'true' ?
@@ -50,6 +51,18 @@ HomestaysSeed = async function () {
 
     GeneralServices(db).deleteMany().then(function () {
         console.log("GeneralServices is cleared");
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+    Bills(db).deleteMany().then(function () {
+        console.log("Bills is cleared");
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+    Users(db).deleteMany().then(function () {
+        console.log("user data is cleared");
     }).catch(function (error) {
         console.log(error);
     });
@@ -725,16 +738,16 @@ HomestaysSeed = async function () {
     // Hiện tại đang seed dữ liệu kiểu 1 - 1 , sau sẽ chỉnh lại thành 1 - n sau
     for(let i = 0; i < generalServicesName.length; i++) {
         let generalServicesID = new Array();
-        for (let j = 0; j < 25; j ++) {
-            generalServicesID[j]= homestays[i+j*2]._id;
+        for (let j = 0; j < 25; j++) {
+            generalServicesID[j] = homestays[i + j * 2]._id;
         }
         let generalServices = await GeneralServices(db).create({
             name: generalServicesName[i],
             homestays: generalServicesID,
         })
         // cập nhật _id của generalService vào homestays
-        for (let j = 0; j < 25; j ++) {
-            await Homestays(db).findByIdAndUpdate(homestays[i+j*2]._id,
+        for (let j = 0; j < 25; j++) {
+            await Homestays(db).findByIdAndUpdate(homestays[i + j * 2]._id,
                 {$push: {generalServices: generalServices._id}})
         }
     }
@@ -804,40 +817,40 @@ HomestaysSeed = async function () {
     }
 
     /** danh sách amenities phải đúng thứ tự với danh sách homestays ở trên */
-    //Tạo dữ liệu các Amenities
+        //Tạo dữ liệu các Amenities
     let amenitiesName = [
-        { // Làm 10 cái như này
-            name:"Wifi",
-            type:"Tiện ích",
-        },{ // Làm 10 cái như này
-            name:"Tivi",
-            type:"Tiện ích",
-        },{ // Làm 10 cái như này
-            name:"Dầu gội, dầu xả",
-            type:"Tiện ích",
-        },{ // Làm 10 cái như này
-            name:"Khăn tắm",
-            type:"Tiện ích",
-        },{ // Làm 10 cái như này
-            name:"Kem đánh răng",
-            type:"Tiện ích",
-        },{ // Làm 10 cái như này
-            name:"Xà phòng tắm",
-            type:"Tiện ích",
-        },{ // Làm 10 cái như này
-            name:"Máy sấy",
-            type:"Tiện ích",
-        },{ // Làm 10 cái như này
-            name:"Bếp điện",
-            type:"Tiện ích bếp",
-        },{ // Làm 10 cái như này
-            name:"Tủ lạnh",
-            type:"Tiện ích bếp",
-        },{ // Làm 10 cái như này
-            name:"Ban công",
-            type:"Tiện ích bếp",
-        }
-    ]
+            { // Làm 10 cái như này
+                name:"Wifi",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Tivi",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Dầu gội, dầu xả",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Khăn tắm",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Kem đánh răng",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Xà phòng tắm",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Máy sấy",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Bếp điện",
+                type:"Tiện ích bếp",
+            },{ // Làm 10 cái như này
+                name:"Tủ lạnh",
+                type:"Tiện ích bếp",
+            },{ // Làm 10 cái như này
+                name:"Ban công",
+                type:"Tiện ích bếp",
+            }
+        ]
     // Gán theo thứ tự các Amenities cho các homestay
     // Hiện tại đang seed dữ liệu kiểu 1 - 1 , sau sẽ chỉnh lại thành 1 - n sau
     for(let i = 0; i < amenitiesName.length; i++) {
@@ -857,6 +870,118 @@ HomestaysSeed = async function () {
         }
 
     }
+
+    let usersInfo = [
+        {
+            status: 1,
+            email: 'minh@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'hoang@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'nhat@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'tu@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        }
+    ];
+
+    // Hiện tại là gán 1 admin - 1 homestay
+    for(let i = 0; i < usersInfo.length; i++) {
+        let user = await Users(db).create({
+            status: usersInfo[i].status,
+            email: usersInfo[i].email,
+            password: usersInfo[i].password,
+            role: usersInfo[i].role,
+            homestays: homestays[i]._id,
+        })
+        // cập nhật _id của user vào homestays
+        for (let j = 0; j < 12; j ++) {
+            await Homestays(db).findByIdAndUpdate(homestays[i * 12 + j ]._id,
+                {$push: {admin: user._id}})
+        }
+    }
+
+    let billsInfo = [
+        {
+            customerName: "Phạm Công Minh",
+            customerIdentification: '1234124523124',
+            customerEmail: 'minh@gmail.com',
+            customerPhoneNumber: '025963563245',
+            checkinDate: new Date("11/11/2021"),
+            checkoutDate: new Date("12/11/2021"),
+            price: 15000000,
+            active: 1,
+        } ,
+        {
+            customerName: "Nguyễn Thế Nhật",
+            customerIdentification: '1234124523124',
+            customerEmail: 'nhat@gmail.com',
+            customerPhoneNumber: '025963563245',
+            checkinDate: new Date("11/8/2021"),
+            checkoutDate: new Date("11/26/2021"),
+            price: 2000000,
+            active: 1,
+        } ,
+        {
+            customerName: "Nguyễn Ngọc Tú",
+            customerIdentification: '1234124523124',
+            customerEmail: 'tu@gmail.com',
+            customerPhoneNumber: '025963563245',
+            checkinDate: new Date("11/6/2021"),
+            checkoutDate: new Date("11/23/2021"),
+            price: 34500000,
+            active: 1,
+        } ,
+        {
+            customerName: "Phạm Việt Hoàng",
+            customerIdentification: '1234124523124',
+            customerEmail: 'hoang@gmail.com',
+            customerPhoneNumber: '025963563245',
+            checkinDate: new Date("11/2/2021"),
+            checkoutDate: new Date("11/5/2021"),
+            price: 56300000,
+            active: 1,
+        }
+    ]
+
+    // Hiện tại là gán 1 homestay - 1 bill
+    for(let i = 0; i < billsInfo.length; i++) {
+        let bill = await Bills(db).create({
+            customerName: billsInfo[i].customerName,
+            customerIdentification: billsInfo[i].customerIdentification,
+            customerEmail: billsInfo[i].customerEmail,
+            customerPhoneNumber: billsInfo[i].customerPhoneNumber,
+            checkinDate: billsInfo[i].checkinDate,
+            checkoutDate: billsInfo[i].checkoutDate,
+            price: billsInfo[i].price,
+            active: billsInfo[i].active,
+            homestay: homestays[i]._id,
+        })
+        // cập nhật _id của user vào homestays
+        for (let j = 0; j < 12; j ++) {
+            await Homestays(db).findByIdAndUpdate(homestays[i * 12 + j ]._id,
+                {$push: {bills: bill._id}})
+        }
+    }
+
     await db.close();
 }
 
+HomestaysSeed().then(() => {
+    console.log("Homestays seed ok!!")
+}).catch(error => {
+    console.log(error)
+});
