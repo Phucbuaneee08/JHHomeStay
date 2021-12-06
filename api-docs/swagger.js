@@ -41,6 +41,9 @@ const swaggerJsonData =
         "tags": [ {
             "name": "Authentication",
             "description": "Api module Authentication"
+        },{
+            "name":"Admin",
+            "description": "Api module Admin"
         }],
         "paths": {
             "/auth/login": {
@@ -293,7 +296,155 @@ const swaggerJsonData =
                             }
                         }
                     }
+                },
+                "UpdateHomestay":{
+                    "type": "object", "properties":{
+                        "_id":         {"type": "string"},
+                        "name":        {"type": "string"},
+                        "price":       {"type": "number"},
+                        "type":        {"type": "string"},
+                        "address":     {"type": "string"},
+                        "province":    {"type": "string"},
+                        "district":    {"type": "string"},
+                        "latitude":    {"type": "string"},
+                        "longitude":   {"type": "string"},
+                        "area":        {"type": "number"},
+                        "description": {"type": "string"},
+                        "available":   {"type": "number"},
+                        "rooms":{
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "_id":         {"type": "string"},
+                                    "name":        {"type": "string"},
+                                    "price":       {"type": "number"},
+                                    "area":        {"type": "number"},
+                                    "available":   {"type": "number"}
+                                }
+                            }
+                        },
+                        "services":{
+                            "type":"array",
+                            "items": {
+                                "type": "object",
+                                "properties":{
+                                    "_id":         {"type": "string"},
+                                    "name":        {"type": "string"},
+                                    "pricePerUnit":{"type": "number"},
+                                    "personServe": {"type": "number"}
+                                }
+                            }
+                        },
+                        "generalServices":{
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "_id":         {"type": "string"},
+                                    "name":        {"type": "string"},
+                                }
+                            }
+                        },
+                        "signatures":{
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "_id":         {"type": "string"},
+                                    "type":        {"type": "number"},
+                                }
+                            }
+                        },
+                        "amenities":{
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "_id":         {"type": "string"},
+                                    "name":        {"type": "string"},
+                                    "type":        {"type": "string"},
+                                }
+                            }
+                        },
+                        "photos":{
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "_id":         {"type": "string"},
+                                    "url":         {"type": "string"}
+                                }
+                            }
+                        }
+                    }
+                },
+                "CreateHomestay":{
+                    "type": "object", "properties":{
+                        "_id":         {"type": "string"},
+                        "rooms":{
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "name":        {"type": "string"},
+                                    "price":       {"type": "number"},
+                                    "area":        {"type": "number"},
+                                    "available":   {"type": "number"}
+                                }
+                            }
+                        },
+                        "services":{
+                            "type":"array",
+                            "items": {
+                                "type": "object",
+                                "properties":{
+                                    "name":        {"type": "string"},
+                                    "pricePerUnit":{"type": "number"},
+                                    "personServe": {"type": "number"}
+                                }
+                            }
+                        },
+                        "generalServices":{
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "name":        {"type": "string"},
+                                }
+                            }
+                        },
+                        "signatures":{
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "type":        {"type": "number"},
+                                }
+                            }
+                        },
+                        "amenities":{
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "name":        {"type": "string"},
+                                    "type":        {"type": "number"},
+                                }
+                            }
+                        },
+                        "photos":{
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "url":         {"type": "string"}
+                                }
+                            }
+                        }
+                    }
                 }
+
             }, "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}}
         },
         "security": [{"bearerAuth": []}]
