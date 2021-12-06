@@ -69,7 +69,7 @@ exports.updateServicesById = async (data)=>{
     for(let i = 0; i < data.services.length; i++){
         await Homestays(db).findByIdAndUpdate(
             {_id:data._id}, 
-            {$push: {services: data.services[i]._id}}
+            {$push: {services: data.services[i]}}
         )
     }
 }
@@ -81,7 +81,7 @@ exports.updateGeneralServicesById = async (data)=>{
     for(let i = 0; i < data.generalServices.length; i++){
         await Homestays(db).findByIdAndUpdate(
             {_id:data._id}, 
-            {$push: {generalServices: data.generalServices[i]._id}}
+            {$push: {generalServices: data.generalServices[i]}}
         )
     }
 
@@ -94,7 +94,7 @@ exports.updateAmenitiesById = async(data)=>{
     for(let i = 0; i < data.amenities.length; i++){
         await Homestays(db).findByIdAndUpdate(
             {_id:data._id}, 
-            {$push: {amenities: data.amenities[i]._id}}
+            {$push: {amenities: data.amenities[i]}}
         )
     }
 }
@@ -105,7 +105,7 @@ exports.updatePhotosById = async(data)=>{
     for(let i = 0; i < data.photos.length; i++){
         await Homestays(db).findByIdAndUpdate(
             {_id:data._id}, 
-            {$push: {photos: data.photos[i]._id}}
+            {$push: {photos: data.photos[i]}}
         )
     }
 }

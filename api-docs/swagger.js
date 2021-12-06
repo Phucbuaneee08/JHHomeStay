@@ -334,37 +334,24 @@ const swaggerJsonData =
                         "services":{
                             "type":"array",
                             "items": {
-                                "type": "object",
-                                "properties":{
-                                    "_id":         {"type": "string"},
-                                }
+                                "type": "string",
                             }
                         },
                         "generalServices":{
                             "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "_id":         {"type": "string"},
-                                }
+                            "items": {
+                                "type": "string",
                             }
                         },
                         "amenities":{
-                            "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "_id":         {"type": "string"},
-                                }
+                            "items": {
+                                "type": "string",
                             }
                         },
                         "photos":{
                             "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "_id":         {"type": "string"},
-                                }
+                            "items": {
+                                "type": "string",
                             }
                         }
                     }
