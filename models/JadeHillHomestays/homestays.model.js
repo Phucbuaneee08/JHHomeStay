@@ -63,8 +63,8 @@ const HomestaysSchema = new Schema(
                 },
                 createdAt: { // Ngày tạo đánh giá
                     type: Date
-                }
-            }
+                },
+            },
         ],
         available: { // Số lượng phòng còn trống
             type: Number
@@ -76,6 +76,10 @@ const HomestaysSchema = new Schema(
         signatures: [{
             type: Schema.Types.ObjectId,
             ref: 'Signatures'
+        }],
+        amenities:[{
+            type:Schema.Types.ObjectId,
+            ref:'Amenities'
         }],
         services: [{
             type: Schema.Types.ObjectId,
@@ -96,8 +100,23 @@ const HomestaysSchema = new Schema(
         photos: [{
             type: Schema.Types.ObjectId,
             ref: 'Photos'
+        }],
+        bills: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Bills'
         }]
+    },
+    {toJSON: { virtuals: true },
+        toObject: { virtuals: true }});
+
+HomestaysSchema.virtual('averageRates').get(function () {
+    let total = 0, count = 0;
+    this.rates.forEach((rate) => {
+        total += rate.cleanRate + rate.serviceRate + rate.valueRate +  rate.accuracyRate;
+        count++;
     });
+    return total / (count * 4);
+});
 
 module.exports = (db) => {
     if (!db.models.Homestays) {

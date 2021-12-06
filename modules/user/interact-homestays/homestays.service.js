@@ -1,5 +1,8 @@
-const {Homestays} = require("../../../models");
+const {Homestays, Amenities, GeneralServices} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
+const {compare} = require("bcrypt");
+const qty = 16;                             // Số lượng homestays mỗi slice
+
 exports.getRankingHomestays = async (quantity) => {
     const homestays = await Homestays(db).aggregate([
         {
@@ -44,6 +47,14 @@ exports.getRankingHomestays = async (quantity) => {
         },
         {
             $limit: Number(quantity)
+        },
+        {
+            $lookup: {
+                from: "photos",
+                localField: "photos",
+                foreignField: "_id",
+                as: "photos"
+            }
         }
     ]);
     return homestays;
@@ -65,4 +76,45 @@ exports.getHomestayById = async (id) => {
         .populate('services')
         .populate('generalServices')
         .populate('photos');
+}
+
+exports.getHomestayByFilter = async(province, type, averageRates, minPrice, maxPrice, generalServices, amenities, slice) =>  {
+
+    //Chuẩn bị Filter để lọc dữ liệu
+    let keyFilter = {};
+    if (province) {
+        keyFilter = { ...keyFilter, province: {$regex: province},}
+    }
+    if (type) {
+        keyFilter = { ...keyFilter, type: {$regex: type},}
+    }
+    if (generalServices) {
+        keyFilter = { ...keyFilter, generalServices:  {$all: generalServices}}
+    }
+    if (amenities) {
+        keyFilter = { ...keyFilter, amenities: {$all: amenities}}
+    }
+    if (minPrice) {
+        if (maxPrice){
+            keyFilter = {...keyFilter, price: {$gte: minPrice, $lte: maxPrice}}
+        }
+        else {
+            keyFilter = { ...keyFilter, price: {$gte:minPrice}}
+        }
+    }
+    else {
+        if (maxPrice) {
+            keyFilter = {...keyFilter, price: {$lte: maxPrice}}
+        }
+    }
+    //Lọc theo filter và trả về số lượng homestays là 16, theo đúng số homestays mỗi trang cho FE
+    let homestaysDocs =  (await Homestays(db).find(keyFilter).sort({'price': 'desc'})
+        .populate('amenities',"name")
+        .populate('generalServices', "name")
+        .populate('services',"name"));
+
+    let homestaysArray =  homestaysDocs.filter(homestay => homestay.averageRates > averageRates);
+    let sliceTotal = Math.floor(homestaysArray.length / 16) + 1;
+
+    return {homestays: homestaysArray.slice([slice * qty, slice * qty + qty]), sliceTotal : sliceTotal};
 }

@@ -1,5 +1,6 @@
-const {Homestays, Photos, GeneralServices, Services} = require("../models");
+const {Homestays, Photos, GeneralServices, Services, Amenities, Bills, Users} = require("../models");
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 let dbConnect = () => {
     let connectOptions = process.env.DB_AUTHENTICATION === 'true' ?
@@ -22,7 +23,7 @@ let dbConnect = () => {
     return db;
 }
 const db = dbConnect();
-// Tạo dữ liệu mẫu cho các homestays, khi seed chuyển let thành exports.   , còn ko thì chuyển lại thành let
+
 HomestaysSeed = async function () {
     Homestays(db).deleteMany().then(function () {
         console.log("Homestays is cleared");
@@ -32,6 +33,36 @@ HomestaysSeed = async function () {
 
     Photos(db).deleteMany().then(function () {
         console.log("Photos is cleared");
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+    Amenities(db).deleteMany().then(function () {
+        console.log("Amenities is cleared");
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+    Services(db).deleteMany().then(function () {
+        console.log("Services is cleared");
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+    GeneralServices(db).deleteMany().then(function () {
+        console.log("GeneralServices is cleared");
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+    Bills(db).deleteMany().then(function () {
+        console.log("Bills is cleared");
+    }).catch(function (error) {
+        console.log(error);
+    });
+
+    Users(db).deleteMany().then(function () {
+        console.log("user data is cleared");
     }).catch(function (error) {
         console.log(error);
     });
@@ -57,7 +88,7 @@ HomestaysSeed = async function () {
                     userName: "Minh",
                     createdAt: new Date("12/08/2019")
                 },
-            ]
+            ],
         },
         {
             name: "Scenia Bay Residences Nha Trang",
@@ -78,7 +109,7 @@ HomestaysSeed = async function () {
                     userName: "Hoàng",
                     createdAt: new Date("01/01/2019")
                 },
-            ]
+            ],
         },
         {
             name: "Wonderland 24H Apartments",
@@ -99,7 +130,7 @@ HomestaysSeed = async function () {
                     userName: "Tú",
                     createdAt: new Date("12/12/2018")
                 },
-            ]
+            ],
         },
         {
             name: "Shoho Hotel Nha Trang",
@@ -120,7 +151,7 @@ HomestaysSeed = async function () {
                     userName: "Quỳnh Anh",
                     createdAt: new Date("12/01/2020")
                 },
-            ]
+            ],
         },
         {
             name: "Diamond Villa",
@@ -141,7 +172,7 @@ HomestaysSeed = async function () {
                     userName: "Đạt",
                     createdAt: new Date("01/08/2018")
                 },
-            ]
+            ],
         },
         {
             name: "Relaxing 2 BR Apartment",
@@ -162,7 +193,7 @@ HomestaysSeed = async function () {
                     userName: "Bình",
                     createdAt: new Date("12/12/2020")
                 },
-            ]
+            ],
         },
         {
             name: "Paralia Nha Trang",
@@ -183,7 +214,7 @@ HomestaysSeed = async function () {
                     userName: "Loan",
                     createdAt: new Date("11/11/2018")
                 },
-            ]
+            ],
         },
         {
             name: "LeJardin De Papa",
@@ -204,7 +235,7 @@ HomestaysSeed = async function () {
                     userName: "Tú",
                     createdAt: new Date("01/02/2019")
                 },
-            ]
+            ],
         },
         {
             name: "Oriana Villa Đà Lạt 102",
@@ -225,7 +256,7 @@ HomestaysSeed = async function () {
                     userName: "Nhật",
                     createdAt: new Date("12/08/2019")
                 },
-            ]
+            ],
         },
         {
             name: "Le Petit Prince",
@@ -245,7 +276,7 @@ HomestaysSeed = async function () {
                     userName: "Châu",
                     createdAt: new Date("01/10/2021")
                 },
-            ]
+            ],
         },
         {
             name: "Nhà Mình homestay",
@@ -253,7 +284,7 @@ HomestaysSeed = async function () {
             type:"Khác",
             address:"Đà Lạt, Lâm Đồng, Việt Nam",
             province:"Lâm Đồng",
-            district:"Đà Lạt"
+            district:"Đà Lạt",
         },
         {
             name: "Cối Xay Gió Homestay and Coffee",
@@ -261,7 +292,7 @@ HomestaysSeed = async function () {
             type:"Khác",
             address:"Đà Lạt, Lâm Đồng, Việt Nam",
             province:"Lâm Đồng",
-            district:"Đà Lạt"
+            district:"Đà Lạt",
         },
         {
             name: "Blue Light - Villa",
@@ -269,7 +300,7 @@ HomestaysSeed = async function () {
             type:"Biệt thự",
             address:"Đà Lạt, Lâm Đồng, Việt Nam",
             province:"Lâm Đồng",
-            district:"Đà Lạt"
+            district:"Đà Lạt",
         },
         {
             name: "H-Long Hotel Dalat",
@@ -277,7 +308,7 @@ HomestaysSeed = async function () {
             type:"Nhà riêng",
             address:"Đà Lạt, Lâm Đồng, Việt Nam",
             province:"Lâm Đồng",
-            district:"Đà Lạt"
+            district:"Đà Lạt",
         },
         {
             name: "RỐN STUDIO",
@@ -285,7 +316,7 @@ HomestaysSeed = async function () {
             type:"Căn hộ Studio",
             address:"Đà Lạt, Lâm Đồng, Việt Nam",
             province:"Lâm Đồng",
-            district:"Đà Lạt"
+            district:"Đà Lạt",
         },
         // minh
         {
@@ -294,105 +325,105 @@ HomestaysSeed = async function () {
             type: "Biệt thự",
             address: "Thạch Thất, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Thạch Thất"
+            district: "Thạch Thất",
         }, {
             name: "Villas",
             price: 4999000,
             type: "Biệt thự",
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Ba Vì"
+            district: "Ba Vì",
         }, {
             name: "Stream House",
             price: 9500000,
             type: "Biệt thự",
             address: "Sóc Sơn, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Sóc Sơn"
+            district: "Sóc Sơn",
         }, {
             name: "1001 Lakeside Villas",
             price: 4900000,
             type: "Biệt thự",
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Ba Vì"
+            district: "Ba Vì",
         }, {
             name: "Biệt thự hoa hồng BT4",
             price: 4699000,
             type: "Biệt thự",
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Ba Vì"
+            district: "Ba Vì",
         }, {
             name: "Embossi Garden",
             price: 4000000,
             type: "Nhà riêng",
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Ba Vì"
+            district: "Ba Vì",
         }, {
             name: "Sóc Sơn Riverside",
             price: 4500000,
             type: "Biệt thự",
             address: "Sóc Sơn, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Sóc Sơn"
+            district: "Sóc Sơn",
         }, {
             name: "Storm Villa",
             price: 4500000,
             type: "Biệt thự",
             address: "Sóc Sơn, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Sóc Sơn"
+            district: "Sóc Sơn",
         }, {
             name: "The Moonlight",
             price: 4500000,
             type: "Biệt thự",
             address: "Sóc Sơn, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Sóc Sơn"
+            district: "Sóc Sơn",
         }, {
             name: "Choai Villa Sóc Sơn",
             price: 4500000,
             type: "Biệt thự",
             address: "Sóc Sơn, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Sóc Sơn"
+            district: "Sóc Sơn",
         }, {
             name: "BAVI Padme Home",
             price: 4500000,
             type: "Biệt thự",
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Ba Vì"
+            district: "Ba Vì",
         }, {
             name: "MARS NNM",
             price: 4500000,
             type: "Khác",
             address: "Thạch Thất, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Thạch Thất"
+            district: "Thạch Thất",
         }, {
             name: "Xanh Villa 04",
             price: 4500000,
             type: "Biệt thự",
             address: "Thạch Thất, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Thạch Thất"
+            district: "Thạch Thất",
         }, {
             name: "Rose villa",
             price: 4000000,
             type: "Biệt thự",
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Ba Vì"
+            district: "Ba Vì",
         }, {
             name: "An Vui Cottage 19",
             price: 4000000,
             type: "Khác",
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
-            district: "Ba Vì"
+            district: "Ba Vì",
         },
         // Hoang
         {
@@ -401,105 +432,105 @@ HomestaysSeed = async function () {
             type: "Căn hộ chung cư",
             address: "Đà Lạt, Lâm Đồng, Vietnam ",
             province: "Lâm Đồng",
-            district: "Đà Lạt"
+            district: "Đà Lạt",
         }, {
             name: "Luxury Villa in supercentral",
             price: 2050000,
             type: "Biệt thự",
             address: "Hải Châu, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
-            district: "Hải Châu"
+            district: "Hải Châu",
         }, {
             name: "Icity Villa Riverfront Danang",
             price: 8500000,
             type: "Biệt thự",
             address: "Hải Châu, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
-            district: "Hải Châu"
+            district: "Hải Châu",
         }, {
             name: "Kaia Residence - Private Terrace - Secret Garden",
             price: 1140000,
             type: "Căn hộ Studio",
             address: "Hải Châu, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
-            district: "Hải Châu"
+            district: "Hải Châu",
         }, {
             name: "Ocean View Home 2736",
             price: 1500000,
             type: "Căn hộ chung cư",
             address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
-            district: "Ngũ Hành Sơn"
+            district: "Ngũ Hành Sơn",
         }, {
             name: "T P Villa",
             price: 3500000,
             type: "Biệt thự",
             address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
-            district: "Ngũ Hành Sơn"
+            district: "Ngũ Hành Sơn",
         }, {
             name: "MAI VILLA DA NANG",
             price: 699000,
             type: "Biệt thự",
             address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
-            district: "Ngũ Hành Sơn"
+            district: "Ngũ Hành Sơn",
         }, {
             name: "Muong Thanh Apartment Sea View",
             price: 800000,
             type: "Căn hộ dịch vụ",
             address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
-            district: "Ngũ Hành Sơn"
+            district: "Ngũ Hành Sơn",
         }, {
             name: "Suit family apartment",
             price: 850000,
             type: "Căn hộ dịch vụ",
             address: "Hải Châu, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
-            district: "Hải Châu"
+            district: "Hải Châu",
         }, {
             name: "Tropical House Apartment",
             price: 730000,
             type: "Căn hộ dịch vụ",
             address: "Sơn Trà, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
-            district: "Sơn Trà"
+            district: "Sơn Trà",
         }, {
             name: "Top Hotel Apartment",
             price: 650000,
             type: "Căn hộ dịch vụ",
             address: "Sơn Trà, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
-            district: "Sơn Trà"
+            district: "Sơn Trà",
         }, {
             name: "Bong Villa",
             price: 3300000,
             type: "Biệt thự",
             address: "Sơn Trà, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
-            district: "Sơn Trà"
+            district: "Sơn Trà",
         }, {
             name: "Rolex",
             price: 1700000,
             type: "Căn hộ Studio",
             address: "Hải Châu, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
-            district: "Hải Châu"
+            district: "Hải Châu",
         }, {
             name: "ARITA RIVERA",
             price: 1300000,
             type: "Căn hộ dịch vụ",
             address: "Ngũ Hành Sơn, Đà Nẵng, Vietnam",
             province: "Đà Nẵng",
-            district: "Ngũ Hành Sơn"
+            district: "Ngũ Hành Sơn",
         },{
             name: "B245 VILLA VUNG TAU",
             price: 5500000,
             type: "Biệt thự",
             address: "Vũng Tàu, Bà Rịa Vũng Tàu, Vietnam",
             province: "Bà Rịa Vũng Tàu",
-            district: "Vũng Tàu"
+            district: "Vũng Tàu",
         },
         //Nhat
         {
@@ -508,108 +539,109 @@ HomestaysSeed = async function () {
             type: "Nhà riêng",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "Hai Au Boutique",
             price: 750000,
             type: "Biệt thự",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "De An Hoi An",
             price: 560000,
             type: "Biệt thự",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "Mali Villa",
             price: 3000000,
             type: "Biệt thự",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "Ancient River Villa",
             price: 400000,
             type: "Biệt thự",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "Dao Tien homestay",
             price: 550000,
             type: "Khác",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "La Vista Villa Hoi An",
             price: 320000,
             type: "Biệt thự",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "ABA TRAVEL VILLA",
             price: 380000,
             type: "Biệt thự",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "Bespoke Villa",
             price: 350000,
             type: "Biệt thự",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "Double Luxury Room",
             price: 400000,
             type: "Khác",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "Santori Homestay",
             price: 5000000,
             type: "Biệt thự",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "Flame Flowers Homestay",
             price: 480000,
             type: "Khác",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "YLANG GARDEN VILLA",
             price: 9000000,
             type: "Căn hộ dịch vụ",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "Open Balcony",
             price: 500000,
             type: "Khác",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         },{
             name: "Hoi An Majestic villa",
             price: 850000,
             type: "Khác",
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
-            district: "Hội An"
+            district: "Hội An",
         }
     ]);
 
+    // Tạm tạo cho các homestays rate
     /** danh sách url phải đúng thứ tự với danh sách homestays ở trên */
     let photoUrls = [
         "/upload/homestays-photos/999 CONDOTEL Muong Thanh Vien Trieu.jpg",
@@ -705,13 +737,19 @@ HomestaysSeed = async function () {
     // Gán theo thứ tự các generalServices cho các homestay
     // Hiện tại đang seed dữ liệu kiểu 1 - 1 , sau sẽ chỉnh lại thành 1 - n sau
     for(let i = 0; i < generalServicesName.length; i++) {
+        let generalServicesID = new Array();
+        for (let j = 0; j < 25; j++) {
+            generalServicesID[j] = homestays[i + j * 2]._id;
+        }
         let generalServices = await GeneralServices(db).create({
             name: generalServicesName[i],
-            homestays: homestays[i]._id,
+            homestays: generalServicesID,
         })
         // cập nhật _id của generalService vào homestays
-        await Homestays(db).findByIdAndUpdate(homestays[i]._id,
-            {$push: {generalServices: generalServices._id}})
+        for (let j = 0; j < 25; j++) {
+            await Homestays(db).findByIdAndUpdate(homestays[i + j * 2]._id,
+                {$push: {generalServices: generalServices._id}})
+        }
     }
 
     /** danh sách services phải đúng thứ tự với danh sách homestays ở trên */
@@ -761,16 +799,184 @@ HomestaysSeed = async function () {
     // Gán theo thứ tự các Services cho các homestay
     // Hiện tại đang seed dữ liệu kiểu 1 - 1 , sau sẽ chỉnh lại thành 1 - n sau
     for(let i = 0; i < servicesName.length; i++) {
+        let servicesID = new Array();
+        for (let j = 0; j < 25; j ++) {
+            servicesID[j]= homestays[i+j*2]._id;
+        }
         let services = await Services(db).create({
             name: servicesName[i].name,
             pricePerUnit: servicesName[i].pricePerUnit,
             personServe: servicesName[i].personServe,
-            homestays: homestays[i]._id,
+            homestays: servicesID,
         })
         // cập nhật _id của generalService vào homestays
-        await Homestays(db).findByIdAndUpdate(homestays[i]._id,
-            {$push: {services: services._id}})
+        for (let j = 0; j < 25; j ++) {
+            await Homestays(db).findByIdAndUpdate(homestays[i+j*2]._id,
+                {$push: {services: services._id}})
+        }
     }
+
+    /** danh sách amenities phải đúng thứ tự với danh sách homestays ở trên */
+        //Tạo dữ liệu các Amenities
+    let amenitiesName = [
+            { // Làm 10 cái như này
+                name:"Wifi",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Tivi",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Dầu gội, dầu xả",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Khăn tắm",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Kem đánh răng",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Xà phòng tắm",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Máy sấy",
+                type:"Tiện ích",
+            },{ // Làm 10 cái như này
+                name:"Bếp điện",
+                type:"Tiện ích bếp",
+            },{ // Làm 10 cái như này
+                name:"Tủ lạnh",
+                type:"Tiện ích bếp",
+            },{ // Làm 10 cái như này
+                name:"Ban công",
+                type:"Tiện ích bếp",
+            }
+        ]
+    // Gán theo thứ tự các Amenities cho các homestay
+    // Hiện tại đang seed dữ liệu kiểu 1 - 1 , sau sẽ chỉnh lại thành 1 - n sau
+    for(let i = 0; i < amenitiesName.length; i++) {
+        let homestaysID = [];
+        for (let j = 0; j < 25; j ++) {
+            homestaysID[j]= homestays[i+j*2]._id;
+        }
+        let amenities = await Amenities(db).create({
+            name: amenitiesName[i].name,
+            type: amenitiesName[i].type,
+            homestays: homestaysID
+        })
+        // cập nhật _id của generalService vào homestays
+        for (let j = 0; j < 25; j ++) {
+            await Homestays(db).findByIdAndUpdate(homestays[i+j*2]._id,
+                {$push: {amenities: amenities._id}})
+        }
+
+    }
+
+    let usersInfo = [
+        {
+            status: 1,
+            email: 'minh@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'hoang@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'nhat@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'tu@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        }
+    ];
+
+    // Hiện tại là gán 1 admin - 1 homestay
+    for(let i = 0; i < usersInfo.length; i++) {
+        let user = await Users(db).create({
+            status: usersInfo[i].status,
+            email: usersInfo[i].email,
+            password: usersInfo[i].password,
+            role: usersInfo[i].role,
+            homestays: homestays[i]._id,
+        })
+        // cập nhật _id của user vào homestays
+        for (let j = 0; j < 12; j ++) {
+            await Homestays(db).findByIdAndUpdate(homestays[i * 12 + j ]._id,
+                {$push: {admin: user._id}})
+        }
+    }
+
+    let billsInfo = [
+        {
+            customerName: "Phạm Công Minh",
+            customerIdentification: '1234124523124',
+            customerEmail: 'minh@gmail.com',
+            customerPhoneNumber: '025963563245',
+            checkinDate: new Date("11/11/2021"),
+            checkoutDate: new Date("12/11/2021"),
+            price: 15000000,
+            active: 1,
+        } ,
+        {
+            customerName: "Nguyễn Thế Nhật",
+            customerIdentification: '1234124523124',
+            customerEmail: 'nhat@gmail.com',
+            customerPhoneNumber: '025963563245',
+            checkinDate: new Date("11/8/2021"),
+            checkoutDate: new Date("11/26/2021"),
+            price: 2000000,
+            active: 1,
+        } ,
+        {
+            customerName: "Nguyễn Ngọc Tú",
+            customerIdentification: '1234124523124',
+            customerEmail: 'tu@gmail.com',
+            customerPhoneNumber: '025963563245',
+            checkinDate: new Date("11/6/2021"),
+            checkoutDate: new Date("11/23/2021"),
+            price: 34500000,
+            active: 1,
+        } ,
+        {
+            customerName: "Phạm Việt Hoàng",
+            customerIdentification: '1234124523124',
+            customerEmail: 'hoang@gmail.com',
+            customerPhoneNumber: '025963563245',
+            checkinDate: new Date("11/2/2021"),
+            checkoutDate: new Date("11/5/2021"),
+            price: 56300000,
+            active: 1,
+        }
+    ]
+
+    // Hiện tại là gán 1 homestay - 1 bill
+    for(let i = 0; i < billsInfo.length; i++) {
+        let bill = await Bills(db).create({
+            customerName: billsInfo[i].customerName,
+            customerIdentification: billsInfo[i].customerIdentification,
+            customerEmail: billsInfo[i].customerEmail,
+            customerPhoneNumber: billsInfo[i].customerPhoneNumber,
+            checkinDate: billsInfo[i].checkinDate,
+            checkoutDate: billsInfo[i].checkoutDate,
+            price: billsInfo[i].price,
+            active: billsInfo[i].active,
+            homestay: homestays[i]._id,
+        })
+        // cập nhật _id của user vào homestays
+        for (let j = 0; j < 12; j ++) {
+            await Homestays(db).findByIdAndUpdate(homestays[i * 12 + j ]._id,
+                {$push: {bills: bill._id}})
+        }
+    }
+
     await db.close();
 }
 

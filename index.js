@@ -37,8 +37,12 @@ app.use(i18n.init);
 // user routers here
 const router = express.Router();
 router.use( "/auth", require("./modules/auth/auth.route"));
+
 // Trỏ tới router ở file information-homestays
 router.use( "/homestays", require("./modules/user/interact-homestays/homestays.route"));
+
+// Trỏ tới router ở file booking-homestays
+router.use("/admin", require("./modules/admin/bills/bills.route"));
 // api docs here
 router.use('/admins',require('./modules/admin/update-homestays/update.router'))
 

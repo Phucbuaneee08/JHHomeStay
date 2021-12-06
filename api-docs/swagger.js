@@ -129,7 +129,7 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 },
             },
-            "/homestay/information/{id}": {
+            "/homestays/information/{id}": {
                 "get": {
                     "tags": ["Homestays"],
                     "summary": "Get full infomation about a homestay with id",
@@ -145,6 +145,72 @@ const swaggerJsonData =
                     "responses": {
                         "200": {"description": "lấy dữ liệu homestay thành công "},
                         "404": {"description": "id không đúng ", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/homestays/filter": {
+                "get": {
+                    "tags": ["Homestays"],
+                    "summary": "Filter homestays by information",
+                    "operationId": "filterHomestays",
+                    "parameters": [
+                        {  "name": "province",
+                            "in": "query",
+                            "schema": {"type": "string"},
+                           "require": false},
+                        {
+                            "name": "type",
+                            "in": "query",
+                            "schema": {"type": "string"},
+                            "require": false},
+                        {
+                            "name": "averageRates",
+                            "in": "query",
+                            "schema": {"type": "number"},
+                            "require": false},
+                        {
+                            "name": "amenities",
+                            "in": "query",
+                            "schema":{
+                                "type":"array",
+                                "items": {
+                                    "type":"string",
+                                },
+                                "minItems":0
+                            },
+                            "require": false},
+                        {
+                            "name": "generalServices",
+                            "in": "query",
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string",
+                                },
+                                "minItems":0
+                            },
+                            "require": false},
+                        {
+                            "name": "minPrice",
+                            "in": "query",
+                            "schema": {"type": "number"},
+                            "require": false},
+                        {
+                            "name": "maxPrice",
+                            "in": "query",
+                            "schema": {"type": "number"},
+                            "require": false},
+                        {
+                            "name": "slice",
+                            "in": "query",
+                            "schema": {"type": "number"},
+                            "require": false},
+                    ],
+                    "requestBody": [],
+                    "responses": {
+                        "200": {"description": "Filter thành công "},
+                        "404": {"description": "Filter có lỗi ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -169,25 +235,25 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 },
             },
-            "/admins/createInformationForHomestays":{
-                "post": {
-                    "tags": ["Admin"],
-                    "summary":"Create information in Homestays with _id",
-                    "opertationId":"createHomestays",
-                    "parameters":[],
-                    "requestBody": {
-                        "description": "Nhập _id của trường mà nó được tham chiếu tới và thông tin của tất cả các trường đơn mà admin muốn tạo",
-                        "content": {
-                            "application/json": {"schema": {"$ref": "#/components/schemas/CreateHomestay"}},
-                            "application/xml": {"schema": {"$ref": "#/components/schemas/CreateHomestay"}}
-                        },
-                    },
+            "/admin/bills-of-admin/{id}": {
+                "get": {
+                    "tags": ["Bills"],
+                    "summary": "Get bills of admin by admin 's id",
+                    "operationId": "getBillsOfAdmin",
+                    "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nhập id của admin cần lấy ra danh sách các bills",
+                        "schema": {"type": "string"},
+                        "require": true
+                    }],
+                    "requestBody": [],
                     "responses": {
-                        "200": {"description": "create success"},
-                        "404": {"description": "Exception"},
+                        "200": {"description": "lấy dữ liệu thành công "},
+                        "404": {"description": "admin 's id không đúng ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
-                },
+                }
             }
         },
         "components": {
