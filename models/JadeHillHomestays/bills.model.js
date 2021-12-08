@@ -46,7 +46,7 @@ const BillsSchema= new Schema({
     services: [{
         type: Schema.Types.ObjectId,
         ref: 'Services'
-    }]
+    }] // Thiếu tổng số người trong tour,
 });
 
 module.exports = (db) => {
