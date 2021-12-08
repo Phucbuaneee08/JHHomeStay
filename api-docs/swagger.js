@@ -331,70 +331,27 @@ const swaggerJsonData =
                         "area":        {"type": "number"},
                         "description": {"type": "string"},
                         "available":   {"type": "number"},
-                        "rooms":{
-                            "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "_id":         {"type": "string"},
-                                    "name":        {"type": "string"},
-                                    "price":       {"type": "number"},
-                                    "area":        {"type": "number"},
-                                    "available":   {"type": "number"}
-                                }
-                            }
-                        },
                         "services":{
                             "type":"array",
                             "items": {
-                                "type": "object",
-                                "properties":{
-                                    "_id":         {"type": "string"},
-                                    "name":        {"type": "string"},
-                                    "pricePerUnit":{"type": "number"},
-                                    "personServe": {"type": "number"}
-                                }
+                                "type": "string",
                             }
                         },
                         "generalServices":{
                             "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "_id":         {"type": "string"},
-                                    "name":        {"type": "string"},
-                                }
-                            }
-                        },
-                        "signatures":{
-                            "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "_id":         {"type": "string"},
-                                    "type":        {"type": "number"},
-                                }
+                            "items": {
+                                "type": "string",
                             }
                         },
                         "amenities":{
-                            "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "_id":         {"type": "string"},
-                                    "name":        {"type": "string"},
-                                    "type":        {"type": "string"},
-                                }
+                            "items": {
+                                "type": "string",
                             }
                         },
                         "photos":{
                             "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "_id":         {"type": "string"},
-                                    "url":         {"type": "string"}
-                                }
+                            "items": {
+                                "type": "string",
                             }
                         }
                     }
@@ -431,15 +388,6 @@ const swaggerJsonData =
                                 "type": "object",
                                 "properties":{
                                     "name":        {"type": "string"},
-                                }
-                            }
-                        },
-                        "signatures":{
-                            "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "type":        {"type": "number"},
                                 }
                             }
                         },

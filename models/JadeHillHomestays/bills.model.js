@@ -2,51 +2,63 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const BillsSchema= new Schema({
-    customerName: {
-        type: String,
-        required: true
+    customer: { // thông tin người đặt bill
+        name: {
+            type: String
+        },
+        identification: {
+            type: String,
+        },
+        email: {
+            type: String
+        },
+        phoneNumber: {
+            type: String
+        },
+        age: {
+            type: Number
+        }
     },
-    customerIdentification:  {
-        type: String,
-        required: true
-    },
-    customerEmail:  {
-        type: String,
-        required: true
-    },
-    customerPhoneNumber : {
-        type: String,
-        required: true
-    },
-    homestayId: {
+    customerTogether: [{ // thông tin người đi kèm
+        name: {
+            type: String
+        },
+        age: {
+            type: Number
+        }
+    }],
+    homestay: {
         type: Schema.Types.ObjectId,
         ref : 'Homestays',
         required: false,
     },
-    checkinDate: {
+    checkinDate: { // ngày bắt đầu đặt
         type: Date,
         required: true
     },
-    checkoutDate: {
+    checkoutDate: { // ngày kết thúc đặt
         type: Date,
         required: false
     },
-    price : {
+    price : { // giá của bill - tự tính từ homestays và services đi kèm
         type: Number,
         required: true
     },
-    active: {
-        type: Boolean,
-        required: true
+    status: { // trạng thái của bills: 1 - đang chờ || 2 - đã duyệt || 3 - đã thanh toán
+        type: Number,
+        required: true,
+        default: 1
     },
-    rooms: [{ // danh sách FK tham chiếu tới rooms
-        type: Schema.Types.ObjectId,
-        ref:'Rooms'
-    }],
-    services: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Services'
-    }] // Thiếu tổng số người trong tour,
+    servicesPerBill: {
+        services: [{
+            type: Schema.Types.ObjectId,
+            ref: 'Services'
+        }],
+        count: {
+            type: Number,
+            required: true
+        }
+    }
 });
 
 module.exports = (db) => {
