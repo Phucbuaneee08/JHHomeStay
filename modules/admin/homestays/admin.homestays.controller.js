@@ -7,41 +7,31 @@ const {db} = require("../../../helpers/dbHelper");
 exports.updateInformationForHomestay = async (req,res) => {
     try{
     //Dữ liệu homestays mới lấy từ request
-        const data = req.body;
+        const data= req.body;
 
     //Update cho homestays 
-        await UpdateServices.updateHomestaysById( data );
+        await UpdateServices.updateHomestaysById(data);
 
     //Update cho services
         if(typeof( data.services ) !== "undefined" && data.services.length !== 0){
-
-            const Index = await UpdateServices.updateServicesById( data );  
-
+            const Index = await UpdateServices.updateServicesById(data);
         }
 
     // Update cho generalServices
         if(typeof( data.generalServices ) !== "undefined" && data.generalServices.length !== 0){
-           
-            await UpdateServices.updateGeneralServicesById( data );   
-
+            await UpdateServices.updateGeneralServicesById(data);
         }
-
         
     //Update cho Amemities
         if( typeof( data.amenities ) !== "undefined" && data.amenities.length !== 0){
-
-            await UpdateServices.updateAmenitiesById( data ); 
-
+            await UpdateServices.updateAmenitiesById(data);
             }
         
-            
     //Update cho Photos
         if(typeof( data.photos ) !== "undefined" && data.photos.length !== 0){
-
-            await UpdateServices.updatePhotosById( data );   
-
+            await UpdateServices.updatePhotosById(data);
             }
-            
+
             return res.status(200).json({
                 success: true,
                 message: "Update success",
@@ -72,7 +62,7 @@ exports.updateInformationForHomestay = async (req,res) => {
 exports.createInformationForHomestay = async (req,res) => {
     try{
         //Lấy về dữ liệu trong body của request
-        const data = req.body;
+        constdata= req.body;
         if(typeof(data._id) == "undefined" || data._id === ""){
             return res.status(403).json({
                 success: false,

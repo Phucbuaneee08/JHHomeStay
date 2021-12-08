@@ -10,7 +10,7 @@ const ServicesSchema= new Schema({
         type: Number,
         required: true
     },
-    personServe : {
+    personServe: {
         type: Number,
         required: true
     },
