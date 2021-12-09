@@ -49,16 +49,16 @@ const BillsSchema= new Schema({
         required: true,
         default: 1
     },
-    servicesPerBill: {
-        services: [{
+    servicesPerBill: [{
+        services: {
             type: Schema.Types.ObjectId,
             ref: 'Services'
-        }],
+        },
         count: {
             type: Number,
             required: true
         }
-    }
+    }]
 });
 
 module.exports = (db) => {
