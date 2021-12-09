@@ -12,14 +12,14 @@ exports.createBill = async ( data ) => {
     })
 
     //Nhập các trường đơn và trả về _id của Bills để cập nhật các trường liên kết của Bills
-    //Trong đó trường price sẽ khởi tạo là price của homestays chưa tính services
+    //Trong đó trường price sẽ khởi tạo là price của homestays / 1 ngày
     const _id = await Bills(db).create({
 
         homestay : { _id:data._id },
         checkinDate : new Date( data.checkinDate ),
         checkoutDate : new Date( data.checkoutDate ),
         status: 1,
-        price:homestay.price,
+        price: homestay.price,
 
     })
     .then(data=>{ 
@@ -50,7 +50,7 @@ exports.createBill = async ( data ) => {
     
     }
 
-    //Cập nhật Services mà khách chọn
+    // Cập nhật Services mà khách chọn
     for( let i = 0 ; i < data.servicesPerBill.length ; i++ ){
     
         await Bills(db).findByIdAndUpdate({ _id:_id }, 
@@ -63,25 +63,49 @@ exports.createBill = async ( data ) => {
 
 }
 
-exports.updatePrice = async ( _id ) =>{
+exports.updatePrice = async ( Bill_Id ) =>{
 
     //Lấy về danh sách servicesPerBill
-    const servicesPerBill = await Bills(db).findById({ _id : _id })
+    const servicesPerBill = await Bills(db).findById({ _id : Bill_Id })
     .populate({
         path : 'servicesPerBill',
         populate : { path : 'services' }
     })
-    .then(data=>{
+    .then( data => {
         return data.servicesPerBill ;
     })
 
-    // //Update price
+    //Tính giá thuê homestays chưa có services
+    const priceHomestay = await Bills(db).findById({ _id : Bill_Id })
+    .then( Bill => {
+        const numberOfDays = (Bill.checkoutDate - Bill.checkinDate) / ( 24 * 60 * 60 * 1000 ) - 1 ;
+
+        return numberOfDays * Bill.price ;
+        
+    })
+
+    //Cập nhật giá thuê homestays chưa có services vào bill
+    await Bills(db).findByIdAndUpdate(
+
+        {
+             _id : Bill_Id 
+        },    
+
+        {
+            $inc : { price : priceHomestay },
+        },   
+
+    )
+
+    //Update priceService
     for( let i = 0; i < servicesPerBill.length; i++ ){
+
         var priceService = servicesPerBill[i].count * servicesPerBill[i].services.pricePerUnit;
+
         await Bills(db).findByIdAndUpdate(
 
             {
-                 _id : _id 
+                 _id : Bill_Id 
             },    
 
             {
