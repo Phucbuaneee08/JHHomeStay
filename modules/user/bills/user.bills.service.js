@@ -78,7 +78,7 @@ exports.updatePrice = async ( Bill_Id ) =>{
     //Tính giá thuê homestays chưa có services
     const priceHomestay = await Bills(db).findById({ _id : Bill_Id })
     .then( Bill => {
-        const numberOfDays = (Bill.checkoutDate - Bill.checkinDate) / ( 24 * 60 * 60 * 1000 ) - 1 ;
+        const numberOfDays = (Bill.checkoutDate - Bill.checkinDate) / ( 24 * 60 * 60 * 1000 ) - 2 ;
 
         return numberOfDays * Bill.price ;
         
