@@ -10,10 +10,9 @@ exports.createBill = async ( data ) => {
     .then(data => {
         return data;
     })
-    console.log(homestay.price);
 
     //Nhập các trường đơn và trả về _id của Bills để cập nhật các trường liên kết của Bills
-    //Trong đó trường price sẽ khởi tạo là giá của homestays chưa tính services
+    //Trong đó trường price sẽ khởi tạo là price của homestays chưa tính services
     const _id = await Bills(db).create({
 
         homestay : { _id:data._id },
@@ -23,8 +22,6 @@ exports.createBill = async ( data ) => {
         price:homestay.price,
 
     })
-    // .populate('customer')
-    // .populate('homestay')
     .then(data=>{ 
         return data._id;
     })
@@ -41,7 +38,8 @@ exports.createBill = async ( data ) => {
                 age : data.age
                 }
             }
-        }
+        },
+
     )
 
     //Cập nhật tên và tuổi cho những thành viên đi cùng với đoàn
@@ -60,22 +58,38 @@ exports.createBill = async ( data ) => {
     
     }
 
+    //Trả lại _id Bills sau khi đã tạo Bills
+    return _id;
 
 }
 
-exports.updatePrice = async (data) =>{
-    var price = 0;
+exports.updatePrice = async ( _id ) =>{
 
-    price += await Homestays(db).findOne({_id:data.homestayId})
+    //Lấy về danh sách servicesPerBill
+    const servicesPerBill = await Bills(db).findById({ _id : _id })
+    .populate({
+        path : 'servicesPerBill',
+        populate : { path : 'services' }
+    })
     .then(data=>{
-        return data.price;
-    });
+        return data.servicesPerBill ;
+    })
 
-    for(let i = 0; i < data.services.length; i++){
-        price += await Services(db).findOne({_id:data.services[i]})
-        .then(data=>{
-            return data.pricePerUnit * data.personServe;
-        })
+    // //Update price
+    for( let i = 0; i < servicesPerBill.length; i++ ){
+        var priceService = servicesPerBill[i].count * servicesPerBill[i].services.pricePerUnit;
+        await Bills(db).findByIdAndUpdate(
+
+            {
+                 _id : _id 
+            },    
+
+            {
+                $inc : { price : priceService },
+            },   
+
+        )
+        
     }
 
 }

@@ -274,6 +274,26 @@ const swaggerJsonData =
                     },
                     "x-codegen-request-body-name": "body"
                 }
+            },
+            "/users/create/bills":{
+                "post": {
+                    "tags": ["User"],
+                    "summary": "Create bill by user",
+                    "operationId":"",
+                    "parameter": [],
+                    "requestBody":{
+                        "description": "Bắt buộc nhập tất cả thông tin cá nhân của khách",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/CreateBill"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/CreateBill"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Create success"},
+                        "404": {"description": "Exception","message":"Nhập thiếu hoặc sai thông tin 1 trường bắt buộc" },
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
             }
         },
         "components": {
@@ -409,6 +429,49 @@ const swaggerJsonData =
                                     "url":         {"type": "string"}
                                 }
                             }
+                        }
+                    }
+                },
+                "CreateBill":{
+                    "type": "object", "properties": {
+                        "_id":                    {"type": "string"},
+                        "customer": {
+                            "type": "object", "properties": {
+                                "name":           {"type": "string"},
+                                "identification": {"type": "string"},
+                                "email":          {"type": "string"},
+                                "phoneNumber":    {"type": "string"},
+                                "age":            {"type": "number"}
+                            }
+                        },
+                        "customerTogether": {
+                            "type": "array",
+                            "items":{
+                                "type": "object",
+                                "properties": { 
+
+                                    "name":       {"type": "string"},
+                                    "age":        {"type": "number"}
+
+                                }
+
+                            }
+
+                        },
+                        "checkinDate":             {"type": "string"},
+                        "checkoutDate":            {"type": "string"},
+                        "servicesPerBill": { 
+                            "type": "array","items": {
+
+                                "type": "object","properties": {
+
+                                    "services":    {"type": "string"}, 
+                                    "count":       {"type": "number"} 
+                                
+                                }
+                            
+                            }
+                        
                         }
                     }
                 }
