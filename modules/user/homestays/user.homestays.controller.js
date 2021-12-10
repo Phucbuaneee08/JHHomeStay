@@ -44,11 +44,13 @@ exports.getHomestayById = async (req, res) => {
         // Lấy id ở params
         const id = req.params.id;
         // Truy xuất cơ sở dữ liệu bằng id để lấy
-        let homestay = await HomestaysService.getHomestayById(id);
+        let homestayArray = await HomestaysService.getHomestayById(id);
+        let homestay = homestayArray[0];
+        let billOfHomestayArray = await HomestaysService.getCheckInAndOutDateByIdHomestay(id);
         // Nếu thành công trả lại res 200 và toàn bộ thông tin homestay
         return res.status(200).json({
             success: true,
-            content: homestay
+            content: billOfHomestayArray, homestay
         });
     } catch (error) {
         // Nếu ko thành công -> 404

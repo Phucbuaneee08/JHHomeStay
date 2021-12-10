@@ -1,16 +1,40 @@
-const { Users } = require('../../models');
+const { Users, Homestays } = require('../../models');
 const { db } = require("../../helpers/dbHelper");
+const path = require("path");
+const {selectFields} = require("express-validator/src/select-fields");
 
 // Chuyển file .env sang dạng sử dụng được để lấy thông tin
 require('dotenv').config();
 
 // Lấy thông tin người dùng có email và role giống như trong req
 exports.getByEmailAndRole = async (data) => {
-    return Users(db).findOne({
-        email: data.email
-    });
+    const test = await Users(db).aggregate([
+            {
+                $match: {
+                    email: data.email
+                }
+            },
+            {
+                $lookup: {
+                    from: "homestays",
+                    localField: "homestays",
+                    foreignField: "_id",
+                    as: "homestays"
+                }
+            },
+            {
+                $project:{
+                    "_id":1,"name":1, "role":1, "email":1, "status":1, "token":1,"password":1,
+                    "homestays._id":1,"homestays.name":1
+                }
+            }
+    ],
+        {
+            allowDiskUse: true
+        }
+    );
+    return test;
 }
-
 // Lấy thông tin người dùng có _id giống như trong req
 exports.getById = async (data) => {
     return Users(db).findOne({

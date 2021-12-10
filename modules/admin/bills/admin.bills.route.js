@@ -6,4 +6,5 @@ const { authToken } = require('../../../middleware/auth');
 
 // Chức năng trả lại danh sách các bills của admin
 router.get("/bills-of-admin/:id", authToken, BillsController.getBillsByAdminId);
+router.get("/bills-of-homestay/:id",authToken, BillsController.getBillsByHomestayId);
 module.exports = router;

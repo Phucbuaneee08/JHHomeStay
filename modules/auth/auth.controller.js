@@ -11,9 +11,10 @@ exports.login = async (req, res) => {
        try {
            // Tìm và lấy ra thông tin User trong database dựa vào email và role
            const data = req.body;
-           let user = await AuthService.getByEmailAndRole(data);
+           let userArray = await AuthService.getByEmailAndRole(data);
+           let user = userArray[0];
            let access_token;
-           // Kiểm tra mật khẩu dùng bcrypt để đối chiếu mật khẩu trong req và database
+           //Kiểm tra mật khẩu dùng bcrypt để đối chiếu mật khẩu trong req và database
            if ( user.status === 1 ) {
                if (await bcrypt.compare(req.body.password, user.password)) {
                    //Tạo token cho người mới đăng nhập

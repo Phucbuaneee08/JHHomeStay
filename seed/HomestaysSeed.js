@@ -752,6 +752,265 @@ HomestaysSeed = async function () {
         }
     }
 
+    // Seed data phan Bills
+
+    let bills =  await Bills(db).create([
+        {
+            customer:{
+                name: "Nguyen Quynh Anh",
+                identification: "012345678910",
+                email: "quynhanh@gmail.com",
+                phoneNumber: "1234567890",
+                age: 20
+            },
+            customerTogether :[
+                {
+                    name: "Nguyen Thi Thao",
+                    age: 20,
+                },
+                {
+                    name: "Nguyen Thi Thu",
+                    age: 20,
+                },
+                {
+                    name: "Vu Linh Chi",
+                    age: 20,
+                }
+            ],
+            checkinDate: new Date("11-20-2021"),
+            checkoutDate: new Date("11-25-2021"),
+            status: 3
+        },
+        {
+            customer:{
+                name: "Nguyen The Nhat",
+                identification: "012345678911",
+                email: "nhat@gmail.com",
+                phoneNumber: "1234567891",
+                age: 20
+            },
+            customerTogether :[
+                {
+                    name: "Tran Van Ngoc",
+                    age: 18,
+                },
+            ],
+            checkinDate: new Date("12-23-2021"),
+            checkoutDate: new Date("12-28-2021"),
+            status: 1
+        },
+        {
+            customer:{
+                name: "Tran Tuan Dat",
+                identification: "012345678912",
+                email: "datoccho@gmail.com",
+                phoneNumber: "1234567892",
+                age: 20
+            },
+            customerTogether :[
+                {
+                    name: "Bo Cua Dat",
+                    age: 45,
+                },
+                {
+                    name: "Me Cua Dat",
+                    age: 40,
+                },
+                {
+                    name: "Em Gai Cua Dat",
+                    age: 15,
+                }
+            ],
+            checkinDate: new Date ("12-7-2021"),
+            checkoutDate: new Date("12-12-2021"),
+            status: 2
+        },
+        {
+            customer:{
+                name: "Nguyen Ba Binh",
+                identification: "012345678913",
+                email: "bingboong@gmail.com",
+                phoneNumber: "1234567893",
+                age: 20
+            },
+            customerTogether :[
+                {
+                    name: "Nguoi Yeu Binh",
+                    age: 22,
+                },
+            ],
+            checkinDate: new Date("11-28-2021"),
+            checkoutDate: new Date("12-03-2021"),
+            status: 3
+        },
+        {
+            customer:{
+                name: "Vu Minh Thanh",
+                identification: "012345678914",
+                email: "thanhcute@gmail.com",
+                phoneNumber: "1234567894",
+                age: 35
+            },
+            customerTogether :[
+                {
+                    name: "Rua",
+                    age: 25,
+                },
+            ],
+            checkinDate: new Date("12-03-2021"),
+            checkoutDate: new Date("12-10-2021"),
+            status: 2
+        },
+        {
+            customer:{
+                name: " Fuckboizz Kien Dao",
+                identification: "012345678915",
+                email: "kindao@gmail.com",
+                phoneNumber: "1234567895",
+                age: 27
+            },
+            customerTogether :[
+                {
+                    name: "Fuckboizz Trung",
+                    age: 27,
+                },
+            ],
+            checkinDate: new Date("12-15-2021"),
+            checkoutDate: new Date( "12-20-2021"),
+            status: 1
+        },
+        {
+            customer:{
+                name: " Pham Cong Minh",
+                identification: "012345678916",
+                email: "minh@gmail.com",
+                phoneNumber: "1234567896",
+                age: 20
+            },
+            customerTogether :[
+                {
+                    name: "Nguyen The Nhat",
+                    age: 20,
+                },
+                {
+                    name: "Tran Tuan Dat",
+                    age: 20,
+                },
+                {
+                    name: "Nguyen Ngoc Tu",
+                    age: 20,
+                },
+                {
+                    name: "Nguyen Ba Binh",
+                    age: 20,
+                },
+                {
+                    name: "Pham Viet Hoang",
+                },
+                {
+                    name: "Vu Minh Thanh pld",
+                    age: 20,
+                },
+                {
+                    name: "Nguyen Quynh Anh",
+                    age: 20,
+                },
+            ],
+            checkinDate: new Date("1-10-2022"),
+            checkoutDate: new Date("1-20-2022"),
+            status: 1
+        },
+        {
+            customer:{
+                name: "Cristian Ronaldo",
+                identification: "012345678917",
+                email: "ronaldo@gmail.com",
+                phoneNumber: "1234567897",
+                age: 36
+            },
+            customerTogether :[
+                {
+                    name: "Edison Cavani",
+                    age: 34,
+                },
+                {
+                    name: "Van der Beek",
+                    age: 22,
+                },
+                {
+                    name: "Wukong Degea",
+                    age: 28,
+                },
+                {
+                    name: "Shaw U'",
+                    age: 28,
+                },
+                {
+                    name: "Jadon Sancho",
+                    age: 21,
+                },
+                {
+                    name: "Lord Fred",
+                    age: 25,
+                },
+                {
+                    name: "Harry Max Hai",
+                    age: 26,
+                },
+            ],
+            checkinDate: new Date("12-20-2021"),
+            checkoutDate: new Date("12-30-2021"),
+            status: 1
+        },
+        {
+            customer:{
+                name: "Leonel Messi",
+                identification: "012345678918",
+                email: "messi@gmail.com",
+                phoneNumber: "1234567898",
+                age: 34
+            },
+            customerTogether :[
+                {
+                    name: "Neymar JR",
+                    age: 30,
+                },
+                {
+                    name: "Killian Mpappe",
+                    age: 22,
+                },
+            ],
+            checkinDate: new Date("12-9-2021"),
+            checkoutDate: new Date("12-15-2021"),
+            status: 2
+        },
+        {
+            customer:{
+                name: "Tom Holland",
+                identification: "012345678919",
+                email: "holland@gmail.com",
+                phoneNumber: "1234567899",
+                age: 18
+            },
+            customerTogether :[
+            ],
+            checkinDate: new Date("12-23-2021"),
+            checkoutDate: new Date("12-28-2021"),
+            status: 1
+        },
+    ])
+    // Hiện tại là gán 1 homestay - 1 bill
+    for(let i = 0; i < bills.length; i++) {
+        await Bills(db).findByIdAndUpdate(bills[i]._id,
+            {$push: {homestay: homestays[i]._id}})
+        for (let j  = 0; j < 6; j ++) {
+            await Homestays(db).findByIdAndUpdate(homestays[i*6+j]._id,
+                {$push: {bills: bills[i]._id}})
+        }
+
+    }
+
+
     /** danh sách services phải đúng thứ tự với danh sách homestays ở trên */
     let servicesName = [
         { // Làm 10 cái như này
@@ -813,6 +1072,12 @@ HomestaysSeed = async function () {
         for (let j = 0; j < 25; j ++) {
             await Homestays(db).findByIdAndUpdate(homestays[i+j*2]._id,
                 {$push: {services: services._id}})
+        }
+        for (let j = 0; j < bills.length; j ++) {
+            if ( (i+j) % 2) {
+                await Bills(db).findByIdAndUpdate(bills[j]._id,
+                    {$push: {servicesPerBill: {services: services._id, count: j%3+1 }}});
+            }
         }
     }
 
@@ -911,69 +1176,6 @@ HomestaysSeed = async function () {
         for (let j = 0; j < 12; j ++) {
             await Homestays(db).findByIdAndUpdate(homestays[i * 12 + j ]._id,
                 {$push: {admin: user._id}})
-        }
-    }
-
-    let billsInfo = [
-        {
-            customerName: "Phạm Công Minh",
-            customerIdentification: '1234124523124',
-            customerEmail: 'minh@gmail.com',
-            customerPhoneNumber: '025963563245',
-            checkinDate: new Date("11/11/2021"),
-            checkoutDate: new Date("12/11/2021"),
-            price: 15000000,
-            active: 1,
-        } ,
-        {
-            customerName: "Nguyễn Thế Nhật",
-            customerIdentification: '1234124523124',
-            customerEmail: 'nhat@gmail.com',
-            customerPhoneNumber: '025963563245',
-            checkinDate: new Date("11/8/2021"),
-            checkoutDate: new Date("11/26/2021"),
-            price: 2000000,
-            active: 1,
-        } ,
-        {
-            customerName: "Nguyễn Ngọc Tú",
-            customerIdentification: '1234124523124',
-            customerEmail: 'tu@gmail.com',
-            customerPhoneNumber: '025963563245',
-            checkinDate: new Date("11/6/2021"),
-            checkoutDate: new Date("11/23/2021"),
-            price: 34500000,
-            active: 1,
-        } ,
-        {
-            customerName: "Phạm Việt Hoàng",
-            customerIdentification: '1234124523124',
-            customerEmail: 'hoang@gmail.com',
-            customerPhoneNumber: '025963563245',
-            checkinDate: new Date("11/2/2021"),
-            checkoutDate: new Date("11/5/2021"),
-            price: 56300000,
-            active: 1,
-        }
-    ]
-
-    // Hiện tại là gán 1 homestay - 1 bill
-    for(let i = 0; i < billsInfo.length; i++) {
-        let bill = await Bills(db).create({
-            customerName: billsInfo[i].customerName,
-            customerIdentification: billsInfo[i].customerIdentification,
-            customerEmail: billsInfo[i].customerEmail,
-            customerPhoneNumber: billsInfo[i].customerPhoneNumber,
-            checkinDate: billsInfo[i].checkinDate,
-            checkoutDate: billsInfo[i].checkoutDate,
-            price: billsInfo[i].price,
-            active: billsInfo[i].active,
-            homestay: homestays[i]._id,
-        })
-        // cập nhật _id của user vào homestays
-        for (let j = 0; j < 12; j ++) {
-            await Homestays(db).findByIdAndUpdate(homestays[i * 12 + j ]._id,
-                {$push: {bills: bill._id}})
         }
     }
 

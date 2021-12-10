@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
 //Bảng danh sách và các thông tin tổng quan của homestays
 //Lưu ý bảng này có options timestamp nên khi truy vấn chú ý
 const HomestaysSchema = new Schema(
