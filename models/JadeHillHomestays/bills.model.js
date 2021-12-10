@@ -34,7 +34,7 @@ const BillsSchema= new Schema({
     },
     checkinDate: { // ngày bắt đầu đặt
         type: Date,
-        required: true
+        required: false,
     },
     checkoutDate: { // ngày kết thúc đặt
         type: Date,
@@ -42,11 +42,11 @@ const BillsSchema= new Schema({
     },
     price : { // giá của bill - tự tính từ homestays và services đi kèm
         type: Number,
-        required: true
+        required: false,
     },
     status: { // trạng thái của bills: 1 - đang chờ || 2 - đã duyệt || 3 - đã thanh toán
         type: Number,
-        required: true,
+        required: false,
         default: 1
     },
     servicesPerBill: [{
@@ -56,7 +56,7 @@ const BillsSchema= new Schema({
         },
         count: {
             type: Number,
-            required: true
+            required: false,
         }
     }]
 });
