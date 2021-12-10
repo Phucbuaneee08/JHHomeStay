@@ -19,7 +19,7 @@ exports.createBill = async ( data ) => {
         checkinDate : new Date( data.checkinDate ),
         checkoutDate : new Date( data.checkoutDate ),
         status: 1,
-        price: homestay.price,
+        price: homestay.price, // sai: tại sao lại lưu như thế này ? -> cần tính toán và lưu ở lúc tạo luôn
 
     })
     .then(data=>{ 
@@ -63,6 +63,7 @@ exports.createBill = async ( data ) => {
 
 }
 
+// sai: không cần service update price
 exports.updatePrice = async ( Bill_Id ) =>{
 
     //Lấy về danh sách servicesPerBill
@@ -80,7 +81,7 @@ exports.updatePrice = async ( Bill_Id ) =>{
     .then( Bill => {
         const numberOfDays = (Bill.checkoutDate - Bill.checkinDate) / ( 24 * 60 * 60 * 1000 ) - 2 ;
 
-        return numberOfDays * Bill.price ;
+        return numberOfDays * Bill.price ; // sai: xử lý ở bill.price dễ gây hiểu lầm -> cần chỉnh là lấy giá ở homestay mà nó tham chiếu
         
     })
 

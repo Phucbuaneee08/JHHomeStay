@@ -20,3 +20,15 @@ exports.getBillsByAdminId = async (id) => {
         }
     ).populate('bills');
 }
+
+exports.deleteBillsById = async ( Bill_Id ) => {
+    // Gọi hàm xóa Bill theo Id
+    await Bills(db).deleteOne({ _id:Bill_Id });
+
+}
+
+exports.findBillsById = async ( Bill_Id ) =>{
+
+    return Bills(db).findById({ _id: Bill_Id });
+
+}

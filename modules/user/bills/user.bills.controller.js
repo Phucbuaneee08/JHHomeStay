@@ -21,7 +21,7 @@ exports.createBills = async (req,res)=>{
     }
 
     catch(Error){
-        res.status(404).json({
+        res.status(401).json({
             success:false,
             message:"Exception",
             content: Error

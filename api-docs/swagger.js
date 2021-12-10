@@ -124,7 +124,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Rate thành công "},
-                        "404": {"description": "Rate không thành công ", "content": {}}
+                        "401": {"description": "Rate không thành công ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 },
@@ -144,7 +144,7 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "lấy dữ liệu homestay thành công "},
-                        "404": {"description": "id không đúng ", "content": {}}
+                        "401": {"description": "id không đúng ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -210,7 +210,7 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "Filter thành công "},
-                        "404": {"description": "Filter có lỗi ", "content": {}}
+                        "401": {"description": "Filter có lỗi ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -230,7 +230,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Update success"},
-                        "404": {"description": "Exception"},
+                        "401": {"description": "Exception"},
                     },
                     "x-codegen-request-body-name": "body"
                 },
@@ -250,7 +250,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Update success"},
-                        "404": {"description": "Exception"},
+                        "401": {"description": "Exception"},
                     },
                     "x-codegen-request-body-name": "body"
                 },
@@ -270,7 +270,7 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "lấy dữ liệu thành công "},
-                        "404": {"description": "admin 's id không đúng ", "content": {}}
+                        "401": {"description": "admin 's id không đúng ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -290,7 +290,28 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Create success"},
-                        "404": {"description": "Exception","message":"Nhập thiếu hoặc sai thông tin 1 trường bắt buộc" },
+                        "401": {"description": "Exception","message":"Nhập thiếu hoặc sai thông tin 1 trường bắt buộc" },
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/admins/delete/bills": {
+                "post": {
+                    "tags": ["Admin"],
+                    "summary": "Delete Bills by Admin by Bills 's id",
+                    "operationId": "DeleteBills",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập _id của Bills cần xóa, bạn cần phải là admin thì mới xóa được",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/DeleteBill"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/DeleteBill"}}
+                        },
+                    },
+                    "responses": {
+                        "200": { "description": "Delete bill success"},
+                        "403": { "description": "Bills is not exist"},
+                        "401": { "description": "Exception", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -473,6 +494,11 @@ const swaggerJsonData =
                             }
                         
                         }
+                    }
+                },
+                "DeleteBill":{
+                    "type": "object", "properties":{
+                        "_id": {"type": "string"}
                     }
                 }
 
