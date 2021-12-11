@@ -33,21 +33,21 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
     if (customerTogether) {
         setKey = {...setKey, "customerTogether": customerTogether}
     }
-    // if (homestayId) {
-    //     setKey = {...setKey, "homestay": homestayId}
-    // }
-    // if (checkinDate) {
-    //     setKey = {...setKey, "checkinDate": new Date(checkinDate)}
-    // }
-    // if (checkoutDate) {
-    //     setKey = {...setKey, "checkoutDate": new Date(checkoutDate)}
-    // }
+    if (homestayId) {
+        setKey = {...setKey, "homestay": homestayId}
+    }
+    if (checkinDate) {
+        setKey = {...setKey, "checkinDate": new Date(checkinDate)}
+    }
+    if (checkoutDate) {
+        setKey = {...setKey, "checkoutDate": new Date(checkoutDate)}
+    }
     if (status) {
         setKey = {...setKey, "status": status}
     }
-    // if (servicesPerBill) {
-    //     setKey = {...setKey, "servicesPerBill": servicesPerBill}
-    // }
+    if (servicesPerBill) {
+        setKey = {...setKey, "servicesPerBill": servicesPerBill}
+    }
     await Bills(db).update(
         {_id: billId},
         {$set: setKey}
@@ -57,11 +57,7 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
         {$push: {available: status}})
     return bill;
 }
-exports.getBillById = async (id) => {
-    let bill = await Bills(db).findById(id);
-    console.log(bill);
-    return bill;
-}
+
 
 
 

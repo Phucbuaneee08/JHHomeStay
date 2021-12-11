@@ -39,8 +39,6 @@ exports.updateBillsById = async (req, res) => {
         const servicesPerBill = data.servicesPerBill? data.servicesPerBill: null;
 
         let bill = await BillsService.updateBillsByBillsId(billId, customer, customerTogether, homestayId,checkinDate, checkoutDate, status, servicesPerBill);
-        // let bill = await BillsService.getBillById(billId);
-        console.log(bill);
         return res.status(200).json({
             success: true,
             content: bill
