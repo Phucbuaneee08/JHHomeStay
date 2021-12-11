@@ -219,7 +219,7 @@ const swaggerJsonData =
                 "put": {
                     "tags": ["Admin"],
                     "summary":"Update information in Homestays with _id",
-                    "opertationId":"updateHomestays",
+                    "operationId":"updateHomestays",
                     "parameters":[],
                     "requestBody": {
                         "description": "Nhập tất cả các trường đơn của bản ghi muốn thay đổi",
@@ -239,7 +239,7 @@ const swaggerJsonData =
                 "post": {
                     "tags": ["Admin"],
                     "summary":"Create information in Homestays with _id",
-                    "opertationId":"updateHomestays",
+                    "operationId":"updateHomestays",
                     "parameters":[],
                     "requestBody": {
                         "description": "Nhập tất cả các trường đơn của bản ghi muốn tao",
@@ -271,6 +271,26 @@ const swaggerJsonData =
                     "responses": {
                         "200": {"description": "lấy dữ liệu thành công "},
                         "404": {"description": "admin 's id không đúng ", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/admins/update/bills":{
+                "put": {
+                    "tags": ["Admin"],
+                    "summary": "Update Bills by admin",
+                    "operationId": "updateBillsByAdmin",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập những trường cần cập nhật của bills",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/UpdateBill"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/UpdateBill"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Update bills thành công "},
+                        "404": {"description": "Update bill không thành công", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -411,7 +431,48 @@ const swaggerJsonData =
                             }
                         }
                     }
-                }
+                },
+                "UpdateBill":{
+                    "type": "object", "properties":{
+                        "billId": {
+                            "type": "string",
+                        },
+                        "customer":{
+                            "type":"object",
+                            "properties" :{
+                                "name": {"type": "string"},
+                                "identification": {"type": "string"},
+                                "email": {"type": "string"},
+                                "phoneNumber": {"type": "string"},
+                                "age": {"type": "number"},
+                            }
+                        },
+                        "customerTogether": {
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "name":        {"type": "string"},
+                                    "age":        {"type": "number"},
+                                }
+                            }
+                        },
+                        "homestayId": {"type": "string"},
+                        "checkinDate": {"type": "string"},
+                        "checkoutDate": {"type": "string"},
+                        "status": {"type": "number"},
+                        "servicesPerBill": {
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "services":        {"type": "string"},
+                                    "count":        {"type": "number"},
+                                }
+                            }
+                        },
+                    }
+                },
 
             }, "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}}
         },

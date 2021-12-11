@@ -20,3 +20,48 @@ exports.getBillsByAdminId = async (id) => {
         }
     ).populate('bills');
 }
+
+exports.updateBillsByBillsId = async (billId, customer, customerTogether, homestayId,checkinDate, checkoutDate, status, servicesPerBill) => {
+    let setKey = {};
+    if (customer) {
+        if (customer.name) {setKey = {...setKey, "customer.name": customer.name}};
+        if (customer.identification) {setKey = {...setKey, "customer.identification": customer.identification}};
+        if (customer.email) {setKey = {...setKey, "customer.email": customer.email}};
+        if (customer.phoneNumber) {setKey = {...setKey, "customer.phoneNumber": customer.phoneNumber}};
+        if (customer.age !== null) {setKey = {...setKey, "customer.age": customer.age}};
+    }
+    if (customerTogether) {
+        setKey = {...setKey, "customerTogether": customerTogether}
+    }
+    // if (homestayId) {
+    //     setKey = {...setKey, "homestay": homestayId}
+    // }
+    // if (checkinDate) {
+    //     setKey = {...setKey, "checkinDate": new Date(checkinDate)}
+    // }
+    // if (checkoutDate) {
+    //     setKey = {...setKey, "checkoutDate": new Date(checkoutDate)}
+    // }
+    if (status) {
+        setKey = {...setKey, "status": status}
+    }
+    // if (servicesPerBill) {
+    //     setKey = {...setKey, "servicesPerBill": servicesPerBill}
+    // }
+    await Bills(db).update(
+        {_id: billId},
+        {$set: setKey}
+    )
+    let bill = await Bills(db).findById(billId);
+    await Homestays(db).findOneAndUpdate({_id : bill.homestay},
+        {$push: {available: status}})
+    return bill;
+}
+exports.getBillById = async (id) => {
+    let bill = await Bills(db).findById(id);
+    console.log(bill);
+    return bill;
+}
+
+
+

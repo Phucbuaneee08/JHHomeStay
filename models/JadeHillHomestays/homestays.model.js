@@ -66,7 +66,7 @@ const HomestaysSchema = new Schema(
                 },
             },
         ],
-        available: { // Trạng thái của homestays
+        available: { // Trạng thái của homestays 1 - đã có người đặt nhưng chưa đc sử dụng || 2 - đang có người sử dụng || 3 - đã sử dụng xong, chưa có người đặt
             type: Number
         },
         amenities:[{
