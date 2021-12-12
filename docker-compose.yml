@@ -1,0 +1,24 @@
+version: '3'
+services:
+  nmcnpm-be:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    depends_on:
+      - mongo-jadehills
+  mongo-jadehills:
+    image: mongo:lastest
+    container_name: mongo-jadehills-homestays
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - jadehills:/data/db
+volumes:
+  jadehills:
+
