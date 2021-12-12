@@ -7,18 +7,18 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./:/app
-      - /app/node_modules
+      - ./:/app #host volumes
+      - /app/node_modules #anonymous volumes
     depends_on:
       - mongo-jadehills
   mongo-jadehills:
-    image: mongo:lastest
-    container_name: mongo-jadehills-homestays
+    image: mongo:latest
+    container_name: mongo-jadehills
     restart: always
     ports:
       - 27017:27017
     volumes:
-      - jadehills:/data/db
+      - jadehills:/data/db #named volumes
 volumes:
   jadehills:
 

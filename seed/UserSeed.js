@@ -15,9 +15,16 @@ let dbConnect = () => {
             useUnifiedTopology: true,
         }
 
+        /** CSDL atlas*/
     // let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority',
     //     connectOptions);
-    let db =  mongoose.createConnection('mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
+
+    /** CSDL local */
+    // let db =  mongoose.createConnection('mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
+    //     connectOptions);
+
+    /** CSDL cho docker */
+    let db =  mongoose.createConnection('mongodb://mongo-jadehills:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
         connectOptions);
 
     return db;
