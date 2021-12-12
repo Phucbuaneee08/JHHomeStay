@@ -335,6 +335,26 @@ const swaggerJsonData =
                     },
                     "x-codegen-request-body-name": "body"
                 }
+            },
+            "/admins/bills-of-homestay/{id}": {
+                "get": {
+                    "tags": ["Admin"],
+                    "summary": "Get bills of admin by Homestay 's id",
+                    "operationId": "getBillsOfHomestay",
+                    "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nhập id của Homestay cần lấy ra danh sách các bills",
+                        "schema": {"type": "string"},
+                        "require": true
+                    }],
+                    "requestBody": [],
+                    "responses": {
+                        "200": {"description": "lấy dữ liệu thành công "},
+                        "404": {"description": "Homestay 's id không đúng ", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
             }
         },
         "components": {

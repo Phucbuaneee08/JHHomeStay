@@ -6,7 +6,7 @@ var i18n = require("i18n");
 var cors = require('cors');
 const swaggerUi = require("swagger-ui-express");
 const { swaggerJsonData } = require("./api-docs/swagger.js");
-
+const { HomestaysSeed } = require("./seed/HomestaysSeed");
 // import routers here
 
 require('dotenv').config();
