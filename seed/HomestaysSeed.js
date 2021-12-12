@@ -1160,6 +1160,42 @@ HomestaysSeed = async function () {
             email: 'tu@gmail.com',
             password: await bcrypt.hash('1234567890', 10),
             role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'quynhanh@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'dat@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'thuong@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'thanh@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'binh@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'duc@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
         }
     ];
 
