@@ -294,6 +294,46 @@ const swaggerJsonData =
                     },
                     "x-codegen-request-body-name": "body"
                 }
+            },
+            "/super-admins/update/admins":{
+                "put": {
+                    "tags": ["Super Admins"],
+                    "summary": "Update admins by super admin",
+                    "operationId": "updateAdminsById",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập những trường cần cập nhật của admins",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/UpdateAdmin"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/UpdateAdmin"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Update admin thành công "},
+                        "404": {"description": "Update admin không thành công", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/super-admins/create/admins":{
+                "post": {
+                    "tags": ["Super Admins"],
+                    "summary": "Create admins by super admin",
+                    "operationId": "createAdmins",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập những trường cần cập nhật của admins",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/CreateAdmin"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/CreateAdmin"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Create admin successful "},
+                        "404": {"description": "Create admin unsuccessful", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
             }
         },
         "components": {
@@ -444,7 +484,7 @@ const swaggerJsonData =
                                 "identification": {"type": "string"},
                                 "email": {"type": "string"},
                                 "phoneNumber": {"type": "string"},
-                                "age": {"type": "number"},
+                                "age": {"type": "number", "default": 20},
                             }
                         },
                         "customerTogether": {
@@ -473,6 +513,107 @@ const swaggerJsonData =
                         },
                     }
                 },
+                "UpdateAdmin":{
+                    "type": "object", "properties":{
+                        "id": {
+                            "type": "string",
+                        },
+                        "name":  {
+                            "type": "string",
+                        },
+                        "address":  {
+                            "type": "string",
+                        },
+                        "role":  {
+                            "type": "string",
+                            "default": "admin"
+                        },
+                        "email":  {
+                            "type": "string",
+                        },
+                        "password":  {
+                            "type": "string",
+                        },
+                        "phone":  {
+                            "type": "string",
+                        },
+                        "status":  {
+                            "type": "number",
+                            "default": 1
+                        },
+                        "gender":  {
+                            "type": "string",
+                            "default": "Male"
+                        },
+                        "identification":  {
+                            "type": "string",
+                        },
+                        "avatarUrl":  {
+                            "type": "string",
+                        },
+                        "dateAtBirth":  {
+                            "type": "string",
+                            "default": "12-20-2001"
+                        },
+                        "homestays":  {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                            }
+                        },
+                    }
+                },
+                "CreateAdmin":{
+                    "type": "object", "properties":{
+                        "name":  {
+                            "type": "string",
+                        },
+                        "address":  {
+                            "type": "string",
+                        },
+                        "role":  {
+                            "type": "string",
+                            "default": "admin"
+                        },
+                        "email":  {
+                            "type": "string",
+                        },
+                        "password":  {
+                            "type": "string",
+                        },
+                        "phone":  {
+                            "type": "string",
+                        },
+                        "status":  {
+                            "type": "number",
+                            "default": 1
+                        },
+                        "gender":  {
+                            "type": "string",
+                            "default": "Male"
+                        },
+                        "identification":  {
+                            "type": "string",
+                        },
+                        "avatarUrl":  {
+                            "type": "string",
+                        },
+                        "dateAtWork":  {
+                            "type": "string",
+                            "default": "12-11-2021"
+                        },
+                        "dateAtBirth":  {
+                            "type": "string",
+                            "default": "12-20-2001"
+                        },
+                        "homestays":  {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                            }
+                        },
+                    }
+                }
 
             }, "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}}
         },
