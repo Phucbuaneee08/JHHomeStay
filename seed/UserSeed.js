@@ -20,12 +20,12 @@ let dbConnect = () => {
     //     connectOptions);
 
     /** CSDL local */
-    // let db =  mongoose.createConnection('mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
-    //     connectOptions);
+    let db =  mongoose.createConnection('mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
+        connectOptions);
 
     /** CSDL cho docker */
-    let db =  mongoose.createConnection('mongodb://mongo-jadehills:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
-        connectOptions);
+    /* let db =  mongoose.createConnection('mongodb://mongo-jadehills:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
+        connectOptions); */
 
     return db;
 }
