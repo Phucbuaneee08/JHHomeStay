@@ -1003,11 +1003,9 @@ HomestaysSeed = async function () {
     for(let i = 0; i < bills.length; i++) {
         await Bills(db).findByIdAndUpdate(bills[i]._id,
             {$push: {homestay: homestays[i]._id}})
-        for (let j  = 0; j < 6; j ++) {
-            await Homestays(db).findByIdAndUpdate(homestays[i*6+j]._id,
-                {$push: {bills: bills[i]._id}})
-        }
 
+        await Homestays(db).findByIdAndUpdate(homestays[i]._id,
+            {$push: {bills: bills[i]._id}})
     }
 
 
@@ -1209,10 +1207,8 @@ HomestaysSeed = async function () {
             homestays: homestays[i]._id,
         })
         // cập nhật _id của user vào homestays
-        for (let j = 0; j < 12; j ++) {
-            await Homestays(db).findByIdAndUpdate(homestays[i * 12 + j ]._id,
-                {$push: {admin: user._id}})
-        }
+        await Homestays(db).findByIdAndUpdate(homestays[i]._id,
+            {$push: {admin: user._id}})
     }
 
     await db.close();
