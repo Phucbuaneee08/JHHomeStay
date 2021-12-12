@@ -51,8 +51,8 @@ exports.getHomestayById = async (req, res) => {
             content: homestay
         });
     } catch (error) {
-        // Nếu ko thành công -> 404
-        return res.status(404).json({
+        // Nếu ko thành công -> 401
+        return res.status(401).json({
             success: false,
             message: Array.isArray(error) ? error : "Get homestays failed",
             content: error
@@ -93,8 +93,8 @@ exports.getHomestayByFilter = async (req, res) => {
             message: sliceTotal + " slice"
         });
     } catch (error) {
-        // Nếu ko thành công -> 404
-        return res.status(404).json({
+        // Nếu ko thành công -> 401
+        return res.status(401).json({
             success: false,
             message: Array.isArray(error) ? error : "Some error founded!",
             content: error
