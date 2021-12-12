@@ -88,7 +88,7 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
     if (servicesPerBill) {
         setKey = {...setKey, "servicesPerBill": servicesPerBill}
     }
-    await Bills(db).update(
+    await Bills(db).updateOne(
         {_id: billId},
         {$set: setKey}
     )
