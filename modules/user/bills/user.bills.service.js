@@ -2,32 +2,33 @@ const {Bills, Services, Homestays} = require('./../../../models/index');
 const {db} = require("../../../helpers/dbHelper");
 
 
-//Tạo bills với những thông tin nhận được và bills tính giá của Services
+//Tạo bills với những thông tin nhận được
 exports.createBill = async ( data ) => {
     
     // Lấy thông tin homestays bằng _id
     const homestay = await Homestays(db).findById({ _id:data._id })
-    .then(data => {
-        return data;
+    .then( homestay => {
+        return homestay;
     })
 
+
     //Nhập các trường đơn và trả về _id của Bills để cập nhật các trường liên kết của Bills
-    //Trong đó trường price sẽ khởi tạo là price của homestays / 1 ngày
-    const _id = await Bills(db).create({
+    //Trong đó trường chưa có trường price vì chưa tính ở đây
+    const _idBill = await Bills(db).create({
 
         homestay : { _id:data._id },
         checkinDate : new Date( data.checkinDate ),
         checkoutDate : new Date( data.checkoutDate ),
         status: 1,
-        price: homestay.price, // sai: tại sao lại lưu như thế này ? -> cần tính toán và lưu ở lúc tạo luôn
+        price:0,
 
     })
-    .then(data=>{ 
-        return data._id;
+    .then( bill =>{ 
+        return bill._id;
     })
     
     //Cập nhật thông tin customer cho Bills
-    await Bills(db).findByIdAndUpdate( { _id:_id }, 
+    await Bills(db).findByIdAndUpdate( { _id:_idBill }, 
         {
         customer : {
             $push : {
@@ -45,7 +46,7 @@ exports.createBill = async ( data ) => {
     //Cập nhật tên và tuổi cho những thành viên đi cùng với đoàn
     for( let i = 0 ; i < data.customerTogether.length ; i++ ){
     
-        await Bills(db).findByIdAndUpdate({ _id:_id }, 
+        await Bills(db).findByIdAndUpdate({ _id:_idBill }, 
             { $push: { customerTogether : data.customerTogether[i] }})
     
     }
@@ -53,35 +54,26 @@ exports.createBill = async ( data ) => {
     // Cập nhật Services mà khách chọn
     for( let i = 0 ; i < data.servicesPerBill.length ; i++ ){
     
-        await Bills(db).findByIdAndUpdate({ _id:_id }, 
+        await Bills(db).findByIdAndUpdate({ _id:_idBill }, 
             { $push: { servicesPerBill : data.servicesPerBill[i] }})
     
     }
 
-    //Trả lại _id Bills sau khi đã tạo Bills
-    return _id;
+    /**********************************************************************
+     *                                                                    *
+     * Tính tổng giá thuê homestays + services đi kèm và update vào Bills * 
+     *                                                                    *
+     * ********************************************************************/
 
-}
-
-// sai: không cần service update price
-exports.updatePrice = async ( Bill_Id ) =>{
-
-    //Lấy về danh sách servicesPerBill
-    const servicesPerBill = await Bills(db).findById({ _id : Bill_Id })
-    .populate({
-        path : 'servicesPerBill',
-        populate : { path : 'services' }
-    })
-    .then( data => {
-        return data.servicesPerBill ;
-    })
+    //Lấy giá của homestays/1 ngày mà bills tham chiếu tới
+    const priceHomestayPerDay = homestay.price;
 
     //Tính giá thuê homestays chưa có services
-    const priceHomestay = await Bills(db).findById({ _id : Bill_Id })
+    const priceHomestay = await Bills(db).findById({ _id : _idBill })
     .then( Bill => {
-        const numberOfDays = (Bill.checkoutDate - Bill.checkinDate) / ( 24 * 60 * 60 * 1000 ) - 2 ;
+        const numberOfDays = (Bill.checkoutDate - Bill.checkinDate) / ( 24 * 60 * 60 * 1000 ) ;
 
-        return numberOfDays * Bill.price ; // sai: xử lý ở bill.price dễ gây hiểu lầm -> cần chỉnh là lấy giá ở homestay mà nó tham chiếu
+        return (numberOfDays *  priceHomestayPerDay); 
         
     })
 
@@ -89,7 +81,7 @@ exports.updatePrice = async ( Bill_Id ) =>{
     await Bills(db).findByIdAndUpdate(
 
         {
-             _id : Bill_Id 
+             _id : _idBill 
         },    
 
         {
@@ -97,16 +89,26 @@ exports.updatePrice = async ( Bill_Id ) =>{
         },   
 
     )
+    
+    //Lấy về danh sách thông tin services trong bill
+    const services = await Bills(db).findById({ _id : _idBill })
+    .populate({
+        path : 'servicesPerBill',
+        populate : { path : 'services' }
+    })
+    .then( bill => {
+        return bill.servicesPerBill ;
+    })
 
     //Update priceService
-    for( let i = 0; i < servicesPerBill.length; i++ ){
+    for( let i = 0; i < services.length; i++ ){
 
-        var priceService = servicesPerBill[i].count * servicesPerBill[i].services.pricePerUnit;
+        var priceService = services[i].count * services[i].services.pricePerUnit;
 
         await Bills(db).findByIdAndUpdate(
 
             {
-                 _id : Bill_Id 
+                 _id : _idBill
             },    
 
             {
@@ -117,4 +119,6 @@ exports.updatePrice = async ( Bill_Id ) =>{
         
     }
 
+
 }
+

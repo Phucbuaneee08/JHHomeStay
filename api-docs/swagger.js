@@ -290,7 +290,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Create success"},
-                        "401": {"description": "Exception","message":"Nhập thiếu hoặc sai thông tin 1 trường bắt buộc" },
+                        "404": {"description": "Exception","message":"Nhập thiếu hoặc sai thông tin 1 trường bắt buộc" },
                     },
                     "x-codegen-request-body-name": "body"
                 }
