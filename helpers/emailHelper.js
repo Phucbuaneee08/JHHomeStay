@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-let sendEmail = (customerName, customerIdentification, customerEmail, customerPhoneNumber, checkinDate, checkoutDate, price, peopleNumber, homestayName, homestayAdmin, district, province ) => {
+exports.sendEmail = (customerName, customerIdentification, customerEmail, customerPhoneNumber, checkinDate, checkoutDate, price, peopleNumber, homestayName, homestayAdmin, district, province ) => {
     let sender = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -419,6 +419,3 @@ let sendEmail = (customerName, customerIdentification, customerEmail, customerPh
 
     return sender.sendMail(mail);
 }
-
-exports.sendEmail = sendEmail();
-// Cái exports này sau này sẽ dùng sau. -> Gọi từng tên một.
