@@ -3,6 +3,7 @@
 /**
  * Module dependencies.
  */
+
 var app = require('../index');
 var debug = require('debug')('JadeHillHomestays:server');
 var models = require('../models');
