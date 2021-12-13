@@ -304,8 +304,8 @@ const swaggerJsonData =
                     "requestBody": {
                         "description": "Nhập những trường cần tạo của bills",
                         "content": {
-                            "application/json": {"schema": {"$ref": "#/components/schemas/UpdateBill"}},
-                            "application/xml": {"schema": {"$ref": "#/components/schemas/UpdateBill"}}
+                            "application/json": {"schema": {"$ref": "#/components/schemas/CreateBill"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/CreateBill"}}
                         },
                     },
                     "responses": {
@@ -497,6 +497,44 @@ const swaggerJsonData =
                         "billId": {
                             "type": "string",
                         },
+                        "customer":{
+                            "type":"object",
+                            "properties" :{
+                                "name": {"type": "string"},
+                                "identification": {"type": "string"},
+                                "email": {"type": "string"},
+                                "phoneNumber": {"type": "string"},
+                                "age": {"type": "number", "default": 20},
+                            }
+                        },
+                        "customerTogether": {
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "name":        {"type": "string"},
+                                    "age":        {"type": "number"},
+                                }
+                            }
+                        },
+                        "homestayId": {"type": "string"},
+                        "checkinDate": {"type": "string"},
+                        "checkoutDate": {"type": "string"},
+                        "status": {"type": "number"},
+                        "servicesPerBill": {
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "services":        {"type": "string"},
+                                    "count":        {"type": "number"},
+                                }
+                            }
+                        },
+                    }
+                },
+                "CreateBill":{
+                    "type": "object", "properties":{
                         "customer":{
                             "type":"object",
                             "properties" :{
