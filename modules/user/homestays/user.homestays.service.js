@@ -79,6 +79,43 @@ exports.getHomestayById = async (id) => {
                 }
             },
             {
+                $unwind: {
+                    path: "$rates",
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+            {
+                $group: {
+                    _id: "$_id",
+                    homestays: { $first: "$$ROOT" },
+                    rates: { $push:
+                            {
+                                "_id": "$rates._id",
+                                "cleanRate": "$rates.cleanRate",
+                                "serviceRate": "$rates.serviceRate",
+                                "valueRate": "$rates.valueRate",
+                                "accuracyRate": "$rates.accuracyRate",
+                                "description": "$rates.description",
+                                "userName": "$rates.userName",
+                                "createdAt": "$rates.createdAt",
+                            }},
+                    countRates: {$sum: 1},
+                    totalRates: {
+                        $sum: {
+                            $sum: ["$rates.cleanRate", "$rates.serviceRate", "$rates.valueRate", "$rates.accuracyRate"]
+                        }
+                    }
+                }
+            },
+            {
+                $replaceRoot: { "newRoot": { "$mergeObjects": ["$homestays", { totalRates: "$totalRates" }, { countRates: "$countRates"}, {rates: "$rates"}]} }
+            },
+            {
+                $set: {
+                    averageRates: {$divide: ["$totalRates", {$multiply: ["$countRates", 4]}]}
+                }
+            },
+            {
                 $lookup: {
                     from: "services",
                     localField: "services",
@@ -110,15 +147,13 @@ exports.getHomestayById = async (id) => {
             },
             {
                 $project:{
-                    "homestays.services.homestays":0, "homestays.generalServices.homestays":0,
-                    "homestays.photos.homestays":0, "homestays.amenities":0,
+                    "services.homestays":0, "generalServices.homestays":0,
+                    "photos.homestays":0, "amenities.homestays":0,
                 }
             }
-        ],
-        {
-            allowDiskUse: true
-        }
+        ]
     );
+    console.log(homestay)
     return homestay;
 }
 
