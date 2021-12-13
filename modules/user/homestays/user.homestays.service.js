@@ -133,7 +133,11 @@ exports.getHomestayByFilter = async(province, type, averageRates, minPrice, maxP
         keyFilter = { ...keyFilter, type: {$regex: type},}
     }
     if (generalServices) {
-        keyFilter = { ...keyFilter, generalServices:  {$all: generalServices}}
+        let data = [];
+        for(let i = 0; i < generalServices.length; i++) {
+            data.push((await GeneralServices(db).find({name: generalServices[i]})));
+        }
+        keyFilter = { ...keyFilter, generalServices:  {$all: data.map(a => a._id)}}
     }
     if (amenities) {
         keyFilter = { ...keyFilter, amenities: {$all: amenities}}

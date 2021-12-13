@@ -79,7 +79,8 @@ exports.getHomestayByFilter = async (req, res) => {
         const slice = (data.slice)?data.slice:0;
 
         // Truy xuất cơ sở dữ liệu bằng filter để lấy mảng homestays
-        let {homestays, sliceTotal} = (await HomestaysService.getHomestayByFilter(province, type, averageRates, minPrice, maxPrice, generalServices, amenities, slice));
+        let {homestays, sliceTotal} = (await HomestaysService.getHomestayByFilter(province, type, averageRates, minPrice,
+            maxPrice, generalServices, amenities, slice));
 
         // Nếu thành công trả lại res 200 và toàn bộ thông tin các homestay
         if (sliceTotal === 0) {
