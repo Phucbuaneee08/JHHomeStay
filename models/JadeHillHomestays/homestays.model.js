@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
 //Bảng danh sách và các thông tin tổng quan của homestays
 //Lưu ý bảng này có options timestamp nên khi truy vấn chú ý
 const HomestaysSchema = new Schema(
@@ -66,7 +65,7 @@ const HomestaysSchema = new Schema(
                 },
             },
         ],
-        available: { // Trạng thái của homestays
+        available: { // Trạng thái của homestays 1 - đã có người đặt nhưng chưa đc sử dụng || 2 - đang có người sử dụng || 3 - đã sử dụng xong, chưa có người đặt
             type: Number
         },
         amenities:[{

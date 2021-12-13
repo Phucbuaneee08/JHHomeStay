@@ -20,7 +20,11 @@ let dbConnect = () => {
     // Cơ sở dữ liệu cục bộ
     let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays',
         connectOptions);
-    return db;
+
+    /** CSDL cho docker */
+    /* let db = mongoose.createConnection('mongodb://mongo-jadehills:27017/JadeHillHomestays',
+        connectOptions);
+    return db; */
 }
 const db = dbConnect();
 
@@ -1002,12 +1006,10 @@ HomestaysSeed = async function () {
     // Hiện tại là gán 1 homestay - 1 bill
     for(let i = 0; i < bills.length; i++) {
         await Bills(db).findByIdAndUpdate(bills[i]._id,
-            {$push: {homestay: homestays[i]._id}})
-        for (let j  = 0; j < 6; j ++) {
-            await Homestays(db).findByIdAndUpdate(homestays[i*6+j]._id,
-                {$push: {bills: bills[i]._id}})
-        }
+            {$set: {homestay: homestays[i]._id}})
 
+        await Homestays(db).findByIdAndUpdate(homestays[i]._id,
+            {$push: {bills: bills[i]._id}})
     }
 
 
@@ -1160,6 +1162,42 @@ HomestaysSeed = async function () {
             email: 'tu@gmail.com',
             password: await bcrypt.hash('1234567890', 10),
             role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'quynhanh@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'dat@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'thuong@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'thanh@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'binh@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'duc@gmail.com',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
         }
     ];
 
@@ -1173,10 +1211,8 @@ HomestaysSeed = async function () {
             homestays: homestays[i]._id,
         })
         // cập nhật _id của user vào homestays
-        for (let j = 0; j < 12; j ++) {
-            await Homestays(db).findByIdAndUpdate(homestays[i * 12 + j ]._id,
-                {$push: {admin: user._id}})
-        }
+        await Homestays(db).findByIdAndUpdate(homestays[i]._id,
+            {$push: {admin: user._id}})
     }
 
     await db.close();

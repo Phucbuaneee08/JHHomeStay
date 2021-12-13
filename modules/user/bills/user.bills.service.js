@@ -31,7 +31,7 @@ exports.createBill = async ( data ) => {
     await Bills(db).findByIdAndUpdate( { _id:_idBill }, 
         {
         customer : {
-            $push : {
+            $set : {
                 name : data.name,
                 identification : data.identification,
                 email : data.email,

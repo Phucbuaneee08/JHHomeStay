@@ -219,7 +219,7 @@ const swaggerJsonData =
                 "put": {
                     "tags": ["Admin"],
                     "summary":"Update information in Homestays with _id",
-                    "opertationId":"updateHomestays",
+                    "operationId":"updateHomestays",
                     "parameters":[],
                     "requestBody": {
                         "description": "Nhập tất cả các trường đơn của bản ghi muốn thay đổi",
@@ -239,7 +239,7 @@ const swaggerJsonData =
                 "post": {
                     "tags": ["Admin"],
                     "summary":"Create information in Homestays with _id",
-                    "opertationId":"updateHomestays",
+                    "operationId":"updateHomestays",
                     "parameters":[],
                     "requestBody": {
                         "description": "Nhập tất cả các trường đơn của bản ghi muốn tao",
@@ -290,7 +290,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Create success"},
-                        "401": {"description": "Exception","message":"Nhập thiếu hoặc sai thông tin 1 trường bắt buộc" },
+                        "404": {"description": "Exception","message":"Nhập thiếu hoặc sai thông tin 1 trường bắt buộc" },
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -312,6 +312,46 @@ const swaggerJsonData =
                         "200": { "description": "Delete bill success"},
                         "403": { "description": "Bills is not exist"},
                         "401": { "description": "Exception", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/admins/update/bills":{
+                "put": {
+                    "tags": ["Admin"],
+                    "summary": "Update Bills by admin",
+                    "operationId": "updateBillsByAdmin",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập những trường cần cập nhật của bills",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/UpdateBill"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/UpdateBill"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Update bills thành công "},
+                        "404": {"description": "Update bill không thành công", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/admins/bills-of-homestay/{id}": {
+                "get": {
+                    "tags": ["Admin"],
+                    "summary": "Get bills of admin by Homestay 's id",
+                    "operationId": "getBillsOfHomestay",
+                    "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nhập id của Homestay cần lấy ra danh sách các bills",
+                        "schema": {"type": "string"},
+                        "require": true
+                    }],
+                    "requestBody": [],
+                    "responses": {
+                        "200": {"description": "lấy dữ liệu thành công "},
+                        "404": {"description": "Homestay 's id không đúng ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -453,6 +493,47 @@ const swaggerJsonData =
                         }
                     }
                 },
+                "UpdateBill":{
+                    "type": "object", "properties":{
+                        "billId": {
+                            "type": "string",
+                        },
+                        "customer":{
+                            "type":"object",
+                            "properties" :{
+                                "name": {"type": "string"},
+                                "identification": {"type": "string"},
+                                "email": {"type": "string"},
+                                "phoneNumber": {"type": "string"},
+                                "age": {"type": "number"},
+                            }
+                        },
+                        "customerTogether": {
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "name":        {"type": "string"},
+                                    "age":        {"type": "number"},
+                                }
+                            }
+                        },
+                        "homestayId": {"type": "string"},
+                        "checkinDate": {"type": "string"},
+                        "checkoutDate": {"type": "string"},
+                        "status": {"type": "number"},
+                        "servicesPerBill": {
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "services":        {"type": "string"},
+                                    "count":        {"type": "number"},
+                                }
+                            }
+                        },
+                    }
+                },
                 "CreateBill":{
                     "type": "object", "properties": {
                         "_id":                    {"type": "string"},
@@ -501,7 +582,6 @@ const swaggerJsonData =
                         "_id": {"type": "string"}
                     }
                 }
-
             }, "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}}
         },
         "security": [{"bearerAuth": []}]

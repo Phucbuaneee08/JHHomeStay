@@ -6,7 +6,6 @@ var i18n = require("i18n");
 var cors = require('cors');
 const swaggerUi = require("swagger-ui-express");
 const { swaggerJsonData } = require("./api-docs/swagger.js");
-
 // import routers here
 
 require('dotenv').config();
@@ -55,3 +54,4 @@ router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJsonData));
 app.use(router);
 
 module.exports = app;
+

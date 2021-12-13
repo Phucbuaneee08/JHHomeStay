@@ -1,6 +1,7 @@
 const nodemailer = require("nodemailer");
 
-exports.sendEmail = (customerName, customerIdentification, customerEmail, customerPhoneNumber, checkinDate, checkoutDate, price, peopleNumber, homestayName, homestayAdmin, district, province ) => {
+exports.sendEmail = (customerName, customerIdentification, customerEmail, customerPhoneNumber, checkinDate,
+                     checkoutDate, price, peopleNumber, homestayName, homestayAdmin, district, province ) => {
     let sender = nodemailer.createTransport({
         service: 'gmail',
         auth: {

@@ -22,7 +22,7 @@ exports.updateInformationForHomestay = async (req,res) => {
             await UpdateServices.updateGeneralServicesById(data);
         }
         
-    //Update cho Amemities
+    //Update cho Amenities
         if( typeof( data.amenities ) !== "undefined" && data.amenities.length !== 0){
             await UpdateServices.updateAmenitiesById(data);
             }
