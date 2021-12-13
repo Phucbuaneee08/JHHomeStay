@@ -295,6 +295,26 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 }
             },
+            "/admins/create/bills":{
+                "put": {
+                    "tags": ["Admin"],
+                    "summary": "Create Bills by admin",
+                    "operationId": "createBillsByAdmin",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập những trường cần tạo của bills",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/UpdateBill"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/UpdateBill"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Create bills thành công "},
+                        "404": {"description": "Create bill không thành công", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
             "/super-admins/update/admins":{
                 "put": {
                     "tags": ["Super Admins"],
