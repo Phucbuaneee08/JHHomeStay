@@ -64,11 +64,11 @@ exports.getBillsByHomestayId = async (id) => {
 exports.updateBillsByBillsId = async (billId, customer, customerTogether, homestayId,checkinDate, checkoutDate, status, servicesPerBill) => {
     let setKey = {};
     if (customer) {
-        if (customer.name) {setKey = {...setKey, "customer.name": customer.name}};
-        if (customer.identification) {setKey = {...setKey, "customer.identification": customer.identification}};
-        if (customer.email) {setKey = {...setKey, "customer.email": customer.email}};
-        if (customer.phoneNumber) {setKey = {...setKey, "customer.phoneNumber": customer.phoneNumber}};
-        if (customer.age !== null) {setKey = {...setKey, "customer.age": customer.age}};
+        if (customer.name) {setKey = {...setKey, "customer.name": customer.name}}
+        if (customer.identification) {setKey = {...setKey, "customer.identification": customer.identification}}
+        if (customer.email) {setKey = {...setKey, "customer.email": customer.email}}
+        if (customer.phoneNumber) {setKey = {...setKey, "customer.phoneNumber": customer.phoneNumber}}
+        if (customer.age !== null) {setKey = {...setKey, "customer.age": customer.age}}
     }
     if (customerTogether) {
         setKey = {...setKey, "customerTogether": customerTogether}

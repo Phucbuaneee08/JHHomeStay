@@ -122,3 +122,4 @@ exports.createInformationForHomestay = async (req,res) => {
     })   
     }
 }
+
