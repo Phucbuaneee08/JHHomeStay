@@ -71,89 +71,11 @@ exports.createRating = async (id, rate) => {
 }
 
 exports.getHomestayById = async (id) => {
-    //Tìm homestay có id như yêu cầu trong Bảng Homestay
-    const homestay = await Homestays(db).aggregate([
-            {
-                $match: {
-                    _id: ObjectId(id)
-                }
-            },
-            {
-                $unwind: {
-                    path: "$rates",
-                    preserveNullAndEmptyArrays: true
-                }
-            },
-            {
-                $group: {
-                    _id: "$_id",
-                    homestays: { $first: "$$ROOT" },
-                    rates: { $push:
-                            {
-                                "_id": "$rates._id",
-                                "cleanRate": "$rates.cleanRate",
-                                "serviceRate": "$rates.serviceRate",
-                                "valueRate": "$rates.valueRate",
-                                "accuracyRate": "$rates.accuracyRate",
-                                "description": "$rates.description",
-                                "userName": "$rates.userName",
-                                "createdAt": "$rates.createdAt",
-                            }},
-                    countRates: {$sum: 1},
-                    totalRates: {
-                        $sum: {
-                            $sum: ["$rates.cleanRate", "$rates.serviceRate", "$rates.valueRate", "$rates.accuracyRate"]
-                        }
-                    }
-                }
-            },
-            {
-                $replaceRoot: { "newRoot": { "$mergeObjects": ["$homestays", { totalRates: "$totalRates" }, { countRates: "$countRates"}, {rates: "$rates"}]} }
-            },
-            {
-                $set: {
-                    averageRates: {$divide: ["$totalRates", {$multiply: ["$countRates", 4]}]}
-                }
-            },
-            {
-                $lookup: {
-                    from: "services",
-                    localField: "services",
-                    foreignField: "_id",
-                    as: "services"
-                }
-            },
-            {
-                $lookup: {
-                    from: "generalServices",
-                    localField: "generalServices",
-                    foreignField: "_id",
-                    as: "generalServices"
-                }
-            },{
-                $lookup: {
-                    from: "photos",
-                    localField: "photos",
-                    foreignField: "_id",
-                    as: "photos"
-                }
-            },{
-                $lookup: {
-                    from: "amenities",
-                    localField: "amenities",
-                    foreignField: "_id",
-                    as: "amenities"
-                }
-            },
-            {
-                $project:{
-                    "services.homestays":0, "generalServices.homestays":0,
-                    "photos.homestays":0, "amenities.homestays":0,
-                }
-            }
-        ]
-    );
-    console.log(homestay)
+    const homestay = await Homestays(db).findById(id)
+        .populate('amenities',"name")
+        .populate('generalServices', "name")
+        .populate('photos', "url")
+        .populate('services',"name");
     return homestay;
 }
 
@@ -199,6 +121,7 @@ exports.getHomestayByFilter = async(province, type, averageRates, minPrice, maxP
     let homestaysDocs =  (await Homestays(db).find(keyFilter).sort({'price': 'desc'})
         .populate('amenities',"name")
         .populate('generalServices', "name")
+        .populate('photos', "url")
         .populate('services',"name"));
 
     let homestaysArray =  homestaysDocs.filter(homestay => homestay.averageRates > averageRates);
