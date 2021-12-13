@@ -218,19 +218,19 @@ const swaggerJsonData =
             "/admins/update/homestays":{
                 "put": {
                     "tags": ["Admin"],
-                    "summary":"Update information in Homestays with _id",
-                    "operationId":"updateHomestays",
+                    "summary":"Update information in Homestay with _id",
+                    "operationId":"updateHomestay",
                     "parameters":[],
                     "requestBody": {
-                        "description": "Nhập tất cả các trường đơn của bản ghi muốn thay đổi",
+                        "description": "Nhập thông tin homestay muốn thay đổi",
                         "content": {
                             "application/json": {"schema": {"$ref": "#/components/schemas/UpdateHomestay"}},
                             "application/xml": {"schema": {"$ref": "#/components/schemas/UpdateHomestay"}}
                         },
                     },
                     "responses": {
-                        "200": {"description": "Update success"},
-                        "401": {"description": "Exception"},
+                        "200": {"description": "Update homestay success"},
+                        "404": {"description": "Exception"},
                     },
                     "x-codegen-request-body-name": "body"
                 },

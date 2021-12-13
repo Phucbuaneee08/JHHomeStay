@@ -35,7 +35,7 @@ app.use(i18n.init);
 
 // user routers here
 const router = express.Router();
-router.use( "/auth", require("./modules/auth/auth.route"));
+//router.use( "/auth", require("./modules/auth/auth.route"));
 
 // Trỏ tới router ở file information-homestays
 router.use( "/homestays", require("./modules/user/homestays/user.homestays.route"));
