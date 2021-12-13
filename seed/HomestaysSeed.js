@@ -24,7 +24,8 @@ let dbConnect = () => {
     /** CSDL cho docker */
     /* let db = mongoose.createConnection('mongodb://mongo-jadehills:27017/JadeHillHomestays',
         connectOptions);
-    return db; */
+        */
+    return db;
 }
 const db = dbConnect();
 

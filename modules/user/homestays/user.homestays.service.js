@@ -124,7 +124,7 @@ exports.getHomestayByFilter = async(province, type, averageRates, minPrice, maxP
         .populate('photos', "url")
         .populate('services',"name"));
 
-    let homestaysArray =  homestaysDocs.filter(homestay => homestay.averageRates > averageRates);
+    let homestaysArray =  homestaysDocs.filter(homestay => ((!homestay.averageRates) || (homestay.averageRates> averageRates)));
     let sliceTotal = Math.floor(homestaysArray.length / 16) + 1;
 
     return {homestays: homestaysArray.slice([slice * qty, slice * qty + qty]), sliceTotal : sliceTotal};
