@@ -14,7 +14,7 @@ const ServicesSchema= new Schema({
         type: Number,
         required: true
     },
-    bills: [{
+    bills: [{ // kh
         type: Schema.Types.ObjectId,
         ref: 'Bills'
     }],

@@ -1,6 +1,9 @@
-const {Homestays, Amenities, GeneralServices} = require("../../../models");
+const {Homestays, Amenities, GeneralServices, Bills} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 const {compare} = require("bcrypt");
+const {Users} = require("../../../models");
+const {ObjectId} = require('mongodb');
+const {toInt} = require("validator");
 const qty = 16;                             // Số lượng homestays mỗi slice
 
 exports.getRankingHomestays = async (quantity) => {
@@ -68,14 +71,12 @@ exports.createRating = async (id, rate) => {
 }
 
 exports.getHomestayById = async (id) => {
-    /*Tìm homestay có id như yêu cầu trong Bảng Homestay
-    -> Sau đó dùng Populate để chuyển hết các thuộc tính dạng ObjectId (đã kết nối lúc seed)
-    sang thành đối tượng tương ứng trong cơ sở dữ liệu
-    */
-    return Homestays(db).findById(id)
-        .populate('services')
-        .populate('generalServices')
-        .populate('photos');
+    const homestay = await Homestays(db).findById(id)
+        .populate('amenities',"name")
+        .populate('generalServices', "name")
+        .populate('photos', "url")
+        .populate('services',"name");
+    return homestay;
 }
 
 exports.getHomestayByFilter = async(province, type, averageRates, minPrice, maxPrice, generalServices, amenities, slice) =>  {
@@ -89,7 +90,16 @@ exports.getHomestayByFilter = async(province, type, averageRates, minPrice, maxP
         keyFilter = { ...keyFilter, type: {$regex: type},}
     }
     if (generalServices) {
-        keyFilter = { ...keyFilter, generalServices:  {$all: generalServices}}
+        let data = [];
+        if (typeof (generalServices) === 'string') {
+            data.push(...(await GeneralServices(db).find({name: generalServices})));
+        } else {
+            for (let i = 0; i < generalServices.length; i++) {
+                data.push((await GeneralServices(db).findOne({name: generalServices[i]})));
+            }
+        }
+        data = data.map(a => a._id);
+        keyFilter = { ...keyFilter, generalServices:  {$all: data}}
     }
     if (amenities) {
         keyFilter = { ...keyFilter, amenities: {$all: amenities}}
@@ -111,10 +121,29 @@ exports.getHomestayByFilter = async(province, type, averageRates, minPrice, maxP
     let homestaysDocs =  (await Homestays(db).find(keyFilter).sort({'price': 'desc'})
         .populate('amenities',"name")
         .populate('generalServices', "name")
+        .populate('photos', "url")
         .populate('services',"name"));
 
-    let homestaysArray =  homestaysDocs.filter(homestay => homestay.averageRates > averageRates);
+    let homestaysArray =  homestaysDocs.filter(homestay => ((!homestay.averageRates) || (homestay.averageRates> averageRates)));
     let sliceTotal = Math.floor(homestaysArray.length / 16) + 1;
 
     return {homestays: homestaysArray.slice([slice * qty, slice * qty + qty]), sliceTotal : sliceTotal};
+}
+
+// Trả về khoảng thời gian homestay đã được đặt dựa vào homestay 's id , nếu chưa được đặt trả về null
+exports.getCheckInAndOutDateByIdHomestay = async (id) => {
+    let bill = await Bills(db).aggregate([
+        {
+            $match: {
+                homestay: ObjectId(id),
+                status: parseInt("2")
+            }
+        },
+        {
+            $project: {
+                "checkinDate":1, "checkoutDate":1
+            }
+        }
+    ]);
+    return bill;
 }

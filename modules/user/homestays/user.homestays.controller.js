@@ -45,14 +45,15 @@ exports.getHomestayById = async (req, res) => {
         const id = req.params.id;
         // Truy xuất cơ sở dữ liệu bằng id để lấy
         let homestay = await HomestaysService.getHomestayById(id);
+        let billOfHomestayArray = await HomestaysService.getCheckInAndOutDateByIdHomestay(id);
         // Nếu thành công trả lại res 200 và toàn bộ thông tin homestay
         return res.status(200).json({
             success: true,
-            content: homestay
+            content: {billOfHomestayArray, homestay}
         });
     } catch (error) {
-        // Nếu ko thành công -> 404
-        return res.status(404).json({
+        // Nếu ko thành công -> 401
+        return res.status(401).json({
             success: false,
             message: Array.isArray(error) ? error : "Get homestays failed",
             content: error
@@ -77,7 +78,8 @@ exports.getHomestayByFilter = async (req, res) => {
         const slice = (data.slice)?data.slice:0;
 
         // Truy xuất cơ sở dữ liệu bằng filter để lấy mảng homestays
-        let {homestays, sliceTotal} = (await HomestaysService.getHomestayByFilter(province, type, averageRates, minPrice, maxPrice, generalServices, amenities, slice));
+        let {homestays, sliceTotal} = (await HomestaysService.getHomestayByFilter(province, type, averageRates, minPrice,
+            maxPrice, generalServices, amenities, slice));
 
         // Nếu thành công trả lại res 200 và toàn bộ thông tin các homestay
         if (sliceTotal === 0) {
@@ -93,8 +95,8 @@ exports.getHomestayByFilter = async (req, res) => {
             message: sliceTotal + " slice"
         });
     } catch (error) {
-        // Nếu ko thành công -> 404
-        return res.status(404).json({
+        // Nếu ko thành công -> 401
+        return res.status(401).json({
             success: false,
             message: Array.isArray(error) ? error : "Some error founded!",
             content: error

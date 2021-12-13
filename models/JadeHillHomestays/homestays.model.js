@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
 //Bảng danh sách và các thông tin tổng quan của homestays
 //Lưu ý bảng này có options timestamp nên khi truy vấn chú ý
 const HomestaysSchema = new Schema(
@@ -81,10 +80,10 @@ const HomestaysSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'GeneralServices'
         }],
-        admin:[{
+        admin:{
             type: Schema.Types.ObjectId,
             ref: 'Users'
-        }],
+        },
         superAdmin: {
             type: Schema.Types.ObjectId,
             ref: 'Users'

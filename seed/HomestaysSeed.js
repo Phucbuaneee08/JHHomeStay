@@ -20,6 +20,11 @@ let dbConnect = () => {
     // Cơ sở dữ liệu cục bộ
     let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays',
         connectOptions);
+
+    /** CSDL cho docker */
+    /* let db = mongoose.createConnection('mongodb://mongo-jadehills:27017/JadeHillHomestays',
+        connectOptions);
+        */
     return db;
 }
 const db = dbConnect();
@@ -1002,7 +1007,7 @@ HomestaysSeed = async function () {
     // Hiện tại là gán 1 homestay - 1 bill
     for(let i = 0; i < bills.length; i++) {
         await Bills(db).findByIdAndUpdate(bills[i]._id,
-            {$push: {homestay: homestays[i]._id}})
+            {$set: {homestay: homestays[i]._id}})
 
         await Homestays(db).findByIdAndUpdate(homestays[i]._id,
             {$push: {bills: bills[i]._id}})
