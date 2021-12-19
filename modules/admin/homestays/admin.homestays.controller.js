@@ -1,9 +1,7 @@
-const { Homestays } = require('../../../models');
 const HomestaysService = require('./admin.homestays.service');
-const {db} = require("../../../helpers/dbHelper");
 
 //Cập nhật thông tin homestay
-exports.updateInformationForHomestay = async (req,res) => {
+exports.updateHomestay = async (req,res) => {
     try{
         //Lấy dữ liệu từ request
         const data = req.body;
@@ -49,5 +47,6 @@ exports.updateInformationForHomestay = async (req,res) => {
     })}
     
 }
+
 
 
