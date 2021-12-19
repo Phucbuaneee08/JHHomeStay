@@ -96,9 +96,9 @@ exports.deleteBillsById = async ( req, res) =>{
 exports.getBillsByHomestayId = async (req, res) => {
     try {
         // Lấy id ở params
-        const id = req.params.id;
+        const {id, status} = req.query;
         // Truy xuất cơ sở dữ liệu bằng id để lấy
-        let bills = await BillsService.getBillsByHomestayId(id);
+        let bills = await BillsService.getBillsByHomestayId(id, status);
         // Nếu thành công trả lại res 200 và danh sách các bills
         return res.status(200).json({
             success: true,
@@ -106,7 +106,7 @@ exports.getBillsByHomestayId = async (req, res) => {
         });
     } catch (error) {
         // Nếu ko thành công -> 404
-        return res.status(404).json({
+        return res.status(401).json({
             success: false,
             message: Array.isArray(error) ? error : "Homestay's id is not correct!",
             content: error
