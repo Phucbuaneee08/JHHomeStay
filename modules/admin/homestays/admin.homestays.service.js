@@ -1,113 +1,80 @@
 const {Homestays, Rooms, Services, Signatures, GeneralServices, Photos, Amenities} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 
-//Update Homestays
-exports.updateHomestaysById = async (data) => {
-    //Nếu name mà không trống hoặc không có trường name trong req thì không cập nhật
-    var modifiedCount=0;
-    if(typeof(data.name) != "undefined" && data.name != ""){
-        await Homestays(db).updateOne({_id:data._id},{name:data.name});
-        modifiedCount++;
+//Update Homestays Service
+exports.updateHomestay = async (homestayId, homestayName, homestayPrice, homestayType, homestayAddress,homestayProvince, homestayDistrict, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayAmenities, homestayServices, homestayGeneralServices, homestayPhotos) =>{
+    // Tạo object rỗng để chứa các thông tin cần cập nhật 
+    let setHomestay = {};
+
+    // Kiểm tra và cập nhật
+    if( homestayName ){
+        setHomestay = {...setHomestay, "name": homestayName};
     }
-    //Nếu price mà không trống hoặc không có trường price trong req thì không cập nhật
-    if(typeof(data.price) != "undefined" && data.price != ""){
-        await Homestays(db).updateOne({_id:data._id},{price:data.price});
-        modifiedCount++;
+
+    if( homestayPrice ){
+        setHomestay = {...setHomestay, "price": homestayPrice};
     }
-    //Nếu type mà không trống hoặc không có trường type trong req thì không cập nhật
-    if(typeof(data.type) != "undefined" && data.type != ""){
-        await Homestays(db).updateOne({_id:data._id},{type:data.type});
-        modifiedCount++;
+
+    if( homestayType ){
+        setHomestay = {...setHomestay, "type": homestayType};
     }
-    //Nếu address mà không trống hoặc không có trường address trong req thì không cập nhật
-    if(typeof(data.address) != "undefined" && data.address != ""){
-        await Homestays(db).updateOne({_id:data._id},{address:data.address});
-        modifiedCount++;
+
+    if( homestayAddress ){
+        setHomestay = {...setHomestay, "address": homestayAddress};
     }
-    //Nếu province mà không trống hoặc không có trường province trong req thì không cập nhật
-    if(typeof(data.province) != "undefined" && data.province != ""){
-        await Homestays(db).updateOne({_id:data._id},{province:data.province});
-        modifiedCount++;
+
+    if( homestayProvince ){
+        setHomestay = {...setHomestay, "province": homestayProvince};
     }
-    //Nếu district mà không trống hoặc không có trường district trong req thì không cập nhật
-    if(typeof(data.district) != "undefined" && data.district != ""){
-        await Homestays(db).updateOne({_id:data._id},{district:data.district});
-        modifiedCount++;
+
+    if( homestayDistrict ){
+        setHomestay = {...setHomestay, "district": homestayDistrict};
     }
-    //Nếu latitude mà không trống hoặc không có trường latitude trong req thì không cập nhật
-    if(typeof(data.latitude) != "undefined" && data.latitude != ""){
-        await Homestays(db).updateOne({_id:data._id},{latitude:data.latitude});
-        modifiedCount++;
+
+    if( homestayLatitude ){
+        setHomestay = {...setHomestay, "latitude": homestayLatitude};
     }
-    //Nếu longitude mà không trống hoặc không có trường longitude trong req thì không cập nhật
-    if(typeof(data.longitude) != "undefined" && data.longitude != ""){
-        await Homestays(db).updateOne({_id:data._id},{longitude:data.longitude});
-        modifiedCount++;
+
+    if( homestayLongitude ){
+        setHomestay = {...setHomestay, "longitude": homestayLongitude};
     }
-    //Nếu area mà không trống hoặc không có trường area trong req thì không cập nhật
-    if(typeof(data.area) != "undefined" && data.area != ""){
-        await Homestays(db).updateOne({_id:data._id},{area:data.area});
-        modifiedCount++;
+
+    if( homestayArea ){
+        setHomestay = {...setHomestay, "area": homestayArea};
     }
-    //Nếu description mà không trống hoặc không có trường description trong req thì không cập nhật
-    if(typeof(data.description) != "undefined" && data.description != ""){
-        await Homestays(db).updateOne({_id:data._id},{description:data.description});
-        modifiedCount++;
+
+    if( homestayDescription ){
+        setHomestay = {...setHomestay, "description": homestayDescription};
     }
-    //Nếu available mà không trống hoặc không có trường available trong req thì không cập nhật
-    if(typeof(data.available) != "undefined" && data.available != ""){
-        await Homestays(db).updateOne({_id:data._id},{available:data.available});
-        modifiedCount++;
+
+    if( homestayAvailable ){
+        setHomestay = {...setHomestay, "available": homestayAvailable};
     }
-   
-    return modifiedCount;
+
+    if( homestayAmenities ){
+        setHomestay = {...setHomestay, "amenities": homestayAmenities};
+    }
+
+    if( homestayServices ){
+        setHomestay = {...setHomestay, "services": homestayServices};
+    }
+
+    if( homestayGeneralServices ){
+        setHomestay = {...setHomestay, "generalServices": homestayGeneralServices};
+    }
+
+    if( homestayPhotos ){
+        setHomestay = {...setHomestay, "photos": homestayPhotos};
+    }
+
+    // Cập nhật vào database
+    await Homestays(db).findByIdAndUpdate(
+        { _id: homestayId },
+        { $set: setHomestay }
+    );
+
+    //Trả lại thông tin homestay sau khi update
+    const homestay = await Homestays(db).findOne({ _id: homestayId });
+    
+    return homestay;
 }
-//Update Service
-exports.updateServicesById = async (data)=>{
-    await Homestays(db).findByIdAndUpdate( {_id:data._id} , { $set : {'services':[] }}, {multi:true} )
-
-    for(let i = 0; i < data.services.length; i++){
-        await Homestays(db).findByIdAndUpdate(
-            {_id:data._id}, 
-            {$push: {services: data.services[i]}}
-        )
-    }
-}
-
-//Update GeneralServices
-exports.updateGeneralServicesById = async (data)=>{
-    await Homestays(db).findByIdAndUpdate( {_id:data._id} , { $set : {'generalServices':[] }}, {multi:true} )
-
-    for(let i = 0; i < data.generalServices.length; i++){
-        await Homestays(db).findByIdAndUpdate(
-            {_id:data._id}, 
-            {$push: {generalServices: data.generalServices[i]}}
-        )
-    }
-
-}
-
-//Update Amenities
-exports.updateAmenitiesById = async(data)=>{
-    await Homestays(db).findByIdAndUpdate( {_id:data._id} , { $set : {'amenities':[] }}, {multi:true} )
-
-    for(let i = 0; i < data.amenities.length; i++){
-        await Homestays(db).findByIdAndUpdate(
-            {_id:data._id}, 
-            {$push: {amenities: data.amenities[i]}}
-        )
-    }
-}
-//Update Photos
-exports.updatePhotosById = async(data)=>{
-    await Homestays(db).findByIdAndUpdate( {_id:data._id} , { $set : {'photos':[] }}, {multi:true} )
-
-    for(let i = 0; i < data.photos.length; i++){
-        await Homestays(db).findByIdAndUpdate(
-            {_id:data._id}, 
-            {$push: {photos: data.photos[i]}}
-        )
-    }
-}
-
-
