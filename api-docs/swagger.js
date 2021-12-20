@@ -235,26 +235,6 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 },
             },
-            "/admins/create/homestays":{
-                "post": {
-                    "tags": ["Admin"],
-                    "summary":"Create information in Homestays with _id",
-                    "operationId":"updateHomestays",
-                    "parameters":[],
-                    "requestBody": {
-                        "description": "Nhập tất cả các trường đơn của bản ghi muốn tao",
-                        "content": {
-                            "application/json": {"schema": {"$ref": "#/components/schemas/UpdateHomestay"}},
-                            "application/xml": {"schema": {"$ref": "#/components/schemas/UpdateHomestay"}}
-                        },
-                    },
-                    "responses": {
-                        "200": {"description": "Update success"},
-                        "404": {"description": "Exception"},
-                    },
-                    "x-codegen-request-body-name": "body"
-                },
-            },
             "/admins/bills-of-admin/{id}": {
                 "get": {
                     "tags": ["Admin"],
@@ -380,6 +360,26 @@ const swaggerJsonData =
                     },
                     "x-codegen-request-body-name": "body"
                 }
+            },
+            "/super-admins/create/homestays":{
+                "post": {
+                    "tags":["Super Admins"],
+                    "summary": "Create homestay by super admin",
+                    "operationId": "createHomestays",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập id admin, tên homestay và tỉnh",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/CreateHomestay"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/CreateHomestay"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Create homestay successful "},
+                        "404": {"description": "Create homestay fail", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
             }
         },
         "components": {
@@ -464,58 +464,14 @@ const swaggerJsonData =
                 },
                 "CreateHomestay":{
                     "type": "object", "properties":{
-                        "_id":         {"type": "string"},
-                        "rooms":{
-                            "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "name":        {"type": "string"},
-                                    "price":       {"type": "number"},
-                                    "area":        {"type": "number"},
-                                    "available":   {"type": "number"}
-                                }
-                            }
-                        },
-                        "services":{
-                            "type":"array",
-                            "items": {
-                                "type": "object",
-                                "properties":{
-                                    "name":        {"type": "string"},
-                                    "pricePerUnit":{"type": "number"},
-                                    "personServe": {"type": "number"}
-                                }
-                            }
-                        },
-                        "generalServices":{
-                            "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "name":        {"type": "string"},
-                                }
-                            }
-                        },
-                        "amenities":{
-                            "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "name":        {"type": "string"},
-                                    "type":        {"type": "number"},
-                                }
-                            }
-                        },
-                        "photos":{
-                            "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "url":         {"type": "string"}
-                                }
-                            }
-                        }
+                        "adminId":     {"type": "string"},
+                        "name":        {"type": "string"},
+                        "price":       {"type": "number"},
+                        "type":        {"type": "string"},
+                        "address":     {"type": "string"},
+                        "province":    {"type": "string"},
+                        "district":    {"type": "string"},
+
                     }
                 },
                 "UpdateBill":{
