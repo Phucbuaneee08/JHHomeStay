@@ -69,7 +69,7 @@ exports.authRole = async function ( req, res, next) {
 
             //Nếu ko tồn tại, ko phải super admin hoặc admin
             if ( !user || user.status !== 1 ) {
-                if ( user.role == 'admin' || user.role == 'super_admin' ) {}
+                if ( user.role === 'admin' || user.role === 'super_admin' ) {}
                 else {
                     return res.status(401).json({
                         success: false,
@@ -87,7 +87,7 @@ exports.authRole = async function ( req, res, next) {
         }
     } else {
         if ( req.user.status !== 1 ) {
-            if ( req.user.role == 'admin' || req.user.role == 'super_admin') {}
+            if ( req.user.role === 'admin' || req.user.role === 'super_admin') {}
             else {
                 return res.status(401).json({
                     success: false,

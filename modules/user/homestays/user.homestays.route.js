@@ -1,4 +1,5 @@
-const express = require("express");
+
+const express = require('express')
 const HomestaysController = require("./user.homestays.controller");
 const router = express.Router();
 

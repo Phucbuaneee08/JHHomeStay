@@ -124,7 +124,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Rate thành công "},
-                        "401": {"description": "Rate không thành công ", "content": {}}
+                        "404": {"description": "Rate không thành công ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 },
@@ -144,7 +144,7 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "lấy dữ liệu homestay thành công "},
-                        "401": {"description": "id không đúng ", "content": {}}
+                        "404": {"description": "id không đúng ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -210,7 +210,7 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "Filter thành công "},
-                        "401": {"description": "Filter có lỗi ", "content": {}}
+                        "404": {"description": "Filter có lỗi ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -250,48 +250,33 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "lấy dữ liệu thành công "},
-                        "401": {"description": "admin 's id không đúng ", "content": {}}
+                        "404": {"description": "admin 's id không đúng ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
             },
-            "/users/create/bills":{
-                "post": {
-                    "tags": ["User"],
-                    "summary": "Create bill by user",
-                    "operationId":"",
-                    "parameter": [],
-                    "requestBody":{
-                        "description": "Bắt buộc nhập tất cả thông tin cá nhân của khách",
-                        "content": {
-                            "application/json": {"schema": {"$ref": "#/components/schemas/CreateBill"}},
-                            "application/xml": {"schema": {"$ref": "#/components/schemas/CreateBill"}}
-                        },
-                    },
-                    "responses": {
-                        "200": {"description": "Create success"},
-                        "404": {"description": "Exception","message":"Nhập thiếu hoặc sai thông tin 1 trường bắt buộc" },
-                    },
-                    "x-codegen-request-body-name": "body"
-                }
-            },
-            "/admins/delete/bills": {
-                "post": {
+            "/admins/bills-of-homestay": {
+                "get": {
                     "tags": ["Admin"],
-                    "summary": "Delete Bills by Admin by Bills 's id",
-                    "operationId": "DeleteBills",
-                    "parameters": [],
-                    "requestBody": {
-                        "description": "Nhập _id của Bills cần xóa, bạn cần phải là admin thì mới xóa được",
-                        "content": {
-                            "application/json": {"schema": {"$ref": "#/components/schemas/DeleteBill"}},
-                            "application/xml": {"schema": {"$ref": "#/components/schemas/DeleteBill"}}
-                        },
-                    },
+                    "summary": "Get bills of admin by Homestay 's id",
+                    "operationId": "getBillsOfHomestay",
+                    "parameters": [{
+                        "name": "id",
+                        "in": "query",
+                        "description": "Nhập id của Homestay cần lấy ra danh sách các bills",
+                        "schema": {"type": "string"},
+                        "require": true
+                    }, {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Nhập id của Homestay cần lấy ra danh sách các bills",
+                        "schema": {"type": "number"},
+                        "require": true
+                    }],
+                    "requestBody": [],
                     "responses": {
-                        "200": { "description": "Delete bill success"},
-                        "403": { "description": "Bills is not exist"},
-                        "401": { "description": "Exception", "content": {}}
+                        "200": {"description": "lấy dữ liệu thành công "},
+                        "404": {"description": "Homestay 's id không đúng ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -316,22 +301,82 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 }
             },
-            "/admins/bills-of-homestay/{id}": {
-                "get": {
+            "/admins/create/bills":{
+                "put": {
                     "tags": ["Admin"],
-                    "summary": "Get bills of admin by Homestay 's id",
-                    "operationId": "getBillsOfHomestay",
-                    "parameters": [{
-                        "name": "id",
-                        "in": "path",
-                        "description": "Nhập id của Homestay cần lấy ra danh sách các bills",
-                        "schema": {"type": "string"},
-                        "require": true
-                    }],
-                    "requestBody": [],
+                    "summary": "Create Bills by admin",
+                    "operationId": "createBillsByAdmin",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập những trường cần tạo của bills",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/CreateBill"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/CreateBill"}}
+                        },
+                    },
                     "responses": {
-                        "200": {"description": "lấy dữ liệu thành công "},
-                        "404": {"description": "Homestay 's id không đúng ", "content": {}}
+                        "200": {"description": "Create bills thành công "},
+                        "404": {"description": "Create bill không thành công", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/super-admins/update/admins":{
+                "put": {
+                    "tags": ["Super Admins"],
+                    "summary": "Update admins by super admin",
+                    "operationId": "updateAdminsById",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập những trường cần cập nhật của admins",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/UpdateAdmin"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/UpdateAdmin"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Update admin thành công "},
+                        "404": {"description": "Update admin không thành công", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/super-admins/create/admins":{
+                "post": {
+                    "tags": ["Super Admins"],
+                    "summary": "Create admins by super admin",
+                    "operationId": "createAdmins",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập những trường cần cập nhật của admins",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/CreateAdmin"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/CreateAdmin"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Create admin successful "},
+                        "404": {"description": "Create admin unsuccessful", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/super-admins/create/homestays":{
+                "post": {
+                    "tags":["Super Admins"],
+                    "summary": "Create homestay by super admin",
+                    "operationId": "createHomestays",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập id admin, tên homestay và tỉnh",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/CreateHomestay"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/CreateHomestay"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Create homestay successful "},
+                        "404": {"description": "Create homestay fail", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -417,6 +462,18 @@ const swaggerJsonData =
                         }
                     }
                 },
+                "CreateHomestay":{
+                    "type": "object", "properties":{
+                        "adminId":     {"type": "string"},
+                        "name":        {"type": "string"},
+                        "price":       {"type": "number"},
+                        "type":        {"type": "string"},
+                        "address":     {"type": "string"},
+                        "province":    {"type": "string"},
+                        "district":    {"type": "string"},
+
+                    }
+                },
                 "UpdateBill":{
                     "type": "object", "properties":{
                         "billId": {
@@ -429,7 +486,7 @@ const swaggerJsonData =
                                 "identification": {"type": "string"},
                                 "email": {"type": "string"},
                                 "phoneNumber": {"type": "string"},
-                                "age": {"type": "number"},
+                                "age": {"type": "number", "default": 20},
                             }
                         },
                         "customerTogether": {
@@ -459,53 +516,145 @@ const swaggerJsonData =
                     }
                 },
                 "CreateBill":{
-                    "type": "object", "properties": {
-                        "_id":                    {"type": "string"},
-                        "customer": {
-                            "type": "object", "properties": {
-                                "name":           {"type": "string"},
+                    "type": "object", "properties":{
+                        "customer":{
+                            "type":"object",
+                            "properties" :{
+                                "name": {"type": "string"},
                                 "identification": {"type": "string"},
-                                "email":          {"type": "string"},
-                                "phoneNumber":    {"type": "string"},
-                                "age":            {"type": "number"}
+                                "email": {"type": "string"},
+                                "phoneNumber": {"type": "string"},
+                                "age": {"type": "number", "default": 20},
                             }
                         },
                         "customerTogether": {
-                            "type": "array",
+                            "type":"array",
                             "items":{
                                 "type": "object",
-                                "properties": { 
-
-                                    "name":       {"type": "string"},
-                                    "age":        {"type": "number"}
-
+                                "properties":{
+                                    "name":        {"type": "string"},
+                                    "age":        {"type": "number"},
                                 }
-
                             }
-
                         },
-                        "checkinDate":             {"type": "string"},
-                        "checkoutDate":            {"type": "string"},
-                        "servicesPerBill": { 
-                            "type": "array","items": {
-
-                                "type": "object","properties": {
-
-                                    "services":    {"type": "string"}, 
-                                    "count":       {"type": "number"} 
-                                
+                        "homestayId": {"type": "string"},
+                        "checkinDate": {"type": "string"},
+                        "checkoutDate": {"type": "string"},
+                        "status": {"type": "number"},
+                        "servicesPerBill": {
+                            "type":"array",
+                            "items":{
+                                "type": "object",
+                                "properties":{
+                                    "services":        {"type": "string"},
+                                    "count":        {"type": "number"},
                                 }
-                            
                             }
-                        
-                        }
+                        },
                     }
                 },
-                "DeleteBill":{
+                "UpdateAdmin":{
                     "type": "object", "properties":{
-                        "_id": {"type": "string"}
+                        "id": {
+                            "type": "string",
+                        },
+                        "name":  {
+                            "type": "string",
+                        },
+                        "address":  {
+                            "type": "string",
+                        },
+                        "role":  {
+                            "type": "string",
+                            "default": "admin"
+                        },
+                        "email":  {
+                            "type": "string",
+                        },
+                        "password":  {
+                            "type": "string",
+                        },
+                        "phone":  {
+                            "type": "string",
+                        },
+                        "status":  {
+                            "type": "number",
+                            "default": 1
+                        },
+                        "gender":  {
+                            "type": "string",
+                            "default": "Male"
+                        },
+                        "identification":  {
+                            "type": "string",
+                        },
+                        "avatarUrl":  {
+                            "type": "string",
+                        },
+                        "dateAtBirth":  {
+                            "type": "string",
+                            "default": "12-20-2001"
+                        },
+                        "homestays":  {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                            }
+                        },
+                    }
+                },
+                "CreateAdmin":{
+                    "type": "object", "properties":{
+                        "name":  {
+                            "type": "string",
+                        },
+                        "address":  {
+                            "type": "string",
+                        },
+                        "role":  {
+                            "type": "string",
+                            "default": "admin"
+                        },
+                        "email":  {
+                            "type": "string",
+                        },
+                        "password":  {
+                            "type": "string",
+                        },
+                        "phone":  {
+                            "type": "string",
+                        },
+                        "status":  {
+                            "type": "number",
+                            "default": 1
+                        },
+                        "gender":  {
+                            "type": "string",
+                            "default": "Male"
+                        },
+                        "identification":  {
+                            "type": "string",
+                        },
+                        "avatarUrl":  {
+                            "type": "string",
+                        },
+                        "dateAtWork":  {
+                            "type": "string",
+                            "default": "12-11-2021"
+                        },
+                        "dateAtBirth":  {
+                            "type": "string",
+                            "default": "12-20-2001"
+                        },
+                        "homestays":  {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                            }
+                        },
                     }
                 }
+
             }, "securitySchemes": {"bearerAuth": {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}}
         },
         "security": [{"bearerAuth": []}]

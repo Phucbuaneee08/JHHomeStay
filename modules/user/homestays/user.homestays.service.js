@@ -71,54 +71,11 @@ exports.createRating = async (id, rate) => {
 }
 
 exports.getHomestayById = async (id) => {
-    //Tìm homestay có id như yêu cầu trong Bảng Homestay
-    const homestay = await Homestays(db).aggregate([
-            {
-                $match: {
-                    _id: ObjectId(id)
-                }
-            },
-            {
-                $lookup: {
-                    from: "services",
-                    localField: "services",
-                    foreignField: "_id",
-                    as: "services"
-                }
-            },
-            {
-                $lookup: {
-                    from: "generalServices",
-                    localField: "generalServices",
-                    foreignField: "_id",
-                    as: "generalServices"
-                }
-            },{
-                $lookup: {
-                    from: "photos",
-                    localField: "photos",
-                    foreignField: "_id",
-                    as: "photos"
-                }
-            },{
-                $lookup: {
-                    from: "amenities",
-                    localField: "amenities",
-                    foreignField: "_id",
-                    as: "amenities"
-                }
-            },
-            {
-                $project:{
-                    "homestays.services.homestays":0, "homestays.generalServices.homestays":0,
-                    "homestays.photos.homestays":0, "homestays.amenities":0,
-                }
-            }
-        ],
-        {
-            allowDiskUse: true
-        }
-    );
+    const homestay = await Homestays(db).findById(id)
+        .populate('amenities',"name")
+        .populate('generalServices', "name")
+        .populate('photos', "url")
+        .populate('services',"name pricePerUnit personServe");
     return homestay;
 }
 
@@ -164,9 +121,10 @@ exports.getHomestayByFilter = async(province, type, averageRates, minPrice, maxP
     let homestaysDocs =  (await Homestays(db).find(keyFilter).sort({'price': 'desc'})
         .populate('amenities',"name")
         .populate('generalServices', "name")
+        .populate('photos', "url")
         .populate('services',"name"));
 
-    let homestaysArray =  homestaysDocs.filter(homestay => homestay.averageRates > averageRates);
+    let homestaysArray =  homestaysDocs.filter(homestay => ((!homestay.averageRates) || (homestay.averageRates> averageRates)));
     let sliceTotal = Math.floor(homestaysArray.length / 16) + 1;
 
     return {homestays: homestaysArray.slice([slice * qty, slice * qty + qty]), sliceTotal : sliceTotal};
