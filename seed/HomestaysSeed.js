@@ -18,14 +18,12 @@ let dbConnect = () => {
     let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority',
         connectOptions);  */
     // Cơ sở dữ liệu cục bộ
-    let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays',
-        connectOptions);
+    let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays', connectOptions);
 
     /** CSDL cho docker */
-    /* let db = mongoose.createConnection('mongodb://mongo-jadehills:27017/JadeHillHomestays',
-        connectOptions);
-        */
-    return db;
+    // let db = mongoose.createConnection('mongodb://mongo-jadehills:27017/JadeHillHomestays',
+    //     connectOptions);
+    return db
 }
 const db = dbConnect();
 
@@ -1219,7 +1217,8 @@ HomestaysSeed = async function () {
     await db.close();
 }
 
-HomestaysSeed().then(() => {
+HomestaysSeed()
+.then(() => {
     console.log("Homestays seed ok!!")
 }).catch(error => {
     console.log(error)
