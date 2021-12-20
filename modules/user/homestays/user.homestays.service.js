@@ -75,7 +75,7 @@ exports.getHomestayById = async (id) => {
         .populate('amenities',"name")
         .populate('generalServices', "name")
         .populate('photos', "url")
-        .populate('services',"name");
+        .populate('services',"name pricePerUnit personServe");
     return homestay;
 }
 
