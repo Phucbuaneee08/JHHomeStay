@@ -15,7 +15,7 @@ exports.createInformationForHomestay = async (req, res) => {
         const homestayPrice = data.price ? data.price : 0;
 
         if( !adminId ) {
-            return res.status(404).json({
+            return res.status(401).json({
                 success: false,
                 message: "Create homestay fail",
                 content: "Chưa điền id admin"
@@ -34,7 +34,7 @@ exports.createInformationForHomestay = async (req, res) => {
     }
     catch(Error){
         //Lỗi không xác định
-        return res.status(404).json({
+        return res.status(401).json({
             success: false,
             message: "Create homestay fail",
             content: Error

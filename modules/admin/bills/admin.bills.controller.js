@@ -45,8 +45,8 @@ exports.updateBillsById = async (req, res) => {
         });
 
     } catch (error) {
-        // Nếu ko thành công -> 404
-        return res.status(404).json({
+        // Nếu ko thành công -> 401
+        return res.status(401).json({
             success: false,
             message: Array.isArray(error) ? error : "Bill cannot update",
             content: error
@@ -105,7 +105,7 @@ exports.getBillsByHomestayId = async (req, res) => {
             content: bills
         });
     } catch (error) {
-        // Nếu ko thành công -> 404
+        // Nếu ko thành công -> 401
         return res.status(401).json({
             success: false,
             message: Array.isArray(error) ? error : "Homestay's id is not correct!",

@@ -40,7 +40,7 @@ exports.updateHomestay = async (req,res) => {
     }
     catch(Error){
         //Lỗi không xác định
-        return res.status(404).json({
+        return res.status(401).json({
             success: false,
             message: "Exception",
             content: Error

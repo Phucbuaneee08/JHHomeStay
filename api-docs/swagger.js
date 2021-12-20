@@ -124,7 +124,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Rate thành công "},
-                        "404": {"description": "Rate không thành công ", "content": {}}
+                        "401": {"description": "Rate không thành công ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 },
@@ -144,7 +144,7 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "lấy dữ liệu homestay thành công "},
-                        "404": {"description": "id không đúng ", "content": {}}
+                        "401": {"description": "id không đúng ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -210,7 +210,7 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "Filter thành công "},
-                        "404": {"description": "Filter có lỗi ", "content": {}}
+                        "401": {"description": "Filter có lỗi ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -230,7 +230,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Update homestay success"},
-                        "404": {"description": "Exception"},
+                        "401": {"description": "Exception"},
                     },
                     "x-codegen-request-body-name": "body"
                 },
@@ -250,7 +250,7 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "lấy dữ liệu thành công "},
-                        "404": {"description": "admin 's id không đúng ", "content": {}}
+                        "401": {"description": "admin 's id không đúng ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -276,7 +276,7 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "lấy dữ liệu thành công "},
-                        "404": {"description": "Homestay 's id không đúng ", "content": {}}
+                        "401": {"description": "Homestay 's id không đúng ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -296,7 +296,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Update bills thành công "},
-                        "404": {"description": "Update bill không thành công", "content": {}}
+                        "401": {"description": "Update bill không thành công", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -316,7 +316,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Create bills thành công "},
-                        "404": {"description": "Create bill không thành công", "content": {}}
+                        "401": {"description": "Create bill không thành công", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -336,7 +336,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Update admin thành công "},
-                        "404": {"description": "Update admin không thành công", "content": {}}
+                        "401": {"description": "Update admin không thành công", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -356,7 +356,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Create admin successful "},
-                        "404": {"description": "Create admin unsuccessful", "content": {}}
+                        "401": {"description": "Create admin unsuccessful", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -376,7 +376,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Create homestay successful "},
-                        "404": {"description": "Create homestay fail", "content": {}}
+                        "401": {"description": "Create homestay fail", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
