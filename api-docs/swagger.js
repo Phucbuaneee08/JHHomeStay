@@ -382,7 +382,7 @@ const swaggerJsonData =
                 }
             },
             "/super-admins/homestays":{
-                "post": {
+                "get": {
                     "tags":["Super Admins"],
                     "summary": "Get all homestays by super admin",
                     "operationId": "getAllHomestays",
