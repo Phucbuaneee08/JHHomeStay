@@ -641,7 +641,199 @@ HomestaysSeed = async function () {
             address: "Hội An, Quảng Nam, Việt Nam",
             province: "Quảng Nam",
             district: "Hội An",
-        }
+        },
+
+        // Thêm 10 homestays cho Hà Nội - Tú
+        {
+            name: "The Galaxy Home",
+            price: 850000,
+            type:"Căn hộ dịch vụ",
+            address:"Cầu Giấy, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Cầu Giấy",
+            rates: [
+                {
+                    cleanRate: 3,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 4,
+                    description: "Dịch vụ của Homestay khá ổn",
+                    userName: "Minh",
+                    createdAt: new Date("12/09/2019")
+                },
+            ],
+        },
+        {
+            name: "Esperanto Artistic studio",
+            price: 808500,
+            type:"Căn hộ Studio",
+            address:"Hoàn Kiếm, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Hoàn Kiếm",
+            rates: [
+                {
+                    cleanRate: 4,
+                    serviceRate: 5,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Nhật",
+                    createdAt: new Date("16/12/2018")
+                },
+            ],
+        },
+        {
+            name: "Tiny&Tom Home",
+            price: 600600,
+            type:"Nhà riêng",
+            address:"Ba Đình, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Ba Đình",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 5,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Tú",
+                    createdAt: new Date("17/06/2017")
+                },
+            ],
+        },
+        {
+            name: "Hanoi Friendly House",
+            price: 2800000,
+            type:"Nhà riêng",
+            address:"Tây Hồ, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Tây Hồ",
+            rates: [
+                {
+                    cleanRate: 4,
+                    serviceRate: 4,
+                    valueRate: 4,
+                    accuracyRate: 4,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Đạt",
+                    createdAt: new Date("20/12/2020")
+                },
+            ],
+        },
+        {
+            name: "Sa Sa House Old Quarter Quiet Private Room 5F",
+            price: 800000,
+            type:"Nhà riêng",
+            address:"Hoàn Kiếm, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Hoàn Kiếm",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 4,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Quỳnh Anh",
+                    createdAt: new Date("25/12/2019")
+                },
+            ],
+        },
+        {
+            name: "OKiaTreehouse - NHÀ KHẾ",
+            price: 750000,
+            type:"Khác",
+            address:"Ba Vì, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Ba Vì",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 3,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Thanh",
+                    createdAt: new Date("17/01/2018")
+                },
+            ],
+        },
+        {
+            name: "The Kefi House Ba Vi - Villa Hồng Anh",
+            price: 3800000,
+            type:"Biệt thự",
+            address:"Ba Vì, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Ba Vì",
+            rates: [
+                {
+                    cleanRate: 4,
+                    serviceRate: 4,
+                    valueRate: 4,
+                    accuracyRate: 4,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Bình",
+                    createdAt: new Date("24/08/2019")
+                },
+            ],
+        },
+        {
+            name: "Mersey Central Hanoi",
+            price: 900000,
+            type:"Căn hộ dịch vụ",
+            address:"Ba Đình, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Ba Đình",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 5,
+                    valueRate: 4,
+                    accuracyRate: 4,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Hoàng",
+                    createdAt: new Date("06/04/2019")
+                },
+            ],
+        },
+        {
+            name: "Vinhomes Ocean Park",
+            price: 419000,
+            type:"Căn hộ chung cư",
+            address:"Gia Lâm, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Gia Lâm",
+            rates: [
+                {
+                    cleanRate: 4,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 3,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Tú",
+                    createdAt: new Date("01/04/2019")
+                },
+            ],
+        },
+        {
+            name: "Luxury Stay",
+            price: 1180000,
+            type:"Căn hộ dịch vụ",
+            address:"Ba Đình, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Ba Đình",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Minh",
+                    createdAt: new Date("22/07/2017")
+                },
+            ],
+        },
     ]);
 
     // Tạm tạo cho các homestays rate
@@ -708,8 +900,19 @@ HomestaysSeed = async function () {
         "/upload/homestays-photos/Flame Flowers Homestay.jpg",
         "/upload/homestays-photos/YLANG GARDEN VILLA.jpg",
         "/upload/homestays-photos/Open Balcony.jpg",
-        "/upload/homestays-photos/Hoi An Majestic villa.jpg"
+        "/upload/homestays-photos/Hoi An Majestic villa.jpg",
 
+        // Them 10 homestays tai Ha Noi - TuNN
+        "/upload/homestays-photos/TheGalaxyHome.png",
+        "/upload/homestays-photos/Esperanto Artistic studio.jpg",
+        "/upload/homestays-photos/Tiny&Tom Home.jpg",
+        "/upload/homestays-photos/Hanoi Friendly House.jpg",
+        "/upload/homestays-photos/Sa Sa House Old Quarter Quiet Private Room 5F.png",
+        "/upload/homestays-photos/OKiaTreehouse - NHA KHE.jpg",
+        "/upload/homestays-photos/The Kefi House Ba Vi - Villa Hong Anh.jpg",
+        "/upload/homestays-photos/Mersey Central Hanoi.jpg",
+        "/upload/homestays-photos/Vinhomes Ocean Park.jpg",
+        "/upload/homestays-photos/Luxury Stay.jpg",
     ]
 
     // Lưu và cập nhật _id vào mỗi documents (bidirectional)
