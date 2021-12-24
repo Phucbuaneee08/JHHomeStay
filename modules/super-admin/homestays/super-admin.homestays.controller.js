@@ -65,3 +65,22 @@ exports.getIdAdmin = async ( req, res ) => {
         })  
     }
 }
+//Lấy toàn bộ homestays
+exports.getAllHomestays = async (req, res) => {
+    try {
+        const {page, perPage} = req.query;
+        let homestays = await HomestayService.getAllHomestays(page, perPage);
+
+        return res.status(200).json({
+            success: true,
+            message: "Get all homestays successfully",
+            content: homestays
+        });
+    } catch (error) {
+        return res.status(401).json({
+            success: false,
+            message: "Exception",
+            content: Error
+        })
+    }
+}

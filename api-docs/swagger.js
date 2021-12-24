@@ -400,6 +400,32 @@ const swaggerJsonData =
                     },
                     "x-codegen-request-body-name": "body"
                 }
+            },
+            "/super-admins/homestays":{
+                "get": {
+                    "tags":["Super Admins"],
+                    "summary": "Get all homestays by super admin",
+                    "operationId": "getAllHomestays",
+                    "parameters": [{
+                        "name": "page",
+                        "in": "query",
+                        "description": "Nhập page (đang ở page nào) nếu không nhập sẽ lấy tất cả các homestays",
+                        "schema": {"type": "number"},
+                        "require": false
+                    }, {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Nhập perPage (mỗi page cần bao nhiêu homestays) nếu không nhập sẽ lấy tất cả các homestays",
+                        "schema": {"type": "number"},
+                        "require": false
+                    }],
+                    "requestBody": {},
+                    "responses": {
+                        "200": {"description": "Get homestays successful "},
+                        "401": {"description": "Get homestays fail", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
             }
         },
         "components": {
