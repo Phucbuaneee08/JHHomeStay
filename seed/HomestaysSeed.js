@@ -329,56 +329,64 @@ HomestaysSeed = async function () {
             address: "Thạch Thất, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Thạch Thất",
-        }, {
+        },
+        {
             name: "Villas",
             price: 4999000,
             type: "Biệt thự",
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Ba Vì",
-        }, {
+        },
+        {
             name: "Stream House",
             price: 9500000,
             type: "Biệt thự",
             address: "Sóc Sơn, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Sóc Sơn",
-        }, {
+        },
+        {
             name: "1001 Lakeside Villas",
             price: 4900000,
             type: "Biệt thự",
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Ba Vì",
-        }, {
+        },
+        {
             name: "Biệt thự hoa hồng BT4",
             price: 4699000,
             type: "Biệt thự",
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Ba Vì",
-        }, {
+        },
+        {
             name: "Embossi Garden",
             price: 4000000,
             type: "Nhà riêng",
             address: "Ba Vì, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Ba Vì",
-        }, {
+        },
+        {
             name: "Sóc Sơn Riverside",
             price: 4500000,
             type: "Biệt thự",
             address: "Sóc Sơn, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Sóc Sơn",
-        }, {
+        },
+        {
             name: "Storm Villa",
             price: 4500000,
             type: "Biệt thự",
             address: "Sóc Sơn, Hà Nội, Vietnam",
             province: "Hà Nội",
             district: "Sóc Sơn",
-        }, {
+        },
+        {
             name: "The Moonlight",
             price: 4500000,
             type: "Biệt thự",
@@ -678,7 +686,7 @@ HomestaysSeed = async function () {
                     accuracyRate: 5,
                     description: "Dịch vụ của Homestay rất tốt",
                     userName: "Nhật",
-                    createdAt: new Date("16/12/2018")
+                    createdAt: new Date("12/12/2018")
                 },
             ],
         },
@@ -697,7 +705,7 @@ HomestaysSeed = async function () {
                     accuracyRate: 5,
                     description: "Dịch vụ của Homestay rất tốt",
                     userName: "Tú",
-                    createdAt: new Date("17/06/2017")
+                    createdAt: new Date("1/06/2017")
                 },
             ],
         },
@@ -716,7 +724,7 @@ HomestaysSeed = async function () {
                     accuracyRate: 4,
                     description: "Dịch vụ của Homestay rất tốt",
                     userName: "Đạt",
-                    createdAt: new Date("20/12/2020")
+                    createdAt: new Date("2/12/2020")
                 },
             ],
         },
@@ -735,7 +743,7 @@ HomestaysSeed = async function () {
                     accuracyRate: 4,
                     description: "Dịch vụ của Homestay rất tốt",
                     userName: "Quỳnh Anh",
-                    createdAt: new Date("25/12/2019")
+                    createdAt: new Date("2/12/2019")
                 },
             ],
         },
@@ -754,7 +762,7 @@ HomestaysSeed = async function () {
                     accuracyRate: 5,
                     description: "Dịch vụ của Homestay rất tốt",
                     userName: "Thanh",
-                    createdAt: new Date("17/01/2018")
+                    createdAt: new Date("7/01/2018")
                 },
             ],
         },
@@ -773,7 +781,7 @@ HomestaysSeed = async function () {
                     accuracyRate: 4,
                     description: "Dịch vụ của Homestay rất tốt",
                     userName: "Bình",
-                    createdAt: new Date("24/08/2019")
+                    createdAt: new Date("2/08/2019")
                 },
             ],
         },
@@ -792,7 +800,7 @@ HomestaysSeed = async function () {
                     accuracyRate: 4,
                     description: "Dịch vụ của Homestay rất tốt",
                     userName: "Hoàng",
-                    createdAt: new Date("06/04/2019")
+                    createdAt: new Date("4/04/2019")
                 },
             ],
         },
@@ -811,7 +819,7 @@ HomestaysSeed = async function () {
                     accuracyRate: 3,
                     description: "Dịch vụ của Homestay rất tốt",
                     userName: "Tú",
-                    createdAt: new Date("01/04/2019")
+                    createdAt: new Date("1/04/2019")
                 },
             ],
         },
@@ -830,10 +838,202 @@ HomestaysSeed = async function () {
                     accuracyRate: 5,
                     description: "Dịch vụ của Homestay rất tốt",
                     userName: "Minh",
-                    createdAt: new Date("22/07/2017")
+                    createdAt: new Date("2/07/2017")
                 },
             ],
         },
+
+        // Nhat them 10 homestays
+        {
+            name: "Leo house LinhLang",
+            price: 470000,
+            type:"Căn hộ dịch vụ",
+            address:"Ba Đình, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Ba Đình",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Minh",
+                    createdAt: new Date("2/07/2017")
+                },
+            ],
+        },
+        {
+            name: "Lucky Time - Lucky House, Sóc Sơn.",
+            price: 1180000,
+            type:"Căn hộ dịch vụ",
+            address:"Sóc Sơn, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Sóc Sơn",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Minh",
+                    createdAt: new Date("2/07/2017")
+                },
+            ],
+        },
+        {
+            name: "Stream House ♥ Nghỉ Dưỡng Bungalow",
+            price: 1180000,
+            type:"Căn hộ dịch vụ",
+            address:"Sóc Sơn, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Sóc Sơn",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Minh",
+                    createdAt: new Date("2/07/2017")
+                },
+            ],
+        },
+        {
+            name: "Breakfast Included★4BR Apartment",
+            price: 1180000,
+            type:"Căn hộ dịch vụ",
+            address:"Ba Đình, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Ba Đình",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Minh",
+                    createdAt: new Date("2/07/2017")
+                },
+            ],
+        },
+        {
+            name: "Big group✩Old Quarter✩Cityview✩3sto HoanKiemLake",
+            price: 1180000,
+            type:"Căn hộ dịch vụ",
+            address:"Hoàn Kiếm, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Hoàn Kiếm",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Minh",
+                    createdAt: new Date("2/07/2017")
+                },
+            ],
+        },
+        {
+            name: "Asahi Luxstay - R4 Royal City 2Br Apartment",
+            price: 1180000,
+            type:"Căn hộ dịch vụ",
+            address:"Thanh Xuân, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Thanh Xuân",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Minh",
+                    createdAt: new Date("2/07/2017")
+                },
+            ],
+        },
+        {
+            name: "Asahi Luxstay - R4 Royal City - 1Br Apartment",
+            price: 1180000,
+            type:"Căn hộ dịch vụ",
+            address:"Thanh Xuân, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Thanh Xuân",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Minh",
+                    createdAt: new Date("2/07/2017")
+                },
+            ],
+        },
+        {
+            name: "Villa 2 phòng ngủ-bể sục nóng bơi quanh năm",
+            price: 1180000,
+            type:"Căn hộ dịch vụ",
+            address:"Ba Vì, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Ba Vì",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Minh",
+                    createdAt: new Date("2/07/2017")
+                },
+            ],
+        },
+        {
+            name: "Diamond 22housing 1BR Vinhomes Metropolis, Near Lotte Tower",
+            price: 1180000,
+            type:"Căn hộ dịch vụ",
+            address:"Ba Đình, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Ba Đình",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Minh",
+                    createdAt: new Date("2/07/2017")
+                },
+            ],
+        },
+        {
+            name: "PICCOLO phòng đẹp lý tưởng với decor cực chill ở trung tâm HN",
+            price: 1180000,
+            type:"Căn hộ dịch vụ",
+            address:"Ba Đình, Hà Nội, Vietnam",
+            province:"Hà Nội",
+            district:"Ba Đình",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 5,
+                    description: "Dịch vụ của Homestay rất tốt",
+                    userName: "Minh",
+                    createdAt: new Date("2/07/2017")
+                },
+            ],
+        }
     ]);
 
     // Tạm tạo cho các homestays rate
@@ -913,6 +1113,18 @@ HomestaysSeed = async function () {
         "/upload/homestays-photos/Mersey Central Hanoi.jpg",
         "/upload/homestays-photos/Vinhomes Ocean Park.jpg",
         "/upload/homestays-photos/Luxury Stay.jpg",
+
+        // Thêm 10 homestays tại Ha Noi - NhatNT
+        "/upload/homestays-photos/1.jpg",
+        "/upload/homestays-photos/2.jpg",
+        "/upload/homestays-photos/3.jpg",
+        "/upload/homestays-photos/4.jpg",
+        "/upload/homestays-photos/5.png",
+        "/upload/homestays-photos/6.jpg",
+        "/upload/homestays-photos/7.jpg",
+        "/upload/homestays-photos/8.jpg",
+        "/upload/homestays-photos/9.jpg",
+        "/upload/homestays-photos/10.jpg",
     ]
 
     // Lưu và cập nhật _id vào mỗi documents (bidirectional)
