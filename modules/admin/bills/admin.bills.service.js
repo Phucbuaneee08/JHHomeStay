@@ -61,7 +61,7 @@ exports.getBillsByHomestayId = async (id, status) => {
         }
     ]);
     let bills = homestays[0].bills.filter((a) => {
-        return a.status == status;
+        return a.status == status;  
     })
     return bills;
 }

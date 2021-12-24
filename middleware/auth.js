@@ -51,6 +51,7 @@ exports.authToken = async function ( req, res, next ) {
                 email: decodedToken.email,
                 role: decodedToken.role,
             });
+            req.currentRole = decodedToken.role;
             next();
         } catch (err) {
             next(err);
