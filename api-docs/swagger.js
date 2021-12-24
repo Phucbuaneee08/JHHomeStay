@@ -218,7 +218,7 @@ const swaggerJsonData =
             "/admins/update/homestays":{
                 "put": {
                     "tags": ["Admin"],
-                    "summary":"Update information in Homestay with _id",
+                    "summary":"Hoàng: Update information in Homestay with _id",
                     "operationId":"updateHomestay",
                     "parameters":[],
                     "requestBody": {
@@ -364,7 +364,7 @@ const swaggerJsonData =
             "/super-admins/create/homestays":{
                 "post": {
                     "tags":["Super Admins"],
-                    "summary": "Create homestay by super admin",
+                    "summary": "Hoàng: Create homestay by super admin",
                     "operationId": "createHomestays",
                     "parameters": [],
                     "requestBody": {
@@ -376,7 +376,27 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Create homestay successful "},
-                        "401": {"description": "Create homestay fail", "content": {}}
+                        "404": {"description": "Create homestay fail", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/super-admins/getIdAdmin":{
+                "post":{
+                    "tags":["Super Admins"],
+                    "summary": "Hoàng: Get IdAdmin by province",
+                    "operationId": "GetIdAdmin",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập tên tỉnh",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/GetIdAdmin"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/GetIdAdmin"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Get IdAdmin successful", "content":{}},
+                        "404": {"description": "Get IdAdmin fail", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -652,6 +672,11 @@ const swaggerJsonData =
                                 "type": "string",
                             }
                         },
+                    }
+                },
+                "GetIdAdmin":{
+                    "type": "object", "properties":{
+                        "province":    {"type": "string"},
                     }
                 }
 

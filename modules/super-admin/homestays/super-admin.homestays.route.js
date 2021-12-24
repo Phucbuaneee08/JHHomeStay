@@ -3,5 +3,6 @@ const HomestayController = require("./super-admin.homestays.controller");
 const router = express.Router();
 
 router.post('/create/homestays',HomestayController.createInformationForHomestay);
+router.post('/getIdAdmin',HomestayController.getIdAdmin);
 
 module.exports = router

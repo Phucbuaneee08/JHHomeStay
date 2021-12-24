@@ -16,3 +16,28 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
 
     return homestay
 }
+
+exports.getIdAdminByProvince = async ( Province ) => {
+
+    const homestays = await Homestays(db).find({ province : Province })
+    .then( homestay =>{
+        return homestay;
+    });
+
+    let Admins = [];
+    for( let i = 0; i < homestays.length; i++){
+
+        if( typeof(homestays[i].admin) !== "undefined" )
+        {
+            const admin = homestays[i].admin[0];
+    
+            if( admin !== "inderfines" )
+            {
+                if( Admins.indexOf( admin ) === -1 )
+                    Admins.push( admin );
+            }
+        }
+    }
+    
+    return Admins;
+}

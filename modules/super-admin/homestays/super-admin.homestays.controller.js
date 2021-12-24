@@ -34,7 +34,7 @@ exports.createInformationForHomestay = async (req, res) => {
     }
     catch(Error){
         //Lỗi không xác định
-        return res.status(401).json({
+        return res.status(404).json({
             success: false,
             message: "Create homestay fail",
             content: Error
@@ -42,3 +42,26 @@ exports.createInformationForHomestay = async (req, res) => {
     }
 }
 
+exports.getIdAdmin = async ( req, res ) => {
+    try{
+
+        const data = req.body;
+        const province = data.province;
+  
+        //Trả về danh sách Admins
+        const Admins = await HomestayService.getIdAdminByProvince( province );
+        return res.status(200).json({
+            success: true,
+            message: "Get IdAdmin successful",
+            content:Admins
+        })
+    }
+    catch(Error){
+        //Lỗi không xác định
+        return res.status(404).json({
+            success: false,
+            message: "Get IdAdmin fail",
+            content: Error
+        })  
+    }
+}
