@@ -27,7 +27,7 @@ exports.login = async (req, res) => {
                    // Thêm token cho user trong database
                    await AuthService.editUser(user);
                } else {
-                   return res.status(401).json({
+                   return res.status(400).json({
                        success: false,
                        message: Array.isArray(error) ? error : "login_fail",
                        content: error
@@ -43,8 +43,8 @@ exports.login = async (req, res) => {
            });
 
        } catch (error) {
-           // Nếu ko thành công -> 401
-           return res.status(401).json({
+           // Nếu ko thành công -> 400
+           return res.status(400).json({
                success: false,
                message: Array.isArray(error) ? error : "login_fail",
                content: error
@@ -73,8 +73,8 @@ exports.logout = async (req, res) => {
 
     } catch (error) {
         console.log('errorLogOut', error);
-        // Nếu ko thành công trả lại 401
-        return res.status(401).json({
+        // Nếu ko thành công trả lại 400
+        return res.status(400).json({
             success: false,
             message: "logout_fail",
             content: error

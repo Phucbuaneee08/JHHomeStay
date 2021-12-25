@@ -31,7 +31,7 @@ exports.authToken = async function ( req, res, next ) {
     try {
         decodedToken = jwt.verify(access_token, process.env.TOKEN_SECRET);
     } catch (err) {
-        return res.status(401).json({
+        return res.status(400).json({
             success: false,
             message: "invalid access token",
             content: err

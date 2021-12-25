@@ -14,8 +14,8 @@ exports.getBillsByAdminId = async (req, res) => {
             content: bills
         });
     } catch (error) {
-        // Nếu ko thành công -> 401
-        return res.status(401).json({
+        // Nếu ko thành công -> 400
+        return res.status(400).json({
             success: false,
             message: Array.isArray(error) ? error : "Admin's id is not correct!",
             content: error
@@ -45,8 +45,8 @@ exports.updateBillsById = async (req, res) => {
         });
 
     } catch (error) {
-        // Nếu ko thành công -> 401
-        return res.status(401).json({
+        // Nếu ko thành công -> 400
+        return res.status(400).json({
             success: false,
             message: Array.isArray(error) ? error : "Bill cannot update",
             content: error
@@ -83,8 +83,8 @@ exports.deleteBillsById = async ( req, res) =>{
         });
 
     } catch ( Error ) {
-        // Nếu ko thành công -> 401
-        return res.status(401).json({
+        // Nếu ko thành công -> 400
+        return res.status(400).json({
             success: false,
             message: "Exception",
             content: Error
@@ -105,8 +105,8 @@ exports.getBillsByHomestayId = async (req, res) => {
             content: bills
         });
     } catch (error) {
-        // Nếu ko thành công -> 401
-        return res.status(401).json({
+        // Nếu ko thành công -> 400
+        return res.status(400).json({
             success: false,
             message: Array.isArray(error) ? error : "Homestay's id is not correct!",
             content: error

@@ -15,7 +15,7 @@ exports.createBills = async (req,res)=>{
         
         //Nếu không nhập đúng _id của homestays thì trả về lỗi
         if( homestay === null || typeof( homestay ) === undefined ){
-            res.status(401).json({
+            res.status(400).json({
                 success:false,
                 message:"_id của homestay không đúng",
                 content: ""
@@ -32,7 +32,7 @@ exports.createBills = async (req,res)=>{
             })
 
             if( services === null || typeof( services ) === undefined ){
-                res.status(401).json({
+                res.status(400).json({
                     success:false,
                     message:"_id của services không đúng",
                     content: ""
@@ -52,7 +52,7 @@ exports.createBills = async (req,res)=>{
     }
 
     catch(Error){
-        res.status(401).json({
+        res.status(400).json({
             success:false,
             message:"Exception",
             content: Error
