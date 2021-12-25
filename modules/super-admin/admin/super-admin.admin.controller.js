@@ -1,5 +1,5 @@
 const AdminService = require('./super-admin.admin.service');
-
+const jwt = require("jsonwebtoken");
 //API update thông tin của Admin
 exports.updateAdminById = async (req, res) => {
     try {
@@ -83,6 +83,95 @@ exports.createAdmin = async (req, res) => {
         return res.status(401).json({
             success: false,
             message: Array.isArray(error) ? error : "Admin's id is not correct!",
+            content: error
+        });
+    }
+}
+
+
+
+
+
+// Cắt và ghép vào main từ phần này
+exports.assignAdminToHomestay = async (req, res) => {
+    const role = req.currentRole;
+    // Kiểm tra là superadmin
+    if ( role !== "super_admin") {
+        return res.status(400).json({
+            success: false,
+            message: "Chưa đăng nhập với tư cách là Super Admin"
+        })
+    } else try {
+        let data = req.body;
+        const adminId = data.adminId;
+        const homestayId = data.homestayId;
+        let admin = await AdminService.assignAdminToHomestay(adminId, homestayId);
+        if(admin) {
+            return res.status(200).json({
+                success: true,
+                message: "Đã gán homestay cho admin thành công",
+                content: admin
+            })
+        }
+    }
+    catch (error) {
+        return res.status(404).json({
+            success: false,
+            message: Array.isArray(error) ? error : "Admin's id or Homestay'id is not correct!",
+            content: error
+        });
+    }
+}
+
+exports.deleteAdmin = async (req, res ) => {
+    const role = req.currentRole;
+    // Kiểm tra là superadmin
+    if ( role !== "super_admin") {
+        return res.status(400).json({
+            success: false,
+            message: "Chưa đăng nhập với tư cách là Super Admin"
+        })
+    } else try {
+        // Lấy id ở params
+        const id = req.params.id;
+        await AdminService.deleteAdmin(id);
+
+        return res.status(200).json({
+            success: true,
+            message: "Đã xóa admin"
+        })
+
+    }
+    catch (error) {
+        return res.status(404).json({
+            success: false,
+            message: Array.isArray(error) ? error : "Admin's id is not correct!",
+            content: error
+        });
+    }
+}
+
+exports.deleteHomestay = async (req, res ) => {
+    const role = req.currentRole;
+    // Kiểm tra là superadmin
+    if ( role !== "super_admin") {
+        return res.status(400).json({
+            success: false,
+            message: "Chưa đăng nhập với tư cách là Super Admin"
+        })
+    } else try {
+        // Lấy id ở params
+        const id = req.params.id;
+        await AdminService.deleteHomestay(id);
+        return res.status(200).json({
+            success: true,
+            message: "Đã xóa homestay"
+        })
+    }
+    catch (error) {
+        return res.status(404).json({
+            success: false,
+            message: Array.isArray(error) ? error : "homestay's id is not correct!",
             content: error
         });
     }

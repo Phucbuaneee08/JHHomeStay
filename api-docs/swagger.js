@@ -1,3 +1,4 @@
+// Cắt và ghép vào main 3 cái api và 1 cái schema ở cuối cùng
 /**
  Khi chạy, vào link http://localhost:8000/api-docs/ để mở Swagger
  Khi thêm 1 api mới vào swagger cần làm:
@@ -426,6 +427,67 @@ const swaggerJsonData =
                     },
                     "x-codegen-request-body-name": "body"
                 }
+            },
+            "/super-admins/assign-homestay": {
+                "post": {
+                    "tags": ["Super Admins"],
+                    "summary": "Assign a homestay to an admin",
+                    "operationId": "assignHomestayToAdmin",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập thông tin id của admin và homestay",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/AssignHomestay"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/AssignHomestay"}}
+                        },
+                        "required": true
+                    },
+                    "responses": {
+                        "200": {"description": "lấy dữ liệu homestay thành công "},
+                        "404": {"description": "không thành công ", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/super-admins/delete/admin/{id}": {
+                "post": {
+                    "tags": ["Super Admins"],
+                    "summary": "Delete an admin with id",
+                    "operationId": "deleteAdmin",
+                    "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nhập id của admin cần xóa",
+                        "schema": {"type": "string"},
+                        "require": true
+                    }],
+                    "requestBody": [],
+                    "responses": {
+                        "200": {"description": "xóa thành công "},
+                        "404": {"description": "id không đúng ", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/super-admins/delete/homestay/{id}": {
+                "post": {
+                    "tags": ["Super Admins"],
+                    "summary": "Delete a homestay with id",
+                    "operationId": "deleteAHomestay",
+                    "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nhập id của homestay cần xóa",
+                        "schema": {"type": "string"},
+                        "require": true
+                    }],
+                    "requestBody": [],
+                    "responses": {
+                        "200": {"description": "xóa homestay thành công "},
+                        "404": {"description": "id không đúng ", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
             }
         },
         "components": {
@@ -698,6 +760,12 @@ const swaggerJsonData =
                                 "type": "string",
                             }
                         },
+                    }
+                },
+                "AssignHomestay": {
+                    "type": "object", "properties": {
+                        "adminId": { "type": "string" },
+                        "homestayId": { "type": "string" }
                     }
                 },
                 "GetIdAdmin":{

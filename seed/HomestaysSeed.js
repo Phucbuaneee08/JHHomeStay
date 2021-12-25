@@ -14,11 +14,10 @@ let dbConnect = () => {
             useUnifiedTopology: true,
         }
     // Cơ sở dữ liệu Atlas
-    /*
-    let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority',
-        connectOptions);  */
+
+    let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority', connectOptions);
     // Cơ sở dữ liệu cục bộ
-    let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays', connectOptions);
+    //let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays', connectOptions);
 
     /** CSDL cho docker */
     // let db = mongoose.createConnection('mongodb://mongo-jadehills:27017/JadeHillHomestays',
@@ -1033,8 +1032,199 @@ HomestaysSeed = async function () {
                     createdAt: new Date("2/07/2017")
                 },
             ],
-        }
+        },
 
+        // Minh them 10 homestays
+        {
+            name: "Mirr Homestay Hanoi 2",
+            price: 354009,
+            type: "Nhà riêng",
+            address: "Tây Hồ, Hà Nội, Vietnam ",
+            province: "Hà Nội",
+            district: "Tây Hồ",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 3,
+                    accuracyRate: 2,
+                    description: "An excellent host who even came To pick me outside as I was a little lost... I definitely recommend Viên's house ",
+                    userName: "Nhật",
+                    createdAt: new Date("01/08/2018")
+                },
+            ],
+        },
+        {
+            name: "Hana' House",
+            price: 354009,
+            type: "Nhà riêng",
+            address: "Tây Hồ, Hà Nội, Vietnam ",
+            province: "Hà Nội",
+            district: "Tây Hồ",
+            rates: [
+                {
+                    cleanRate: 4,
+                    serviceRate: 4,
+                    valueRate: 3,
+                    accuracyRate: 4,
+                    description: "Một nơi hoàn hảo để ở!",
+                    userName: "Minh",
+                    createdAt: new Date("01/08/2021")
+                },
+            ],
+        },
+        {
+            name: "Đông Viên Village",
+            price: 354009,
+            type: "Nhà riêng",
+            address: "Ba Đình, Hà Nội, Vietnam",
+            province: "Hà Nội",
+            district: "Ba Đình",
+            rates: [
+                {
+                    cleanRate: 4,
+                    serviceRate: 4,
+                    valueRate: 3,
+                    accuracyRate: 4,
+                    description: "Homestay khá tốt",
+                    userName: "Tú",
+                    createdAt: new Date("01/08/2021")
+                },
+            ],
+        },
+        {
+            name: "Studio Deluxe",
+            price: 354009,
+            type: "Khác",
+            address: "Ba Đình, Hà Nội, Vietnam",
+            province: "Hà Nội",
+            district: "Ba Đình",
+            rates: [
+                {
+                    cleanRate: 4,
+                    serviceRate: 5,
+                    valueRate: 5,
+                    accuracyRate: 4,
+                    description: "Dịch vụ ở đây thật là tuyệt vời!",
+                    userName: "Đạt",
+                    createdAt: new Date("01/10/2021")
+                },
+            ],
+        },
+        {
+            name: "Aimee House",
+            price: 350000,
+            type: "Khác",
+            address: "Hoàn Kiếm, Hà Nội, Vietnam",
+            province: "Hà Nội",
+            district: "Hoàn Kiếm",
+            rates: [
+                {
+                    cleanRate: 4,
+                    serviceRate: 4,
+                    valueRate: 3,
+                    accuracyRate: 4,
+                    description: "cá tính, hiện đại, lãng mạng, ấm cúng",
+                    userName: "Hoàng",
+                    createdAt: new Date("10/08/2021")
+                },
+            ],
+        },
+        {
+            name: "HBT HOMESTAY",
+            price: 300000,
+            type: "Nhà riêng",
+            address: "Hoàn Kiếm, Hà Nội, Vietnam",
+            province: "Hà Nội",
+            district: "Hoàn Kiếm",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 5,
+                    valueRate: 3,
+                    accuracyRate: 4,
+                    description: "Dịch vụ của homestay này thật đẹp:v",
+                    userName: "Thanh",
+                    createdAt: new Date("01/11/2021")
+                },
+            ],
+        },
+        {
+            name: "STAR HOUSE IN THE OLD QUARTER",
+            price: 350000,
+            type: "Nhà riêng",
+            address: "Hoàn Kiếm, Hà Nội, Vietnam",
+            province: "Hà Nội",
+            district: "Hoàn Kiếm",
+            rates: [
+                {
+                    cleanRate: 5,
+                    serviceRate: 4,
+                    valueRate: 5,
+                    accuracyRate: 4,
+                    description: "nằm ở trung tâm Hà Nội trên một trong những con đường đẹp nhất trong khu phố cổ. Từ căn hộ này sẽ ko khiến bạn thất vọng, sẽ rất thuận tiện cho bạn khám phá Hà Nội và bạn chắc chắn sẽ háo hức lang thang dọc theo những con phố cổ để ghé qua các cửa hàng và mua đặc sản",
+                    userName: "Quỳnh Anh",
+                    createdAt: new Date("01/08/2021")
+                },
+            ],
+        },
+        {
+            name: "Capsule Hanoi Penthouse",
+            price: 354009,
+            type: "Căn hộ dịch vụ",
+            address: "Ba Đình, Hà Nội, Vietnam",
+            province: "Hà Nội",
+            district: "Ba Đình",
+            rates: [
+                {
+                    cleanRate: 4,
+                    serviceRate: 4,
+                    valueRate: 3,
+                    accuracyRate: 4,
+                    description: "Tuyệt!",
+                    userName: "Bình",
+                    createdAt: new Date("01/08/2021")
+                },
+            ],
+        },
+        {
+            name: "Nordique",
+            price: 350000,
+            type: "Nhà riêng",
+            address: "Hai Bà Trưng, Hà Nội, Vietnam ",
+            province: "Hà Nội",
+            district: "Hai Bà Trưng",
+            rates: [
+                {
+                    cleanRate: 4,
+                    serviceRate: 4,
+                    valueRate: 4,
+                    accuracyRate: 4,
+                    description: "Phòng thực tế hơi cũ và tối so với ảnh. Nội thất cũng hơi bừa một chút. Vệ sinh tương đối nhưng mình có cảm giác đồ trong phòng hơi bụi. Ưu điểm là bạn chủ nhà nhiệt tình hỗ trợ nhận, trả phòng nhanh chóng. Mình nghĩ nếu đầu tư vệ sinh dọn dẹp trước khi khách nhận phòng sẽ để lại ấn tượng tốt hơn.",
+                    userName: "Minh",
+                    createdAt: new Date("01/08/2021")
+                },
+            ],
+        },
+        {
+            name: "Brandnew apartment",
+            price: 350000,
+            type: "Nhà riêng",
+            address: "Tây Hồ, Hà Nội, Vietnam ",
+            province: "Hà Nội",
+            district: "Tây Hồ",
+            rates: [
+                {
+                    cleanRate: 4,
+                    serviceRate: 4,
+                    valueRate: 3,
+                    accuracyRate: 4,
+                    description: "Căn hộ hoàn toàn sạch sẽ với ban công riêng và nhà bếp riêng được trang bị tốt Vị trí cực kỳ thuận tiện cho hầu hết các điểm du lịch ở Hà Nội, bắt taxi hoặc lấy xe vì địa chỉ cực kỳ dễ tìm Điều đặc biệt ở nơi này là: Dễ dàng đến Hồ, Phố cổ, các điểm tham quan hà nội, nhà hàng, ... ",
+                    userName: "Nhật",
+                    createdAt: new Date("01/08/2021")
+                },
+            ],
+        }
     ]);
 
     // Tạm tạo cho các homestays rate
@@ -1126,6 +1316,18 @@ HomestaysSeed = async function () {
         "/upload/homestays-photos/8.jpg",
         "/upload/homestays-photos/9.jpg",
         "/upload/homestays-photos/10.jpg",
+        
+        // Them 10 homestays tai Ha Noi - Minh
+        "/upload/homestays-photos/Mirr Homestay Hanoi 2.png",
+        "/upload/homestays-photos/Hana' House.jpg",
+        "/upload/homestays-photos/Đong Vien Village.jpg",
+        "/upload/homestays-photos/Studio Deluxe.jpg",
+        "/upload/homestays-photos/Aimee House.jpg",
+        "/upload/homestays-photos/HBT HOMESTAY.png",
+        "/upload/homestays-photos/STAR HOUSE IN THE OLD QUARTER.jpg",
+        "/upload/homestays-photos/Capsule Hanoi Penthouse.jpg",
+        "/upload/homestays-photos/Nordique.jpg",
+        "/upload/homestays-photos/Brandnew apartment.jpg",
     ]
 
     // Lưu và cập nhật _id vào mỗi documents (bidirectional)
@@ -1418,13 +1620,20 @@ HomestaysSeed = async function () {
             status: 1
         },
     ])
-    // Hiện tại là gán 1 homestay - 1 bill
+    
     for(let i = 0; i < bills.length; i++) {
         await Bills(db).findByIdAndUpdate(bills[i]._id,
             {$set: {homestay: homestays[i]._id}})
 
-        await Homestays(db).findByIdAndUpdate(homestays[i]._id,
-            {$push: {bills: bills[i]._id}})
+        if (i < 5) {
+            // seed 5 bills cho homestays[0]
+            await Homestays(db).findByIdAndUpdate(homestays[0]._id,
+                {$push: {bills: bills[i]._id}})
+        } else {
+            // seed 5 bills cho homestays[1]
+            await Homestays(db).findByIdAndUpdate(homestays[1]._id,
+                {$push: {bills: bills[i]._id}})
+        }
     }
 
 

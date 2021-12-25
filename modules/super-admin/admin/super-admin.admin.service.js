@@ -1,6 +1,8 @@
 const {Users, Bills, Homestays} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 const {home} = require("nodemon/lib/utils");
+const {authToken} = require("../../../middleware/auth");
+const {ObjectId} = require('mongodb');
 
 //API để super admin chỉnh sửa thông tin Admin
 exports.updateAdminById = async (id, name, address, role, email, password, phone, status, gender, identification, avatarUrl, dateAtBirth, homestays) => {
@@ -106,4 +108,44 @@ exports.createAdmin = async (name, address, role, email, password, phone, status
             {$push: {admin: admin.id}})
     }
     return admin;
+}
+
+
+// Cắt và ghép vào main từ phần này, copy cả cái câu lệnh ở dòng 5 nhé m
+// Giao homestay cho admin
+exports.assignAdminToHomestay = async (adminId, homestayId) => {
+    await Users(db).findByIdAndUpdate(adminId, {
+        $push: { homestays: homestayId}
+    });
+    await Homestays(db).findByIdAndUpdate(homestayId,{
+        $set: { admin: adminId}
+    });
+    let modifyAdmin = await Users(db).findById(adminId);
+    return modifyAdmin;
+}
+
+// Xóa admin và tham chiếu
+exports.deleteAdmin = async (id) => {
+    await Users(db).deleteOne({ _id: ObjectId(id) });
+    // Xóa tham chiếu
+    await Homestays(db).updateMany(
+        { admin: ObjectId(id) },
+        {
+            $pull: { admin: ObjectId(id) }
+        }
+    );
+}
+
+// Xóa homestay và tham chiếu
+exports.deleteHomestay = async (id) => {
+    await Homestays(db).deleteOne({ _id: ObjectId(id) });
+    // Xóa tham chiếu
+    await Users(db).updateMany(
+        {},
+        { $set: { "homestays.$[element]": null } },
+        { arrayFilters: [ { "element": ObjectId(id) } ] }
+    );
+    await Bills(db).deleteMany(
+        { homestay: ObjectId(id) }
+    );
 }
