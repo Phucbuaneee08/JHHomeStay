@@ -145,10 +145,7 @@ exports.deleteHomestay = async (id) => {
         { $set: { "homestays.$[element]": null } },
         { arrayFilters: [ { "element": ObjectId(id) } ] }
     );
-    await Bills(db).updateMany(
-        { homestay: ObjectId(id) },
-        {
-            $pull: { homestay: ObjectId(id) }
-        }
+    await Bills(db).deleteMany(
+        { homestay: ObjectId(id) }
     );
 }
