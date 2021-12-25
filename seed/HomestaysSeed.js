@@ -642,6 +642,7 @@ HomestaysSeed = async function () {
             province: "Quảng Nam",
             district: "Hội An",
         }
+
     ]);
 
     // Tạm tạo cho các homestays rate
