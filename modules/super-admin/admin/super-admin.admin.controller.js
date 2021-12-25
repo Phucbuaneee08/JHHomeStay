@@ -25,8 +25,8 @@ exports.updateAdminById = async (req, res) => {
             content: admin
         });
     } catch (error) {
-        // Nếu ko thành công -> 404
-        return res.status(404).json({
+        // Nếu ko thành công -> 401
+        return res.status(401).json({
             success: false,
             message: Array.isArray(error) ? error : "Admin's id is not correct!",
             content: error
@@ -80,7 +80,7 @@ exports.createAdmin = async (req, res) => {
         };
     }
     catch (error) {
-        return res.status(404).json({
+        return res.status(401).json({
             success: false,
             message: Array.isArray(error) ? error : "Admin's id is not correct!",
             content: error

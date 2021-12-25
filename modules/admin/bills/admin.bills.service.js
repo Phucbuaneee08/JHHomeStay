@@ -1,9 +1,10 @@
-const {Homestays, Bills, Users} = require("../../../models");
+const {Homestays, Bills, Services} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 const mongoose  = require('mongoose');
 const {ObjectId} = require('mongodb');
 const {compare} = require("bcrypt");
 const {home} = require("nodemon/lib/utils");
+const { restart } = require("nodemon");
 
 //API trả về danh sách các bills theo admin (gửi về bills của các homestays mà admin X có)
 exports.getBillsByAdminId = async (id) => {
@@ -107,6 +108,41 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
 
 
 exports.deleteBillsById = async ( Bill_Id ) => {
+    let servicesPerBill = [];
+    let homestay;
+    await Bills(db).findOne({_id: Bill_Id })
+    .then(data => {
+        servicesPerBill = data.servicesPerBill;
+        homestay = data.homestay;
+    })
+
+    for (let i = 0; i < servicesPerBill.length; i++){
+        const idService = servicesPerBill[i].services;
+        await Services(db).deleteOne({ _id: idService });
+    }
+    
+    //Lấy ra danh sách id bills sau khi đã xóa id bills
+    const idBills = await Homestays(db).findOne({_id : homestay})
+    .then(data => {
+
+        let bills = [];
+        const a = new ObjectId(Bill_Id);
+        
+        for(let i = 0; i < data.bills.length; i++){
+            if( data.bills[i] === a )
+            bills = [...bills, data.bills[i]];
+        }
+
+        return bills;
+    })
+    
+    //Cập nhật lại danh sách bills
+    await Homestays(db).findByIdAndUpdate({_id : homestay},
+        {
+            bills : idBills
+        }
+    )
+    
     // Gọi hàm xóa Bill theo Id
     await Bills(db).deleteOne({ _id:Bill_Id });
 

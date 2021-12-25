@@ -80,7 +80,7 @@ const HomestaysSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'GeneralServices'
         }],
-        admin:{
+        admin: {
             type: Schema.Types.ObjectId,
             ref: 'Users'
         },

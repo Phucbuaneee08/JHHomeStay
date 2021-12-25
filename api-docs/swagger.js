@@ -125,7 +125,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Rate thành công "},
-                        "404": {"description": "Rate không thành công ", "content": {}}
+                        "401": {"description": "Rate không thành công ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 },
@@ -145,7 +145,7 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "lấy dữ liệu homestay thành công "},
-                        "404": {"description": "id không đúng ", "content": {}}
+                        "401": {"description": "id không đúng ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -211,7 +211,7 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "Filter thành công "},
-                        "404": {"description": "Filter có lỗi ", "content": {}}
+                        "401": {"description": "Filter có lỗi ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -219,39 +219,19 @@ const swaggerJsonData =
             "/admins/update/homestays":{
                 "put": {
                     "tags": ["Admin"],
-                    "summary":"Update information in Homestays with _id",
-                    "operationId":"updateHomestays",
+                    "summary":"Hoàng: Update information in Homestay with _id",
+                    "operationId":"updateHomestay",
                     "parameters":[],
                     "requestBody": {
-                        "description": "Nhập tất cả các trường đơn của bản ghi muốn thay đổi",
+                        "description": "Nhập thông tin homestay muốn thay đổi",
                         "content": {
                             "application/json": {"schema": {"$ref": "#/components/schemas/UpdateHomestay"}},
                             "application/xml": {"schema": {"$ref": "#/components/schemas/UpdateHomestay"}}
                         },
                     },
                     "responses": {
-                        "200": {"description": "Update success"},
-                        "404": {"description": "Exception"},
-                    },
-                    "x-codegen-request-body-name": "body"
-                },
-            },
-            "/admins/create/homestays":{
-                "post": {
-                    "tags": ["Admin"],
-                    "summary":"Create information in Homestays with _id",
-                    "operationId":"updateHomestays",
-                    "parameters":[],
-                    "requestBody": {
-                        "description": "Nhập tất cả các trường đơn của bản ghi muốn tao",
-                        "content": {
-                            "application/json": {"schema": {"$ref": "#/components/schemas/UpdateHomestay"}},
-                            "application/xml": {"schema": {"$ref": "#/components/schemas/UpdateHomestay"}}
-                        },
-                    },
-                    "responses": {
-                        "200": {"description": "Update success"},
-                        "404": {"description": "Exception"},
+                        "200": {"description": "Update homestay success"},
+                        "401": {"description": "Exception"},
                     },
                     "x-codegen-request-body-name": "body"
                 },
@@ -271,7 +251,7 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "lấy dữ liệu thành công "},
-                        "404": {"description": "admin 's id không đúng ", "content": {}}
+                        "401": {"description": "admin 's id không đúng ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -297,7 +277,7 @@ const swaggerJsonData =
                     "requestBody": [],
                     "responses": {
                         "200": {"description": "lấy dữ liệu thành công "},
-                        "404": {"description": "Homestay 's id không đúng ", "content": {}}
+                        "401": {"description": "Homestay 's id không đúng ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -317,7 +297,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Update bills thành công "},
-                        "404": {"description": "Update bill không thành công", "content": {}}
+                        "401": {"description": "Update bill không thành công", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -337,7 +317,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Create bills thành công "},
-                        "404": {"description": "Create bill không thành công", "content": {}}
+                        "401": {"description": "Create bill không thành công", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -357,7 +337,7 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Update admin thành công "},
-                        "404": {"description": "Update admin không thành công", "content": {}}
+                        "401": {"description": "Update admin không thành công", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -377,7 +357,73 @@ const swaggerJsonData =
                     },
                     "responses": {
                         "200": {"description": "Create admin successful "},
-                        "404": {"description": "Create admin unsuccessful", "content": {}}
+                        "401": {"description": "Create admin unsuccessful", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/super-admins/create/homestays":{
+                "post": {
+                    "tags":["Super Admins"],
+                    "summary": "Hoàng: Create homestay by super admin",
+                    "operationId": "createHomestays",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập id admin, tên homestay và tỉnh",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/CreateHomestay"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/CreateHomestay"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Create homestay successful "},
+                        "404": {"description": "Create homestay fail", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/super-admins/getIdAdmin":{
+                "post":{
+                    "tags":["Super Admins"],
+                    "summary": "Hoàng: Get IdAdmin by province",
+                    "operationId": "GetIdAdmin",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập tên tỉnh",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/GetIdAdmin"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/GetIdAdmin"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "Get IdAdmin successful", "content":{}},
+                        "404": {"description": "Get IdAdmin fail", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/super-admins/homestays":{
+                "get": {
+                    "tags":["Super Admins"],
+                    "summary": "Get all homestays by super admin",
+                    "operationId": "getAllHomestays",
+                    "parameters": [{
+                        "name": "page",
+                        "in": "query",
+                        "description": "Nhập page (đang ở page nào) nếu không nhập sẽ lấy tất cả các homestays",
+                        "schema": {"type": "number"},
+                        "require": false
+                    }, {
+                        "name": "perPage",
+                        "in": "query",
+                        "description": "Nhập perPage (mỗi page cần bao nhiêu homestays) nếu không nhập sẽ lấy tất cả các homestays",
+                        "schema": {"type": "number"},
+                        "require": false
+                    }],
+                    "requestBody": {},
+                    "responses": {
+                        "200": {"description": "Get homestays successful "},
+                        "401": {"description": "Get homestays fail", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
@@ -526,58 +572,14 @@ const swaggerJsonData =
                 },
                 "CreateHomestay":{
                     "type": "object", "properties":{
-                        "_id":         {"type": "string"},
-                        "rooms":{
-                            "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "name":        {"type": "string"},
-                                    "price":       {"type": "number"},
-                                    "area":        {"type": "number"},
-                                    "available":   {"type": "number"}
-                                }
-                            }
-                        },
-                        "services":{
-                            "type":"array",
-                            "items": {
-                                "type": "object",
-                                "properties":{
-                                    "name":        {"type": "string"},
-                                    "pricePerUnit":{"type": "number"},
-                                    "personServe": {"type": "number"}
-                                }
-                            }
-                        },
-                        "generalServices":{
-                            "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "name":        {"type": "string"},
-                                }
-                            }
-                        },
-                        "amenities":{
-                            "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "name":        {"type": "string"},
-                                    "type":        {"type": "number"},
-                                }
-                            }
-                        },
-                        "photos":{
-                            "type":"array",
-                            "items":{
-                                "type": "object",
-                                "properties":{
-                                    "url":         {"type": "string"}
-                                }
-                            }
-                        }
+                        "adminId":     {"type": "string"},
+                        "name":        {"type": "string"},
+                        "price":       {"type": "number"},
+                        "type":        {"type": "string"},
+                        "address":     {"type": "string"},
+                        "province":    {"type": "string"},
+                        "district":    {"type": "string"},
+
                     }
                 },
                 "UpdateBill":{
@@ -764,6 +766,11 @@ const swaggerJsonData =
                     "type": "object", "properties": {
                         "adminId": { "type": "string" },
                         "homestayId": { "type": "string" }
+                    }
+                },
+                "GetIdAdmin":{
+                    "type": "object", "properties":{
+                        "province":    {"type": "string"},
                     }
                 }
 

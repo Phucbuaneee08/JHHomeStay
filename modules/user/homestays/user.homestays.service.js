@@ -4,7 +4,7 @@ const {compare} = require("bcrypt");
 const {Users} = require("../../../models");
 const {ObjectId} = require('mongodb');
 const {toInt} = require("validator");
-const qty = 16;                             // Số lượng homestays mỗi slice
+const qty = 20;                             // Số lượng homestays mỗi slice
 
 exports.getRankingHomestays = async (quantity) => {
     const homestays = await Homestays(db).aggregate([
@@ -75,7 +75,7 @@ exports.getHomestayById = async (id) => {
         .populate('amenities',"name")
         .populate('generalServices', "name")
         .populate('photos', "url")
-        .populate('services',"name");
+        .populate('services',"name pricePerUnit personServe");
     return homestay;
 }
 
@@ -124,10 +124,12 @@ exports.getHomestayByFilter = async(province, type, averageRates, minPrice, maxP
         .populate('photos', "url")
         .populate('services',"name"));
 
+    console.log(slice);
+    console.log(slice*qty, slice*qty+ qty);
     let homestaysArray =  homestaysDocs.filter(homestay => ((!homestay.averageRates) || (homestay.averageRates> averageRates)));
-    let sliceTotal = Math.floor(homestaysArray.length / 16) + 1;
+    let sliceTotal = Math.floor(homestaysArray.length / qty) + 1;
 
-    return {homestays: homestaysArray.slice([slice * qty, slice * qty + qty]), sliceTotal : sliceTotal};
+    return {homestays: homestaysArray.slice(slice*qty, slice*qty+ qty), sliceTotal : sliceTotal};
 }
 
 // Trả về khoảng thời gian homestay đã được đặt dựa vào homestay 's id , nếu chưa được đặt trả về null
