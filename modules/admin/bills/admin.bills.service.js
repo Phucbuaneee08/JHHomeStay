@@ -100,7 +100,7 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
     )
     let bill = await Bills(db).findById(billId);
     await Homestays(db).findOneAndUpdate({_id : bill.homestay},
-        {$push: {available: status}})
+        {$set: {available: status}})
     return bill;
 }
 
