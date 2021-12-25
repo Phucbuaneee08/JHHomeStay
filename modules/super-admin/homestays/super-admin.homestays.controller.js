@@ -14,21 +14,13 @@ exports.createInformationForHomestay = async (req, res) => {
         const homestayAddress = data.address ? data.address : " ";
         const homestayPrice = data.price ? data.price : 0;
 
-        if( !adminId ) {
-            return res.status(400).json({
-                success: false,
-                message: "Create homestay fail",
-                content: "Chưa điền id admin"
-            })  
-        } 
-
         //Tạo homestay 
         const homestay = await HomestayService.createHomestay(adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice );
 
         return res.status(200).json({
             success: true,
             message: "Create homestay successful",
-            content: ""
+            content: homestay
         })
 
     }

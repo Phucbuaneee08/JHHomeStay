@@ -8,6 +8,6 @@ const { authToken } = require('../../../middleware/auth');
 router.get("/bills-of-admin/:id",authToken, BillsController.getBillsByAdminId);
 router.put("/update/bills",authToken, BillsController.updateBillsById)
 router.get("/bills-of-homestay",authToken, BillsController.getBillsByHomestayId);
-router.post("/delete/bills",authToken, BillsController.deleteBillsById);
+router.delete("/delete/bills/:id", authToken, BillsController.deleteBillsById);
 
 module.exports = router;

@@ -322,6 +322,29 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 }
             },
+            "/admins/delete/bills/{id}":{
+                "delete": {
+                    "tags": ["Admin"],
+                    "summary": "Delete bills by admin",
+                    "operationId": "deleteBillsByAdmin",
+                    "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nhập id của bill cần xóa",
+                        "schema": {"type": "string"},
+                        "require": true
+                    }],
+                    "requestBody": {
+                        "description": "Nhập những id của bills cần xóa",
+                        "content": {},
+                    },
+                    "responses": {
+                        "200": {"description": "Delete bills thành công "},
+                        "400": {"description": "Delete bill không thành công", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
             "/super-admins/update/admins":{
                 "put": {
                     "tags": ["Super Admins"],
@@ -450,7 +473,7 @@ const swaggerJsonData =
                 }
             },
             "/super-admins/delete/admin/{id}": {
-                "post": {
+                "delete": {
                     "tags": ["Super Admins"],
                     "summary": "Delete an admin with id",
                     "operationId": "deleteAdmin",
@@ -470,7 +493,7 @@ const swaggerJsonData =
                 }
             },
             "/super-admins/delete/homestay/{id}": {
-                "post": {
+                "delete": {
                     "tags": ["Super Admins"],
                     "summary": "Delete a homestay with id",
                     "operationId": "deleteAHomestay",

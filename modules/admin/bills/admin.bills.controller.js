@@ -45,6 +45,7 @@ exports.updateBillsById = async (req, res) => {
         });
 
     } catch (error) {
+        console.log(error)
         // Nếu ko thành công -> 400
         return res.status(400).json({
             success: false,
@@ -55,12 +56,9 @@ exports.updateBillsById = async (req, res) => {
 }
 exports.deleteBillsById = async ( req, res) =>{
     try{
-        //Lấy dữ liệu từ phần thân của req
-        const data = req.body;
-
         //Lấy id của bills
-        const Bill_Id = data._id;
-
+        const Bill_Id = req.params.id;
+        console.log(Bill_Id)
         //Kiểm trả xem bill có tồn tại không bằng Id
         const Bills = await BillsService.findBillsById( Bill_Id );
 

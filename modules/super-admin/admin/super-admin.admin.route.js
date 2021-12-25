@@ -9,6 +9,6 @@ router.post("/create/admins", authToken, AdminController.createAdmin);
 
 // Cắt và ghép vào main từ phần này,
 router.post("/assign-homestay", authToken, AdminController.assignAdminToHomestay);
-router.post("/delete/admin/:id", authToken, AdminController.deleteAdmin);
-router.post("/delete/homestay/:id", authToken, AdminController.deleteHomestay);
+router.delete("/delete/admin/:id", authToken, AdminController.deleteAdmin);
+router.delete("/delete/homestay/:id", authToken, AdminController.deleteHomestay);
 module.exports = router;
