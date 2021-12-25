@@ -584,7 +584,7 @@ const swaggerJsonData =
                 },
                 "UpdateBill":{
                     "type": "object", "properties":{
-                        "billId": {
+                        "_id": {
                             "type": "string",
                         },
                         "customer":{

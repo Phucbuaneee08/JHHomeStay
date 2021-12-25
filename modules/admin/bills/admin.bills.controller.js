@@ -29,7 +29,7 @@ exports.updateBillsById = async (req, res) => {
         //Lấy các trường cần sửa đổi từ body request
         const data = req.body;
 
-        const billId = data.billId;
+        const billId = data._id;
         const customer = data.customer? data.customer: null;
         const customerTogether = data.customerTogether ?data.customerTogether: null;
         const homestayId = data.homestayId? data.homestayId: null;
