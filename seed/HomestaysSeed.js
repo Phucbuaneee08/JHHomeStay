@@ -713,7 +713,7 @@ HomestaysSeed = async function () {
                     accuracyRate: 4,
                     description: "Dịch vụ ở đây thật là tuyệt vời!",
                     userName: "Đạt",
-                    createdAt: new Date("01/010/2021")
+                    createdAt: new Date("01/10/2021")
                 },
             ],
         }, {
@@ -731,7 +731,7 @@ HomestaysSeed = async function () {
                     accuracyRate: 4,
                     description: "cá tính, hiện đại, lãng mạng, ấm cúng",
                     userName: "Hoàng",
-                    createdAt: new Date("21/08/2021")
+                    createdAt: new Date("10/08/2021")
                 },
             ],
         }, {
@@ -953,7 +953,7 @@ HomestaysSeed = async function () {
     let bills =  await Bills(db).create([
         {
             customer:{
-                name: "Nguyen Quynh Anh",
+                name: "Nguyễn Quỳnh Anh",
                 identification: "012345678910",
                 email: "quynhanh@gmail.com",
                 phoneNumber: "1234567890",
@@ -961,25 +961,25 @@ HomestaysSeed = async function () {
             },
             customerTogether :[
                 {
-                    name: "Nguyen Thi Thao",
+                    name: "Nguyễn Thị Thảo",
                     age: 20,
                 },
                 {
-                    name: "Nguyen Thi Thu",
+                    name: "Nguyễn Thị Thu",
                     age: 20,
                 },
                 {
-                    name: "Vu Linh Chi",
+                    name: "Vũ Linh Chi",
                     age: 20,
                 }
             ],
-            checkinDate: new Date("11-20-2021"),
-            checkoutDate: new Date("11-25-2021"),
-            status: 3
+            checkinDate: new Date("12-29-2021"),
+            checkoutDate: new Date("12-30-2021"),
+            status: 2
         },
         {
             customer:{
-                name: "Nguyen The Nhat",
+                name: "Nguyễn Thế Nhật",
                 identification: "012345678911",
                 email: "nhat@gmail.com",
                 phoneNumber: "1234567891",
@@ -987,17 +987,17 @@ HomestaysSeed = async function () {
             },
             customerTogether :[
                 {
-                    name: "Tran Van Ngoc",
+                    name: "Trần Vân Ngọc",
                     age: 18,
                 },
             ],
             checkinDate: new Date("12-23-2021"),
-            checkoutDate: new Date("12-28-2021"),
-            status: 1
+            checkoutDate: new Date("12-24-2021"),
+            status: 3
         },
         {
             customer:{
-                name: "Tran Tuan Dat",
+                name: "Trần Tuấn Đạt",
                 identification: "012345678912",
                 email: "datoccho@gmail.com",
                 phoneNumber: "1234567892",
@@ -1005,25 +1005,25 @@ HomestaysSeed = async function () {
             },
             customerTogether :[
                 {
-                    name: "Bo Cua Dat",
+                    name: "Bố Của Đạt",
                     age: 45,
                 },
                 {
-                    name: "Me Cua Dat",
+                    name: "Mẹ Của Đạt",
                     age: 40,
                 },
                 {
-                    name: "Em Gai Cua Dat",
+                    name: "Em Gái Của Đạt",
                     age: 15,
                 }
             ],
-            checkinDate: new Date ("12-7-2021"),
-            checkoutDate: new Date("12-12-2021"),
+            checkinDate: new Date ("1-1-2022"),
+            checkoutDate: new Date("1-3-2022"),
             status: 2
         },
         {
             customer:{
-                name: "Nguyen Ba Binh",
+                name: "Nguyễn Bá Bình",
                 identification: "012345678913",
                 email: "bingboong@gmail.com",
                 phoneNumber: "1234567893",
@@ -1041,7 +1041,7 @@ HomestaysSeed = async function () {
         },
         {
             customer:{
-                name: "Vu Minh Thanh",
+                name: "Vũ Minh Thanh",
                 identification: "012345678914",
                 email: "thanhcute@gmail.com",
                 phoneNumber: "1234567894",
@@ -1053,13 +1053,13 @@ HomestaysSeed = async function () {
                     age: 25,
                 },
             ],
-            checkinDate: new Date("12-03-2021"),
-            checkoutDate: new Date("12-10-2021"),
+            checkinDate: new Date("1-8-2021"),
+            checkoutDate: new Date("1-9-2021"),
             status: 2
         },
         {
             customer:{
-                name: " Fuckboizz Kien Dao",
+                name: "Kien Dao",
                 identification: "012345678915",
                 email: "kindao@gmail.com",
                 phoneNumber: "1234567895",
@@ -1067,17 +1067,17 @@ HomestaysSeed = async function () {
             },
             customerTogether :[
                 {
-                    name: "Fuckboizz Trung",
+                    name: "Trung",
                     age: 27,
                 },
             ],
             checkinDate: new Date("12-15-2021"),
             checkoutDate: new Date( "12-20-2021"),
-            status: 1
+            status: 3
         },
         {
             customer:{
-                name: " Pham Cong Minh",
+                name: " Phạm Công Minh",
                 identification: "012345678916",
                 email: "minh@gmail.com",
                 phoneNumber: "1234567896",
@@ -1085,35 +1085,36 @@ HomestaysSeed = async function () {
             },
             customerTogether :[
                 {
-                    name: "Nguyen The Nhat",
+                    name: "Nguyễn Thế Nhật",
                     age: 20,
                 },
                 {
-                    name: "Tran Tuan Dat",
+                    name: "Trần Tuấn Đạt",
                     age: 20,
                 },
                 {
-                    name: "Nguyen Ngoc Tu",
+                    name: "Nguyễn Ngọc Tú",
                     age: 20,
                 },
                 {
-                    name: "Nguyen Ba Binh",
+                    name: "Nguyễn Bá Bình",
                     age: 20,
                 },
                 {
-                    name: "Pham Viet Hoang",
-                },
-                {
-                    name: "Vu Minh Thanh pld",
+                    name: "Phạm Việt Hoàng",
                     age: 20,
                 },
                 {
-                    name: "Nguyen Quynh Anh",
+                    name: "Vũ Minh Thanh pld",
+                    age: 20,
+                },
+                {
+                    name: "Nguyễn Quỳnh Anh",
                     age: 20,
                 },
             ],
-            checkinDate: new Date("1-10-2022"),
-            checkoutDate: new Date("1-20-2022"),
+            checkinDate: new Date("1-15-2022"),
+            checkoutDate: new Date("1-16-2022"),
             status: 1
         },
         {
@@ -1154,8 +1155,8 @@ HomestaysSeed = async function () {
                     age: 26,
                 },
             ],
-            checkinDate: new Date("12-20-2021"),
-            checkoutDate: new Date("12-30-2021"),
+            checkinDate: new Date("1-25-2021"),
+            checkoutDate: new Date("1-29-2021"),
             status: 1
         },
         {
@@ -1177,8 +1178,8 @@ HomestaysSeed = async function () {
                 },
             ],
             checkinDate: new Date("12-9-2021"),
-            checkoutDate: new Date("12-15-2021"),
-            status: 2
+            checkoutDate: new Date("12-10-2021"),
+            status: 3
         },
         {
             customer:{
@@ -1190,17 +1191,17 @@ HomestaysSeed = async function () {
             },
             customerTogether :[
             ],
-            checkinDate: new Date("12-23-2021"),
-            checkoutDate: new Date("12-28-2021"),
-            status: 1
+            checkinDate: new Date("10-23-2021"),
+            checkoutDate: new Date("10-28-2021"),
+            status: 3
         },
     ])
     // Hiện tại là gán 1 homestay - 1 bill
     for(let i = 0; i < bills.length; i++) {
         await Bills(db).findByIdAndUpdate(bills[i]._id,
-            {$set: {homestay: homestays[i]._id}})
+            {$set: {homestay: homestays[0]._id}})
 
-        await Homestays(db).findByIdAndUpdate(homestays[i]._id,
+        await Homestays(db).findByIdAndUpdate(homestays[0]._id,
             {$push: {bills: bills[i]._id}})
     }
 
@@ -1416,7 +1417,6 @@ HomestaysSeed = async function () {
 
     await db.close();
 }
-
 HomestaysSeed().then(() => {
     console.log("Homestays seed ok!!")
 }).catch(error => {
