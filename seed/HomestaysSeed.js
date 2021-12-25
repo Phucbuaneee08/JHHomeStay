@@ -1034,6 +1034,7 @@ HomestaysSeed = async function () {
                 },
             ],
         }
+
     ]);
 
     // Tạm tạo cho các homestays rate
