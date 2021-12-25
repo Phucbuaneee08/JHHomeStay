@@ -15,9 +15,9 @@ let dbConnect = () => {
         }
     // Cơ sở dữ liệu Atlas
 
-    let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority', connectOptions);
+    // let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority', connectOptions);
     // Cơ sở dữ liệu cục bộ
-    //let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays', connectOptions);
+    let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays', connectOptions);
 
     /** CSDL cho docker */
     // let db = mongoose.createConnection('mongodb://mongo-jadehills:27017/JadeHillHomestays',
@@ -1622,14 +1622,15 @@ HomestaysSeed = async function () {
     ])
     
     for(let i = 0; i < bills.length; i++) {
-        await Bills(db).findByIdAndUpdate(bills[i]._id,
-            {$set: {homestay: homestays[i]._id}})
-
         if (i < 5) {
+            await Bills(db).findByIdAndUpdate(bills[i]._id,
+                {$set: {homestay: homestays[0]._id}})
             // seed 5 bills cho homestays[0]
             await Homestays(db).findByIdAndUpdate(homestays[0]._id,
                 {$push: {bills: bills[i]._id}})
         } else {
+            await Bills(db).findByIdAndUpdate(bills[i]._id,
+                {$set: {homestay: homestays[1]._id}})
             // seed 5 bills cho homestays[1]
             await Homestays(db).findByIdAndUpdate(homestays[1]._id,
                 {$push: {bills: bills[i]._id}})
