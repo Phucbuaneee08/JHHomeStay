@@ -511,6 +511,20 @@ const swaggerJsonData =
                     },
                     "x-codegen-request-body-name": "body"
                 }
+            },
+            "/super-admins/get/admins": {
+                "get": {
+                    "tags": ["Super Admins"],
+                    "summary": "Get all admins",
+                    "operationId": "getAdmins",
+                    "parameters": [],
+                    "requestBody": [],
+                    "responses": {
+                        "200": {"description": "Lấy danh sách admins thành công"},
+                        "400": {"description": "Error", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
             }
         },
         "components": {

@@ -111,7 +111,6 @@ exports.createAdmin = async (name, address, role, email, password, phone, status
 }
 
 
-// Cắt và ghép vào main từ phần này, copy cả cái câu lệnh ở dòng 5 nhé m
 // Giao homestay cho admin
 exports.assignAdminToHomestay = async (adminId, homestayId) => {
     await Users(db).findByIdAndUpdate(adminId, {
@@ -148,4 +147,9 @@ exports.deleteHomestay = async (id) => {
     await Bills(db).deleteMany(
         { homestay: ObjectId(id) }
     );
+}
+
+// Lấy danh sách admin
+exports.getAdmins = async () => {
+    return await Users(db).find({role: 'admin', status: 1}, '_id name email phone gender avatarUrl');
 }
