@@ -20,7 +20,7 @@ exports.createBill = async ( data ) => {
         homestay : { _id:data._id },
         checkinDate : data.checkinDate ,
         checkoutDate : data.checkoutDate ,
-        status: 1,
+        status: data.status,
         price:0,
 
     })
@@ -29,19 +29,13 @@ exports.createBill = async ( data ) => {
     })
     
     //Cập nhật thông tin customer cho Bills
-    await Bills(db).findByIdAndUpdate( { _id:_idBill }, 
+    console.log(data.customer)
+    await Bills(db).findByIdAndUpdate( { _id:_idBill },
         {
-        customer : {
-            $set : {
-                name : data.name,
-                identification : data.identification,
-                email : data.email,
-                phoneNumber : data.phoneNumber,
-                age : data.age
-                }
+            $set: {
+                customer: data.customer
             }
-        },
-
+        }
     )
 
     //Cập nhật tên và tuổi cho những thành viên đi cùng với đoàn
