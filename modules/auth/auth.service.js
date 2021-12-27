@@ -1,7 +1,6 @@
 const { Users, Homestays } = require('../../models');
 const { db } = require("../../helpers/dbHelper");
 const path = require("path");
-const {selectFields} = require("express-validator/src/select-fields");
 
 // Chuyển file .env sang dạng sử dụng được để lấy thông tin
 require('dotenv').config();

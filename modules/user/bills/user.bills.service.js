@@ -1,5 +1,6 @@
 const {Bills, Services, Homestays} = require('./../../../models/index');
 const {db} = require("../../../helpers/dbHelper");
+const {ObjectId} = require("mongodb");
 
 
 //Tạo bills với những thông tin nhận được
@@ -104,7 +105,6 @@ exports.createBill = async ( data ) => {
     for( let i = 0; i < services.length; i++ ){
 
         var priceService = services[i].count * services[i].services.pricePerUnit;
-
         await Bills(db).findByIdAndUpdate(
 
             {
@@ -119,6 +119,7 @@ exports.createBill = async ( data ) => {
         
     }
 
-
+    // đẩy bill vào homestays
+    await Homestays(db).findByIdAndUpdate(data._id, { $push: {bills: _idBill}});
 }
 

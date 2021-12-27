@@ -30,9 +30,9 @@ exports.getIdAdminByProvince = async ( Province ) => {
 
         if( typeof(homestays[i].admin) !== "undefined" )
         {
-            const admin = homestays[i].admin[0];
+            const admin = homestays[i].admin;
     
-            if( admin !== "inderfines" )
+            if( admin !== "undefined" )
             {
                 if( Admins.indexOf( admin ) === -1 )
                     Admins.push( admin );
