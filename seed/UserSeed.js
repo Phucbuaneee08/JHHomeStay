@@ -20,8 +20,7 @@ let dbConnect = () => {
     //     connectOptions);
 
     /** CSDL local */
-    let db =  mongoose.createConnection('mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
-        connectOptions);
+    let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays', connectOptions);
 
     /** CSDL cho docker */
     /* let db =  mongoose.createConnection('mongodb://mongo-jadehills:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
@@ -40,24 +39,28 @@ UserSeed = async function () {
         {
             status: 0,
             email: 'hoang@gmail.com',
+            name: 'Phạm Việt Hoàng',
             password: await bcrypt.hash('1234567890', 10),
             role: 'admin',
         },
         {
             status: 1,
             email: 'minh@gmail.com',
+            name: 'Phạm Công Mihn',
             password: await bcrypt.hash('1234567890', 10),
             role: 'admin',
         },
         {
             status: 1,
             email: 'nhat@gmail.com',
+            name: 'Nguyễn Thế Nhật',
             password: await bcrypt.hash('1234567890', 10),
             role: 'super_admin',
         },
         {
             status: 1,
             email: 'tu@gmail.com',
+            name: 'Nguyễn Ngọc Tú',
             password: await bcrypt.hash('1234567890', 10),
             role: 'admin',
         }
@@ -66,7 +69,7 @@ UserSeed = async function () {
     await db.close();
 }
 UserSeed().then(() => {
-    console.log(" user seed ok")
+    console.log("user seed ok")
 }).catch( err => {
     console.log(err);
 })
