@@ -302,9 +302,9 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 }
             },
-            "/admins/create/bills":{
-                "put": {
-                    "tags": ["Admin"],
+            "/users/create/bills":{
+                "post": {
+                    "tags": ["Users"],
                     "summary": "Create Bills by admin",
                     "operationId": "createBillsByAdmin",
                     "parameters": [],
@@ -668,7 +668,7 @@ const swaggerJsonData =
                                 }
                             }
                         },
-                        "homestayId": {"type": "string"},
+                        "_id": {"type": "string"},
                         "checkinDate": {"type": "string"},
                         "checkoutDate": {"type": "string"},
                         "status": {"type": "number"},

@@ -17,8 +17,8 @@ exports.createBill = async ( data ) => {
     const _idBill = await Bills(db).create({
 
         homestay : { _id:data._id },
-        checkinDate : new Date( data.checkinDate ),
-        checkoutDate : new Date( data.checkoutDate ),
+        checkinDate : data.checkinDate ,
+        checkoutDate : data.checkoutDate ,
         status: 1,
         price:0,
 
