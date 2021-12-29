@@ -12,4 +12,6 @@ router.post("/rate/:id", HomestaysController.createRatingOfHomestay);
 router.get("/information/:id", HomestaysController.getHomestayById);
 router.get("/filter", HomestaysController.getHomestayByFilter);
 
+// Cập nhật homestay theo id, admin và superadmin có quyền
+router.put('/update', HomestaysController.updateHomestay);
 module.exports = router;

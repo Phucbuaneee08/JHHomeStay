@@ -1,19 +1,38 @@
 const { Homestays } = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 const {home} = require("nodemon/lib/utils");
+const {ObjectId} = require('mongodb');
+exports.createHomestay = async (adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos ) => {
 
-exports.createHomestay = async (adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice ) => {
-
-    const homestay = await Homestays(db).create({
-        admin : adminId,
+    let homestay = {
         name : homestayName,
+        price : homestayPrice,
+        type: homestayType,
+        address : homestayAddress,
         province : homestayProvince,
         district : homestayDistrict,
-        address : homestayAddress,
-        type: homestayType,
-        price : homestayPrice
-
-    })
+        latitude: homestayLatitude,
+        longitude: homestayLatitude,
+        area: homestayArea,
+        description: homestayDescription,
+        available: homestayAvailable,
+    };
+    if (adminId) {
+        homestay = {...homestay, admin: adminId };
+    };
+    if (homestayAmenities) {
+        homestay = {...homestay, amenities: homestayAmenities};
+    }
+    if (homestayGeneralServices) {
+        homestay = {...homestay, generalServices: homestayGeneralServices};
+    }
+    if (homestayServices) {
+        homestay = {...homestay, services: homestayServices};
+    }
+    if (homestayPhotos) {
+        homestay = {...homestay, photos: homestayPhotos};
+    }
+    homestay = await Homestays(db).create(homestay);
 
     return homestay
 }

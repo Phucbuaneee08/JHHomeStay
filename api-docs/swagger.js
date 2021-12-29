@@ -216,9 +216,9 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 }
             },
-            "/admins/update/homestays":{
+            "/homestays/update":{
                 "put": {
-                    "tags": ["Admin"],
+                    "tags": ["Homestays"],
                     "summary":"Hoàng: Update information in Homestay with _id",
                     "operationId":"updateHomestay",
                     "parameters":[],
@@ -579,7 +579,7 @@ const swaggerJsonData =
                         "district":    {"type": "string"},
                         "latitude":    {"type": "string"},
                         "longitude":   {"type": "string"},
-                        "area":        {"type": "number"},
+                        "area":        {"type": "string"},
                         "description": {"type": "string"},
                         "available":   {"type": "number"},
                         "services":{
@@ -616,7 +616,34 @@ const swaggerJsonData =
                         "address":     {"type": "string"},
                         "province":    {"type": "string"},
                         "district":    {"type": "string"},
-
+                        "latitude":    {"type": "string"},
+                        "longitude":   {"type": "string"},
+                        "area":        {"type": "string"},
+                        "description": {"type": "string"},
+                        "available":   {"type": "number"},
+                        "services":{
+                            "type":"array",
+                            "items": {
+                                "type": "string",
+                            }
+                        },
+                        "generalServices":{
+                            "type":"array",
+                            "items": {
+                                "type": "string",
+                            }
+                        },
+                        "amenities":{
+                            "items": {
+                                "type": "string",
+                            }
+                        },
+                        "photos":{
+                            "type":"array",
+                            "items": {
+                                "type": "string",
+                            }
+                        }
                     }
                 },
                 "UpdateBill":{
