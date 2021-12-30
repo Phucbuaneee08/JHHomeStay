@@ -159,11 +159,23 @@ exports.totalRevenueStatistic = async ( year ) => {
 
 exports.revenueStatistic = async( year, homestayId ) => {
     
+    
     //Tạo mảng để lưu tổng doanh thu theo tháng
     let revenuePerMonth = [null];
 
     //Tạo biến tổng doanh thu của tất cả homestay trong năm đó
     let totalRevenue = 0;
+
+    //Kiểm tra xem Id của homestay có đúng không?
+    const homestay = await Homestays(db).findById({ _id: homestayId })
+    .then( data => {
+        return data;
+    })
+    .catch( err => {
+        return null
+    })
+
+    if( homestay === null) return { revenuePerMonth, totalRevenue }; 
 
     //Duyệt qua 12 tháng để thống kê doanh thu
     for(let month = 1; month <= 12; month++)
@@ -221,6 +233,6 @@ exports.revenueStatistic = async( year, homestayId ) => {
         revenuePerMonth.push( Revenue );
     }
 
-    // Trả về tổng doanh thu của tất cả homestay theo từng tháng được gán trong mảng 
-    return {totalRevenue, revenuePerMonth} ;
+    // // Trả về tổng doanh thu của tất cả homestay theo từng tháng được gán trong mảng 
+    return { totalRevenue, revenuePerMonth };
 }
