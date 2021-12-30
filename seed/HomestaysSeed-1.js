@@ -15,9 +15,9 @@ let dbConnect = () => {
         }
     // Cơ sở dữ liệu Atlas
 
-     let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority', connectOptions);
+    //let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority', connectOptions);
     // Cơ sở dữ liệu cục bộ
-   // let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays', connectOptions);
+   let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays', connectOptions);
 
     /** CSDL cho docker */
     // let db = mongoose.createConnection('mongodb://mongo-jadehills:27017/JadeHillHomestays',
@@ -1398,8 +1398,8 @@ HomestaysSeed = async function () {
                     age: 20,
                 }
             ],
-            checkinDate: new Date("11-20-2021"),
-            checkoutDate: new Date("11-25-2021"),
+            checkinDate: new Date("1-20-2021"),
+            checkoutDate: new Date("1-25-2021"),
             status: 3
         },
         {
@@ -1416,8 +1416,8 @@ HomestaysSeed = async function () {
                     age: 18,
                 },
             ],
-            checkinDate: new Date("12-23-2021"),
-            checkoutDate: new Date("12-28-2021"),
+            checkinDate: new Date("2-23-2021"),
+            checkoutDate: new Date("2-28-2021"),
             status: 1
         },
         {
@@ -1442,8 +1442,8 @@ HomestaysSeed = async function () {
                     age: 15,
                 }
             ],
-            checkinDate: new Date ("12-7-2021"),
-            checkoutDate: new Date("12-12-2021"),
+            checkinDate: new Date ("3-7-2021"),
+            checkoutDate: new Date("3-12-2021"),
             status: 2
         },
         {
@@ -1460,8 +1460,8 @@ HomestaysSeed = async function () {
                     age: 22,
                 },
             ],
-            checkinDate: new Date("11-28-2021"),
-            checkoutDate: new Date("12-03-2021"),
+            checkinDate: new Date("4-28-2021"),
+            checkoutDate: new Date("4-03-2021"),
             status: 3
         },
         {
@@ -1478,8 +1478,8 @@ HomestaysSeed = async function () {
                     age: 25,
                 },
             ],
-            checkinDate: new Date("12-03-2021"),
-            checkoutDate: new Date("12-10-2021"),
+            checkinDate: new Date("5-03-2021"),
+            checkoutDate: new Date("5-10-2021"),
             status: 2
         },
         {
@@ -1496,8 +1496,8 @@ HomestaysSeed = async function () {
                     age: 27,
                 },
             ],
-            checkinDate: new Date("12-15-2021"),
-            checkoutDate: new Date( "12-20-2021"),
+            checkinDate: new Date("6-15-2021"),
+            checkoutDate: new Date( "6-20-2021"),
             status: 1
         },
         {
@@ -1537,8 +1537,8 @@ HomestaysSeed = async function () {
                     age: 20,
                 },
             ],
-            checkinDate: new Date("1-10-2022"),
-            checkoutDate: new Date("1-20-2022"),
+            checkinDate: new Date("7-10-2022"),
+            checkoutDate: new Date("7-20-2022"),
             status: 1
         },
         {
@@ -1579,8 +1579,8 @@ HomestaysSeed = async function () {
                     age: 26,
                 },
             ],
-            checkinDate: new Date("12-20-2021"),
-            checkoutDate: new Date("12-30-2021"),
+            checkinDate: new Date("8-20-2021"),
+            checkoutDate: new Date("8-30-2021"),
             status: 1
         },
         {
@@ -1601,8 +1601,8 @@ HomestaysSeed = async function () {
                     age: 22,
                 },
             ],
-            checkinDate: new Date("12-9-2021"),
-            checkoutDate: new Date("12-15-2021"),
+            checkinDate: new Date("9-9-2021"),
+            checkoutDate: new Date("9-15-2021"),
             status: 2
         },
         {
@@ -1615,8 +1615,8 @@ HomestaysSeed = async function () {
             },
             customerTogether :[
             ],
-            checkinDate: new Date("12-23-2021"),
-            checkoutDate: new Date("12-28-2021"),
+            checkinDate: new Date("10-23-2021"),
+            checkoutDate: new Date("10-28-2021"),
             status: 1
         },
     ])

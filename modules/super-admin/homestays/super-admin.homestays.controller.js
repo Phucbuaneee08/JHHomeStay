@@ -94,3 +94,58 @@ exports.getAllHomestays = async (req, res) => {
         })
     }
 }
+
+//Thống kê doanh thu của toàn bộ homestay theo tháng trong 1 năm
+exports.totalRevenueStatistic = async ( req, res ) => {
+    try
+    {
+        const data = req.params;
+        const year = data.year;
+        console.log(typeof(year))
+        // Tạo biến tổng doanh thu và mảng trả về doanh thu theo tháng trong năm year 
+        const {totalRevenue, revenuePerMonth} = await HomestayService.totalRevenueStatistic( year );
+
+        return res.status(200).json({
+            success: true,
+            message: "Get total revenue statistics successfully",
+            content: "Tổng doanh thu là: " + totalRevenue + " Doanh thu theo từng tháng là: " + revenuePerMonth
+        });
+    }
+    catch
+    {
+        return res.status(400).json({
+            success: false,
+            message: "Exception",
+            content: Error
+        })
+    }
+
+}
+
+exports.revenueStatistic = async ( req, res ) => {
+    try
+    {
+        const data = req.query;
+        const year = data.year;
+        const homestayId = data.homestayId
+    
+        // Tạo biến tổng doanh thu và mảng trả về doanh thu theo tháng trong năm year 
+        const {totalRevenue, revenuePerMonth} = await HomestayService.revenueStatistic( year, homestayId );
+
+
+        return res.status(200).json({
+            success: true,
+            message: "Get total revenue statistics successfully",
+            content: "Tổng doanh thu là: "+ totalRevenue + " Doanh thu theo từng tháng là: " + revenuePerMonth
+        });
+    }
+    catch
+    {
+        return res.status(400).json({
+            success: false,
+            message: "Exception",
+            content: Error
+        })
+    }
+
+}

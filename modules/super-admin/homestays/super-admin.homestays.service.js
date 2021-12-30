@@ -1,4 +1,4 @@
-const { Homestays } = require("../../../models");
+const { Homestays, Bills } = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 const {home} = require("nodemon/lib/utils");
 const {ObjectId} = require('mongodb');
@@ -86,4 +86,141 @@ exports.getAllHomestays = async (page, perPage) => {
     });
 
     return homestays;
+}
+
+// Thống kê tổng doanh thu của toàn bộ homestays theo từng tháng
+exports.totalRevenueStatistic = async ( year ) => {
+
+    //Tạo mảng để lưu tổng doanh thu theo tháng
+    let revenuePerMonth = [null];
+
+    //Tạo biến tổng doanh thu của tất cả homestay trong năm đó
+    let totalRevenue = 0;
+
+    //Duyệt qua 12 tháng để thống kê doanh thu
+    for(let month = 1; month <= 12; month++)
+    {
+        //Xử lý điều kiện date trước khi thống kê doanh thu từng tháng
+        let dateCondition;
+
+        if( [ 1, 3, 5, 7, 8 ].includes(month) ) 
+        {
+            dateCondition = [ new Date(`${year}-0${month}-01`), new Date(`${year}-0${month}-31`) ];
+        }
+        if( [ 4, 6, 9 ].includes(month) )
+        {
+            dateCondition = [ new Date(`${year}-0${month}-01`), new Date(`${year}-0${month}-30`) ];
+        }
+
+        if( month === 2 )
+        {
+            dateCondition = [ new Date(`${year}-0${month}-01`), new Date(`${year}-0${month}-28`) ];
+        }
+
+        if( [ 10, 12 ].includes(month) )
+        {
+            dateCondition = [ new Date(`${year}-${month}-01`), new Date(`${year}-${month}-31`) ];
+        }
+
+        if( month === 11 )
+        {
+            dateCondition = [ new Date(`${year}-${month}-01`), new Date(`${year}-${month}-30`) ];
+        }
+        
+        //Thống kê doanh thu từng tháng
+        const revenue = await Bills(db).aggregate([
+            {
+                $match: 
+                { 
+                    price: { $gt: 0 }, 
+                    status: 3, 
+                    checkoutDate: { $gte: dateCondition[0], $lte: dateCondition[1] }
+                }
+            },
+            {
+                $group:
+                { 
+                    _id: {},
+                    revenue: { $sum: "$price" }
+                }
+            }
+        ])
+        let Revenue ;
+        if(revenue.length === 0 ) Revenue = 0;
+        else Revenue = revenue[0].revenue;
+        totalRevenue += Revenue;
+        revenuePerMonth.push( Revenue );
+    }
+
+    // Trả về tổng doanh thu của tất cả homestay theo từng tháng được gán trong mảng 
+    return {totalRevenue, revenuePerMonth} ;
+
+}
+
+exports.revenueStatistic = async( year, homestayId ) => {
+    
+    //Tạo mảng để lưu tổng doanh thu theo tháng
+    let revenuePerMonth = [null];
+
+    //Tạo biến tổng doanh thu của tất cả homestay trong năm đó
+    let totalRevenue = 0;
+
+    //Duyệt qua 12 tháng để thống kê doanh thu
+    for(let month = 1; month <= 12; month++)
+    {
+        //Xử lý điều kiện date trước khi thống kê doanh thu từng tháng
+        let dateCondition;
+
+        if( [ 1, 3, 5, 7, 8 ].includes(month) ) 
+        {
+            dateCondition = [ new Date(`${year}-0${month}-01`), new Date(`${year}-0${month}-31`) ];
+        }
+        if( [ 4, 6, 9 ].includes(month) )
+        {
+            dateCondition = [ new Date(`${year}-0${month}-01`), new Date(`${year}-0${month}-30`) ];
+        }
+
+        if( month === 2 )
+        {
+            dateCondition = [ new Date(`${year}-0${month}-01`), new Date(`${year}-0${month}-28`) ];
+        }
+
+        if( [ 10, 12 ].includes(month) )
+        {
+            dateCondition = [ new Date(`${year}-${month}-01`), new Date(`${year}-${month}-31`) ];
+        }
+
+        if( month === 11 )
+        {
+            dateCondition = [ new Date(`${year}-${month}-01`), new Date(`${year}-${month}-30`) ];
+        }
+        
+        //Thống kê doanh thu từng tháng
+        const revenue = await Bills(db).aggregate([
+            {
+                $match: 
+                { 
+                    homestay: ObjectId(`${homestayId}`), 
+                    price: { $gt: 0 }, 
+                    status: 3, 
+                    checkoutDate: { $gte: dateCondition[0], $lte: dateCondition[1] }
+                }
+            },
+            {
+                $group:
+                { 
+                    _id: {},
+                    revenue: { $sum: "$price" }
+                }
+            }
+        ])
+        let Revenue ;
+        if(revenue.length === 0 ) Revenue = 0;
+        else Revenue = revenue[0].revenue;
+        totalRevenue += Revenue;
+        revenuePerMonth.push( Revenue );
+    }
+
+    // Trả về tổng doanh thu của tất cả homestay theo từng tháng được gán trong mảng 
+    return {totalRevenue, revenuePerMonth} ;
 }

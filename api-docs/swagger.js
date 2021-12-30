@@ -525,7 +525,56 @@ const swaggerJsonData =
                     },
                     "x-codegen-request-body-name": "body"
                 }
-            }
+            },
+            "/super-admins/revenue/total/{year}": {
+                "get": {
+                    "tags": ["Super Admins"],
+                    "sumary": "Super admin total revenue statistics",
+                    "operationId": "totalRevenueStatistics",
+                    "parameters": [{
+                        "name": "year",
+                        "in": "path",
+                        "description": "Nhập năm cần thống kê",
+                        "schema": {"type": "string"},
+                        "require": true
+                    }],
+                    "requestBody": [],
+                    "responses": {
+                        "200": {"description": "Get total revenue statistics successfully","content":{}},
+                        "400": {"description": "Error", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/super-admins/revenue/homestay?year={year}&homestayId={homestayId}": {
+                "get": {
+                    "tags": ["Super Admins"],
+                    "sumary": "Super admin total revenue statistics",
+                    "operationId": "totalRevenueStatistics",
+                    "parameters": [
+                    {
+                        "name": "year",
+                        "in": "path",
+                        "description": "Nhập năm cần thống kê",
+                        "schema": {"type": "string"},
+                        "require": true,
+                    },
+                    {
+                        "name": "homestayId",
+                        "in": "path",
+                        "description": "Nhập id homestay cần thống kê",
+                        "schema": {"type": "string"},
+                        "require": true
+                    }
+                    ],
+                    "requestBody": [],
+                    "responses": {
+                        "200": {"description": "Get revenue statistics successfully","content":{}},
+                        "400": {"description": "Error", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            } 
         },
         "components": {
             "schemas": {
