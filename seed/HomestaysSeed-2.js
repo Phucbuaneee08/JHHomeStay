@@ -15,7 +15,7 @@ let dbConnect = () => {
         }
     // Cơ sở dữ liệu cục bộ
     let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays', connectOptions);
-    // let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority', connectOptions);
+    //let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority', connectOptions);
 
     return db
 }
