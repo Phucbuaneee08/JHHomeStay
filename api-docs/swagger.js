@@ -574,7 +574,20 @@ const swaggerJsonData =
                     },
                     "x-codegen-request-body-name": "body"
                 }
-            } 
+            },
+            "/services": {
+                "get": {
+                    "tags": ["Admin"],
+                    "summary": "Get all services",
+                    "operationId": "GetServices",
+                    "parameters": [],
+                    "responses": {
+                        "200": {"description": "get ranking homestays success"},
+                        "400": {"description": "get ranking homestays false", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
         },
         "components": {
             "schemas": {
