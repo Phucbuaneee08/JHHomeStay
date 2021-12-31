@@ -526,14 +526,14 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 }
             },
-            "/super-admins/revenue/total/{year}": {
+            "/super-admins/revenue/total": {
                 "get": {
                     "tags": ["Super Admins"],
                     "sumary": "Super admin total revenue statistics",
                     "operationId": "totalRevenueStatistics",
                     "parameters": [{
                         "name": "year",
-                        "in": "path",
+                        "in": "query",
                         "description": "Nhập năm cần thống kê",
                         "schema": {"type": "string"},
                         "require": true

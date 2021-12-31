@@ -99,7 +99,7 @@ exports.getAllHomestays = async (req, res) => {
 exports.totalRevenueStatistic = async ( req, res ) => {
     try
     {
-        const data = req.params;
+        const data = req.query;
         const year = data.year;
 
         // Tạo biến tổng doanh thu và mảng trả về doanh thu theo tháng trong năm year 

@@ -16,11 +16,11 @@ let dbConnect = () => {
         }
 
         /** CSDL atlas*/
-    // let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority',
-    //     connectOptions);
+    let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority',
+        connectOptions);
 
     /** CSDL local */
-    let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays', connectOptions);
+    // let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays', connectOptions);
 
     /** CSDL cho docker */
     /* let db =  mongoose.createConnection('mongodb://mongo-jadehills:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false',
@@ -53,6 +53,13 @@ UserSeed = async function () {
         {
             status: 1,
             email: 'nhat@gmail.com',
+            name: 'Nguyễn Thế Nhật',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'super_admin',
+        },
+        {
+            status: 1,
+            email: 'superadmin@gmail.com',
             name: 'Nguyễn Thế Nhật',
             password: await bcrypt.hash('1234567890', 10),
             role: 'super_admin',
