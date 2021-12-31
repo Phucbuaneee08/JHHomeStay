@@ -6,7 +6,6 @@ exports.createInformationForHomestay = async (req, res) => {
         //Lấy về dữ liệu trong body của request
         const data = req.body;
 
-        const adminId = data.adminId ? data.adminId : null;
         const homestayName = data.name ? data.name : " ";
         const homestayPrice = data.price ? data.price : 0;
         const homestayType = data.type ? data.type : " ";
@@ -33,7 +32,7 @@ exports.createInformationForHomestay = async (req, res) => {
         } else homestayPhotos = data.photos;
 
         //Tạo homestay 
-        const homestay = await HomestayService.createHomestay(adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos );
+        const homestay = await HomestayService.createHomestay(homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos );
 
         return res.status(200).json({
             success: true,

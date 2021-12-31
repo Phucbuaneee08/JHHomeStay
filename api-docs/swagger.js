@@ -640,12 +640,17 @@ const swaggerJsonData =
                         "generalServices":{
                             "type":"array",
                             "items": {
-                                "type": "string",
+                                "type": "object", "properties": {
+                                    "name": {"type": "string"}
+                                }
                             }
                         },
                         "amenities":{
                             "items": {
-                                "type": "string",
+                                "type": "object", "properties": {
+                                    "name": {"type": "string"},
+                                    "type": {"type": "string"}
+                                }
                             }
                         },
                         "photos":{
@@ -679,12 +684,17 @@ const swaggerJsonData =
                         "generalServices":{
                             "type":"array",
                             "items": {
-                                "type": "string",
+                                "type": "object", "properties": {
+                                    "name": {"type": "string"}
+                                }
                             }
                         },
                         "amenities":{
                             "items": {
-                                "type": "string",
+                                "type": "object", "properties": {
+                                    "name": {"type": "string"},
+                                    "type": {"type": "string"}
+                                }
                             }
                         },
                         "photos":{

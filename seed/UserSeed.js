@@ -37,11 +37,18 @@ UserSeed = async function () {
     });
     await Users(db).create([
         {
-            status: 0,
+            status: 1,
             email: 'hoang@gmail.com',
             name: 'Phạm Việt Hoàng',
             password: await bcrypt.hash('1234567890', 10),
             role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'superadmin@gmail.com',
+            name: 'Phạm Việt Hoàng',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'super_admin',
         },
         {
             status: 1,
@@ -52,22 +59,57 @@ UserSeed = async function () {
         },
         {
             status: 1,
-            email: 'nhat@gmail.com',
-            name: 'Nguyễn Thế Nhật',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'super_admin',
-        },
-        {
-            status: 1,
-            email: 'superadmin@gmail.com',
-            name: 'Nguyễn Thế Nhật',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'super_admin',
-        },
-        {
-            status: 1,
             email: 'tu@gmail.com',
             name: 'Nguyễn Ngọc Tú',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'nhat@gmail.com',
+            name: 'Nguyen The Nhat',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'quynhanh@gmail.com',
+            name: 'Nguyen Quynh Anh',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'dat@gmail.com',
+            name: 'Tran Tuan Dat',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'thuong@gmail.com',
+            name: 'Thuong',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'thanh@gmail.com',
+            name: 'Vu Minh Thanh',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'binh@gmail.com',
+            name: 'Nguyen Ba Binh',
+            password: await bcrypt.hash('1234567890', 10),
+            role: 'admin',
+        },
+        {
+            status: 1,
+            email: 'duc@gmail.com',
+            name: 'Cong Duc',
             password: await bcrypt.hash('1234567890', 10),
             role: 'admin',
         }

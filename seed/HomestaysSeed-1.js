@@ -17,7 +17,7 @@ let dbConnect = () => {
 
     let db =  mongoose.createConnection('mongodb+srv://jadehillhomestays:1234@cluster0.nwvtu.mongodb.net/jadehillhomestays?retryWrites=true&w=majority', connectOptions);
     // Cơ sở dữ liệu cục bộ
-        // let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays', connectOptions);
+    //     let db =  mongoose.createConnection('mongodb://localhost:27017/JadeHillHomestays', connectOptions);
 
     /** CSDL cho docker */
     // let db = mongoose.createConnection('mongodb://mongo-jadehills:27017/JadeHillHomestays',
@@ -59,12 +59,6 @@ HomestaysSeed = async function () {
 
     Bills(db).deleteMany().then(function () {
         console.log("Bills is cleared");
-    }).catch(function (error) {
-        console.log(error);
-    });
-
-    Users(db).deleteMany().then(function () {
-        console.log("user data is cleared");
     }).catch(function (error) {
         console.log(error);
     });
@@ -1763,78 +1757,14 @@ HomestaysSeed = async function () {
 
     }
 
-    let usersInfo = [
-        {
-            status: 1,
-            email: 'minh@gmail.com',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'admin',
-        },
-        {
-            status: 1,
-            email: 'hoang@gmail.com',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'admin',
-        },
-        {
-            status: 1,
-            email: 'nhat@gmail.com',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'admin',
-        },
-        {
-            status: 1,
-            email: 'tu@gmail.com',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'admin',
-        },
-        {
-            status: 1,
-            email: 'quynhanh@gmail.com',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'admin',
-        },
-        {
-            status: 1,
-            email: 'dat@gmail.com',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'admin',
-        },
-        {
-            status: 1,
-            email: 'thuong@gmail.com',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'admin',
-        },
-        {
-            status: 1,
-            email: 'thanh@gmail.com',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'admin',
-        },
-        {
-            status: 1,
-            email: 'binh@gmail.com',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'admin',
-        },
-        {
-            status: 1,
-            email: 'duc@gmail.com',
-            password: await bcrypt.hash('1234567890', 10),
-            role: 'admin',
-        }
-    ];
-
+    let usersInfo = await Users(db).find();
+    usersInfo = usersInfo.filter((a) => a.role === 'admin')
     // Hiện tại là gán 1 admin - 1 homestay
     for(let i = 0; i < usersInfo.length; i++) {
-        let user = await Users(db).create({
-            status: usersInfo[i].status,
-            email: usersInfo[i].email,
-            password: usersInfo[i].password,
-            role: usersInfo[i].role,
-            homestays: homestays[i]._id,
-        })
+        let user = await Users(db).findByIdAndUpdate(
+            usersInfo[i]._id,
+            {$set: {homestays: [homestays[i]._id]}}
+        )
         // cập nhật _id của user vào homestays
         await Homestays(db).findByIdAndUpdate(homestays[i]._id,
             {$push: {admin: user._id}})

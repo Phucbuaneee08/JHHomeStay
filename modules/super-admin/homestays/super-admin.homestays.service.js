@@ -1,9 +1,8 @@
-const { Homestays, Bills } = require("../../../models");
+const { Homestays, Bills, Amenities, GeneralServices} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
-const {home} = require("nodemon/lib/utils");
 const {ObjectId} = require('mongodb');
-exports.createHomestay = async (adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos ) => {
 
+exports.createHomestay = async (homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos ) => {
     let homestay = {
         name : homestayName,
         price : homestayPrice,
@@ -17,15 +16,6 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
         description: homestayDescription,
         available: homestayAvailable,
     };
-    if (adminId) {
-        homestay = {...homestay, admin: adminId };
-    };
-    if (homestayAmenities) {
-        homestay = {...homestay, amenities: homestayAmenities};
-    }
-    if (homestayGeneralServices) {
-        homestay = {...homestay, generalServices: homestayGeneralServices};
-    }
     if (homestayServices) {
         homestay = {...homestay, services: homestayServices};
     }
@@ -34,7 +24,28 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
     }
     homestay = await Homestays(db).create(homestay);
 
-    return homestay
+    if (homestayAmenities) {
+        for (let i = 0; i < homestayAmenities.length; i++) {
+            const amenity =  await Amenities(db).create(homestayAmenities[i]);
+            await Homestays(db).findByIdAndUpdate(homestay._id, {
+                $push: {amenities: amenity._id}
+            })
+        }
+    }
+
+    if (homestayGeneralServices) {
+        for (let i = 0; i < homestayGeneralServices.length; i++) {
+            const generalService =  await GeneralServices(db).create(homestayGeneralServices[i]);
+            await Homestays(db).findByIdAndUpdate(homestay._id, {
+                $push: {generalServices: generalService._id}
+            })
+        }
+    }
+    return (await Homestays(db).findById(homestay._id)
+        .populate('amenities',"name")
+        .populate('generalServices', "name")
+        .populate('photos', "url")
+        .populate('services',"name pricePerUnit personServe"))
 }
 
 exports.getIdAdminByProvince = async ( Province ) => {

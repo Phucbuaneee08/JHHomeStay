@@ -200,16 +200,8 @@ exports.updateHomestay = async (homestayId, homestayName, homestayPrice, homesta
         setHomestay = {...setHomestay, "available": homestayAvailable};
     }
 
-    if( homestayAmenities ){
-        setHomestay = {...setHomestay, "amenities": homestayAmenities};
-    }
-
     if( homestayServices ){
         setHomestay = {...setHomestay, "services": homestayServices};
-    }
-
-    if( homestayGeneralServices ){
-        setHomestay = {...setHomestay, "generalServices": homestayGeneralServices};
     }
 
     if( homestayPhotos ){
@@ -217,9 +209,38 @@ exports.updateHomestay = async (homestayId, homestayName, homestayPrice, homesta
     }
 
     // Cập nhật vào database
-    await Homestays(db).deleteOne({ _id: homestayId })
-    const homestay = await Homestays(db).create(setHomestay);
+    const homestay = await Homestays(db).updateOne(
+        {_id: homestayId},
+        {$set: setHomestay}
+    );
 
-    return homestay;
+    if (homestayAmenities) {
+        await Homestays(db).findByIdAndUpdate(homestay._id, {
+            $set: {amenities: []}
+        })
+        for (let i = 0; i < homestayAmenities.length; i++) {
+            const amenity =  await Amenities(db).create(homestayAmenities[i]);
+            await Homestays(db).findByIdAndUpdate(homestay._id, {
+                $push: {amenities: amenity._id}
+            })
+        }
+    }
+
+    if (homestayGeneralServices) {
+        await Homestays(db).findByIdAndUpdate(homestay._id, {
+            $set: {generalServices: []}
+        })
+        for (let i = 0; i < homestayGeneralServices.length; i++) {
+            const generalService =  await GeneralServices(db).create(homestayGeneralServices[i]);
+            await Homestays(db).findByIdAndUpdate(homestay._id, {
+                $push: {generalServices: generalService._id}
+            })
+        }
+    }
+    return (await Homestays(db).findById(homestay._id)
+        .populate('amenities',"name")
+        .populate('generalServices', "name")
+        .populate('photos', "url")
+        .populate('services',"name pricePerUnit personServe"));
 }
 
