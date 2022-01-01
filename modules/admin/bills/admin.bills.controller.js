@@ -97,10 +97,11 @@ exports.getBillsByHomestayId = async (req, res) => {
         const {id, status} = req.query;
         // Truy xuất cơ sở dữ liệu bằng id để lấy
         let bills = await BillsService.getBillsByHomestayId(id, status);
+        
         // Nếu thành công trả lại res 200 và danh sách các bills
         return res.status(200).json({
             success: true,
-            content: bills
+            content: bills 
         });
     } catch (error) {
         // Nếu ko thành công -> 400

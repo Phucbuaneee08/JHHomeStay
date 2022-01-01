@@ -64,6 +64,23 @@ exports.getBillsByHomestayId = async (id, status) => {
     let bills = homestays[0].bills.filter((a) => {
         return a.status == status;  
     })
+
+    //Cập nhật thêm tên và giá cho services trong bills
+    const length = bills[0].servicesPerBill.length;
+    const servicesPerBill = bills[0].servicesPerBill;
+
+    for( let i = 0; i < length; i++ )
+    {
+       const services = await Services(db).findById({ _id: servicesPerBill[i].services });
+
+        // Thêm 2 trường name và price vào biến servicesPerBillAfterUpdate
+       servicesPerBill[i].name = services.name;
+       servicesPerBill[i].pricePerUnit = services.pricePerUnit;
+    }
+
+    //Thêm servicesPerBill vào bills
+    bills.servicesPerBill = servicesPerBill;
+
     return bills;
 }
 

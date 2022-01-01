@@ -21,7 +21,7 @@ exports.createBills = async (req,res)=>{
                 content: ""
             })
         }
-
+        
         //Kiểm tra xem _id services nhập có đúng không
         for( let i = 0; i < data.servicesPerBill.length; i++ ){
 
