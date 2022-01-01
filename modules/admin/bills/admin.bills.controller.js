@@ -58,7 +58,7 @@ exports.deleteBillsById = async ( req, res) =>{
     try{
         //Lấy id của bills
         const Bill_Id = req.params.id;
-        console.log(Bill_Id)
+
         //Kiểm trả xem bill có tồn tại không bằng Id
         const Bills = await BillsService.findBillsById( Bill_Id );
 
