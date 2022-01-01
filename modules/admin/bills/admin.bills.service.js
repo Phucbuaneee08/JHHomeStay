@@ -125,28 +125,48 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
 
 
 exports.deleteBillsById = async ( Bill_Id ) => {
+    //Lấy các service trong bill ra trước khi xóa bill
     let servicesPerBill = [];
     let homestay;
+
     await Bills(db).findOne({_id: Bill_Id })
     .then(data => {
         servicesPerBill = data.servicesPerBill;
         homestay = data.homestay;
     })
 
+    //Thực hiện xóa bill trong service, với mỗi service đều phải xóa idBill
     for (let i = 0; i < servicesPerBill.length; i++){
-        const idService = servicesPerBill[i].services;
-        await Services(db).deleteOne({ _id: idService });
+        const idService = ObjectId(servicesPerBill[i].services);
+
+        let billsOfService = await Services(db).findOne({ _id: idService })
+        .then( service => {
+            return service.bills;
+        })
+
+        //Cập nhật lại các idBill vào service sau khi đã xóa idBill ở trên 
+        let bills = [];
+        let index = billsOfService.indexOf( new ObjectId( Bill_Id ) );
+
+        for( let j = 0; j < billsOfService.length; j++ )
+        {
+            if( j !== index )
+            bills = [ ...bills, billsOfService[j] ];
+        }
+        
+        await Services(db).findByIdAndUpdate({ _id:idService }, { bills:bills });
     }
-    
-    //Lấy ra danh sách id bills sau khi đã xóa id bills
+ 
+
+    //Lấy ra danh sách id bills sau khi đã xóa idBill từ homestay
     const idBills = await Homestays(db).findOne({_id : homestay})
     .then(data => {
 
         let bills = [];
-        const a = new ObjectId(Bill_Id);
-        
+        const index = data.bills.indexOf( new ObjectId( Bill_Id ) );
+
         for(let i = 0; i < data.bills.length; i++){
-            if( data.bills[i] === a )
+            if( i!==index )
             bills = [...bills, data.bills[i]];
         }
 

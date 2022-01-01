@@ -12,39 +12,28 @@ exports.createBill = async ( data ) => {
         return homestay;
     })
 
-
-    //Nhập các trường đơn và trả về _id của Bills để cập nhật các trường liên kết của Bills
-    //Trong đó trường chưa có trường price vì chưa tính ở đây
-    const _idBill = await Bills(db).create({
-        homestay : { _id:data._id },
-        checkinDate : data.checkinDate ,
-        checkoutDate : data.checkoutDate ,
-        status: data.status,
-        customer: data.customer,
-        customerTogether : data.customerTogether,
-        servicesPerBill : data.servicesPerBill,
-        price: 0
-    })
-    .then( bill =>{ 
-        return bill._id;
-    })
-
-    /**********************************************************************
-     *                                                                    *
-     * Tính tổng giá thuê homestays + services đi kèm và update vào Bills * 
-     *                                                                    *
-     * ********************************************************************/
-
     //Lấy giá của homestays/1 ngày mà bills tham chiếu tới
     const priceHomestayPerDay = homestay.price;
+    let _idBill               = 0;
+    let priceBill             = 0;
 
-    //Tính giá thuê homestays chưa có services
-    let price = await Bills(db).findById({ _id : _idBill })
-    .then( Bill => {
-        const numberOfDays = (Bill.checkoutDate - Bill.checkinDate) / ( 24 * 60 * 60 * 1000 ) ;
-        return (numberOfDays *  priceHomestayPerDay);
+    //Tạo bill
+    await Bills(db).create({
+        homestay         : ObjectId( data._id ),
+        checkinDate      : data.checkinDate ,
+        checkoutDate     : data.checkoutDate ,
+        status           : data.status,
+        customer         : data.customer,
+        customerTogether : data.customerTogether,
+        servicesPerBill  : data.servicesPerBill,
+        price            : 0
     })
-    
+    .then( bill => { 
+        const numberOfDays = (bill.checkoutDate - bill.checkinDate) / ( 24 * 60 * 60 * 1000 );
+              priceBill   += numberOfDays *  priceHomestayPerDay;
+              _idBill      = bill._id;
+    })
+
     //Lấy về danh sách thông tin services trong bill
     const services = await Bills(db).findById({ _id : _idBill })
     .populate({
@@ -55,12 +44,15 @@ exports.createBill = async ( data ) => {
         return bill.servicesPerBill ;
     })
 
-
-    for( let i = 0; i < services.length; i++ ){
-        // cộng price service vào price
-        price += services[i].count * services[i].services.pricePerUnit;
+    // Cộng price service vào price đồng thời update idBill vào services tương ứng
+    for( let i = 0; i < services.length; i++ )
+    {
+        priceBill += services[i].count * services[i].services.pricePerUnit;
+        let _idService = services[i].services._id;
+        await Services(db).findByIdAndUpdate({ _id : ObjectId( _idService ) }, { $push:{ bills : _idBill } })
     }
-    //Update price
+
+    //Update priceBill
     await Bills(db).findByIdAndUpdate(
 
         {
@@ -68,7 +60,7 @@ exports.createBill = async ( data ) => {
         },
 
         {
-            $inc : { price : price },
+            price : priceBill
         },
     )
 
