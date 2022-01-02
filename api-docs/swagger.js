@@ -526,7 +526,7 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 }
             },
-            "/super-admins/revenue/total": {
+            "/super-admins/revenue/total?year={year}": {
                 "get": {
                     "tags": ["Super Admins"],
                     "sumary": "Super admin total revenue statistics",
@@ -554,14 +554,14 @@ const swaggerJsonData =
                     "parameters": [
                     {
                         "name": "year",
-                        "in": "path",
+                        "in": "query",
                         "description": "Nhập năm cần thống kê",
                         "schema": {"type": "string"},
                         "require": true,
                     },
                     {
                         "name": "homestayId",
-                        "in": "path",
+                        "in": "query",
                         "description": "Nhập id homestay cần thống kê",
                         "schema": {"type": "string"},
                         "require": true
