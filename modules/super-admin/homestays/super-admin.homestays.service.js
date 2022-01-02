@@ -156,6 +156,7 @@ exports.totalRevenueStatistic = async ( year ) => {
                 }
             }
         ])
+
         let Revenue ;
         if(revenue.length === 0 ) Revenue = 0;
         else Revenue = revenue[0].revenue;
@@ -178,7 +179,7 @@ exports.revenueStatistic = async( year, homestayId ) => {
     let totalRevenue = 0;
 
     //Kiểm tra xem Id của homestay có đúng không?
-    const homestay = await Homestays(db).findById({ _id: homestayId })
+    const homestay = await Homestays(db).findById({ _id: new ObjectId(homestayId) })
     .then( data => {
         return data;
     })
