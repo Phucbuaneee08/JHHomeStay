@@ -105,6 +105,7 @@ exports.getBillsByHomestayId = async (req, res) => {
         });
     } catch (error) {
         // Nếu ko thành công -> 400
+        console.log(error)
         return res.status(400).json({
             success: false,
             message: Array.isArray(error) ? error : "Homestay's id is not correct!",

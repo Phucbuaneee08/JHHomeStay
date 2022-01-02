@@ -40,7 +40,6 @@ exports.getBillsByAdminId = async (id) => {
 //API trả về danh sách các bills theo homestay
 exports.getBillsByHomestayId = async (id, status) => {
     // Trả lại danh sách các bill theo homestay
-    console.log(id)
     let homestays = await Homestays(db).aggregate([
         {
             $match: {
@@ -62,8 +61,12 @@ exports.getBillsByHomestayId = async (id, status) => {
         }
     ]);
     let bills = homestays[0].bills.filter((a) => {
-        return a.status == status;  
+        return a.status == status;
     })
+
+    if (bills.length === 0) {
+        return bills;
+    }
 
     //Cập nhật thêm tên và giá cho services trong bills
     const length = bills[0].servicesPerBill.length;
