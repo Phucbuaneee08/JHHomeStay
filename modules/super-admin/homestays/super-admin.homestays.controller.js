@@ -28,9 +28,9 @@ exports.createInformationForHomestay = async (req, res) => {
         if (data.amenities == '' || data.amenities == null) {
             homestayAmenities = null
         } else homestayAmenities = data.amenities;
-        if (data.photos == '' || data.photos == null) {
-            homestayPhotos = null
-        } else homestayPhotos = data.photos;
+        homestayPhotos = req.files.map((file) => {
+            return `/upload/homestays-photos/${file.originalname}`
+        });
 
         //Tạo homestay 
         const homestay = await HomestayService.createHomestay(adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos );
@@ -44,6 +44,7 @@ exports.createInformationForHomestay = async (req, res) => {
     }
     catch(Error){
         //Lỗi không xác định
+        console.log(Error)
         return res.status(400).json({
             success: false,
             message: "Create homestay fail",

@@ -394,6 +394,21 @@ const swaggerJsonData =
                     "requestBody": {
                         "description": "Nhập id admin, tên homestay và tỉnh",
                         "content": {
+                            "multipart/form-data ": {
+                                "schema" :
+                                    {
+                                        "type": "object",
+                                        "properties" : {
+                                            "test" : {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string",
+                                                    "format": "binary"
+                                                }
+                                            }
+                                        }
+                                    }
+                            },
                             "application/json": {"schema": {"$ref": "#/components/schemas/CreateHomestay"}},
                             "application/xml": {"schema": {"$ref": "#/components/schemas/CreateHomestay"}}
                         },

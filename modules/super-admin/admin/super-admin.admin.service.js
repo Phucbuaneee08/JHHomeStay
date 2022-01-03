@@ -1,7 +1,7 @@
 const {Users, Bills, Homestays} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 const {home} = require("nodemon/lib/utils");
-const {authToken} = require("../../../middleware/auth");
+const {authToken} = require("../../../middleware");
 const {ObjectId} = require('mongodb');
 
 //API để super admin chỉnh sửa thông tin Admin
