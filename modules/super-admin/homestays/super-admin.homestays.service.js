@@ -1,4 +1,4 @@
-const { Homestays, Bills, Amenities, GeneralServices} = require("../../../models");
+const { Homestays, Bills, Amenities, GeneralServices, Users} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 const {ObjectId} = require('mongodb');
 
