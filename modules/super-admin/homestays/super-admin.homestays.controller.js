@@ -6,17 +6,17 @@ exports.createInformationForHomestay = async (req, res) => {
         //Lấy về dữ liệu trong body của request
         const data = req.body;
 
-        const adminId = data.adminId === "undefined" ? null : data.adminId;
-        const homestayName = data.name ? data.name : " ";
+        const adminId = data.adminId ? data.adminId: null;
+        const homestayName = data.name ? data.name : null;
         const homestayPrice = data.price ? data.price : 0;
-        const homestayType = data.type ? data.type : " ";
-        const homestayAddress = data.address ? data.address : " ";
-        const homestayProvince = data.province ? data.province : " ";
-        const homestayDistrict = data.district ? data.district : " ";
-        const homestayLatitude = data.latitude ? data.latitude : " ";
-        const homestayLongitude = data.longitude ? data.longitude : " ";
+        const homestayType = data.type ? data.type : null;
+        const homestayAddress = data.address ? data.address : null;
+        const homestayProvince = data.province ? data.province : null;
+        const homestayDistrict = data.district ? data.district : null;
+        const homestayLatitude = data.latitude ? data.latitude : null;
+        const homestayLongitude = data.longitude ? data.longitude : null;
         const homestayArea = data.area ? data.area : 0;
-        const homestayDescription = data.description ? data.description : " ";
+        const homestayDescription = data.description ? data.description : null;
         const homestayAvailable = data.available ? data.available : 0;
         let homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos;
         if (data.services == '' || data.services == null) {
@@ -32,9 +32,6 @@ exports.createInformationForHomestay = async (req, res) => {
             return `/upload/homestays-photos/${file.originalname}`
         });
 
-        homestayAmenities = JSON.parse(homestayAmenities);
-        homestayServices = JSON.parse(homestayServices)?.map(o => o._id);
-        homestayGeneralServices = JSON.parse(homestayGeneralServices)
         //Tạo homestay
         const homestay = await HomestayService.createHomestay(adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos );
 
