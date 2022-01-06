@@ -7,7 +7,6 @@ const GeneralServicesSchema = new Schema({
     //tạo ra thuộc tính name và homeStayId
     name: {
         type: String,
-        require: true
     },
     homestays: [{
         type: Schema.Types.ObjectId,

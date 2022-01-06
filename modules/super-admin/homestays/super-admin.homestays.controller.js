@@ -29,6 +29,7 @@ exports.createInformationForHomestay = async (req, res) => {
             homestayAmenities = null
         } else homestayAmenities = JSON.parse(data.amenities);
 
+        console.log(req.files);
         homestayPhotos = req.files.map((file) => {
             return `/upload/homestays-photos/${file.originalname}`
         });
