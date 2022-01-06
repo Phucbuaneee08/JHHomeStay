@@ -3,6 +3,7 @@ const {db} = require("../../../helpers/dbHelper");
 const {home} = require("nodemon/lib/utils");
 const {authToken} = require("../../../middleware");
 const {ObjectId} = require('mongodb');
+const bcrypt = require('bcrypt');
 
 //API để super admin chỉnh sửa thông tin Admin
 exports.updateAdminById = async (id, name, address, role, email, password, phone, status, gender, identification, avatarUrl, dateAtBirth, homestays) => {
@@ -67,6 +68,9 @@ exports.createAdmin = async (name, address, role, email, password, phone, status
     if (name) {
         createKey = {...createKey, name: name}
     }
+    if (role) {
+        createKey = {...createKey, role: role}
+    }
     if (address) {
         createKey = {...createKey, address: address}
     }
@@ -74,7 +78,7 @@ exports.createAdmin = async (name, address, role, email, password, phone, status
         createKey = {...createKey, email: email}
     }
     if (password) {
-        createKey = {...createKey, password: password}
+        createKey = {...createKey, password: await bcrypt.hash(password, 10)}
     }
     if (phone) {
         createKey = {...createKey, phone: phone}
@@ -105,7 +109,9 @@ exports.createAdmin = async (name, address, role, email, password, phone, status
         await Homestays(db).findOneAndUpdate({_id : admin.homestays[i]},
             {$push: {admin: admin.id}})
     }
-    return admin;
+    const admin2 = await Users(db).findById(admin.id);
+    console.log(admin2);
+    return admin2;
 }
 
 
@@ -119,6 +125,19 @@ exports.assignAdminToHomestay = async (adminId, homestayId) => {
     });
     let modifyAdmin = await Users(db).findById(adminId);
     return modifyAdmin;
+}
+
+// Bỏ gán homestay cho admin
+exports.unassignAdminToHomestay = async (adminId, homestayId) => {
+    await Homestays(db).findByIdAndUpdate(homestayId,
+        { $set: { admin: null } });
+    await Users(db).updateMany(
+        {},
+        { $set: { "homestays.$[element]": null } },
+        { arrayFilters: [ { "element": ObjectId(homestayId) } ] }
+    );
+    const homestay = await Homestays(db).findById(homestayId);
+    return homestay;
 }
 
 // Xóa admin và tham chiếu
@@ -149,5 +168,5 @@ exports.deleteHomestay = async (id) => {
 
 // Lấy danh sách admin
 exports.getAdmins = async () => {
-    return await Users(db).find({role: 'admin', status: 1}, '_id name email phone gender avatarUrl');
+    return await Users(db).find({role: "admin", status: 1});
 }
