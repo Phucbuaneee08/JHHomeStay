@@ -65,7 +65,8 @@ exports.createAdmin = async (req, res) => {
             const avatarUrl = data.avatarUrl;
             const dateArWork = data.dateAtWork;
             const dateAtBirth = data.dateAtBirth;
-            const homestays = data.homestays;
+            let homestays;
+            if (data.homestays == "" || data.homestays == null) homestays = null;
             const superAdmin = data.superAdmin;
 
             let admin = await AdminService.createAdmin(name, address, role, email, password, phone, status, gender, identification, avatarUrl, dateArWork, dateAtBirth, homestays);
