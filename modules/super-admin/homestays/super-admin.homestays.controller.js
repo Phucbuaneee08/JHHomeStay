@@ -21,7 +21,7 @@ exports.createInformationForHomestay = async (req, res) => {
         let homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos;
         if (data.services == '' || data.services == null) {
             homestayServices = null
-        } else homestayServices = data.services?.map(o => o._id);
+        } else homestayServices = data.services;
         if (data.generalServices == '' || data.generalServices == null) {
             homestayGeneralServices = null
         } else homestayGeneralServices = data.generalServices;
@@ -33,6 +33,7 @@ exports.createInformationForHomestay = async (req, res) => {
         });
 
         //Tạo homestay
+        homestayServices = homestayServices?.map(o => o._id);
         const homestay = await HomestayService.createHomestay(adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos );
 
         return res.status(200).json({
