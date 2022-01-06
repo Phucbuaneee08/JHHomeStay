@@ -134,7 +134,7 @@ exports.updateHomestay = async (req,res) => {
         if (data.amenities == '' || data.amenities == null) {
             homestayAmenities = null
         } else homestayAmenities = JSON.parse(data.amenities);
-        homestayPhotos = req.files.map((file) => {
+        homestayPhotos = req.files?.map((file) => {
             return `/upload/homestays-photos/${file.originalname}`
         });
 
