@@ -57,7 +57,7 @@ exports.updateAdminById = async (id, name, address, role, email, password, phone
 }
 
 exports.createAdmin = async (name, address, role, email, password, phone, status, gender, identification, avatarUrl, dateAtWork, dateAtBirth, homestays) => {
-    if (!name || !role || !email || !password || !phone || !identification || !dateAtWork || !homestays || (role !== "admin"))
+    if (!name || !role || !email || !password || !phone || !identification || !dateAtWork || (role !== "admin"))
         return 0;
     let adminWithId = await Users(db).findOne(
         {identification: identification}
@@ -101,8 +101,6 @@ exports.createAdmin = async (name, address, role, email, password, phone, status
         createKey = {...createKey, homestays: homestays}
     }
     let admin = await Users(db).create(createKey);
-    console.log(admin);
-    console.log(admin.homestays);
     for (let i = 0; i < admin.homestays.length; i ++ ) {
         await Homestays(db).findOneAndUpdate({_id : admin.homestays[i]},
             {$push: {admin: admin.id}})
