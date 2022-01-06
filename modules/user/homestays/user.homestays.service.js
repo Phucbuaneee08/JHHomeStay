@@ -209,49 +209,49 @@ exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homest
     }
 
     // Cập nhật vào database
-    const homestay = await Homestays(db).updateOne(
+    await Homestays(db).updateOne(
         {_id: homestayId},
         {$set: setHomestay}
     );
 
     if (homestayPhotos) {
-        await Homestays(db).findByIdAndUpdate(homestay._id, {
+        await Homestays(db).findByIdAndUpdate(homestayId, {
             $set: {amenities: []}
         })
         for (let i = 0; i < homestayPhotos.length; i++) {
             const photo =  await Photos(db).create({
                 url: homestayPhotos[i]
             });
-            await Homestays(db).findByIdAndUpdate(homestay._id, {
+            await Homestays(db).findByIdAndUpdate(homestayId, {
                 $push: {photos: photo._id}
             })
         }
     }
 
     if (homestayAmenities) {
-        await Homestays(db).findByIdAndUpdate(homestay._id, {
+        await Homestays(db).findByIdAndUpdate(homestayId, {
             $set: {amenities: []}
         })
         for (let i = 0; i < homestayAmenities.length; i++) {
             const amenity =  await Amenities(db).create(homestayAmenities[i]);
-            await Homestays(db).findByIdAndUpdate(homestay._id, {
+            await Homestays(db).findByIdAndUpdate(homestayId, {
                 $push: {amenities: amenity._id}
             })
         }
     }
 
     if (homestayGeneralServices) {
-        await Homestays(db).findByIdAndUpdate(homestay._id, {
+        await Homestays(db).findByIdAndUpdate(homestayId, {
             $set: {generalServices: []}
         })
         for (let i = 0; i < homestayGeneralServices.length; i++) {
             const generalService =  await GeneralServices(db).create(homestayGeneralServices[i]);
-            await Homestays(db).findByIdAndUpdate(homestay._id, {
+            await Homestays(db).findByIdAndUpdate(homestayId, {
                 $push: {generalServices: generalService._id}
             })
         }
     }
-    return (await Homestays(db).findById(homestay._id)
+    return (await Homestays(db).findById(homestayId)
         .populate('amenities',"name")
         .populate('generalServices', "name")
         .populate('photos', "url")

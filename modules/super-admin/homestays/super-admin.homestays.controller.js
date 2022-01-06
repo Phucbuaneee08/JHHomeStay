@@ -6,7 +6,7 @@ exports.createInformationForHomestay = async (req, res) => {
         //Lấy về dữ liệu trong body của request
         const data = req.body;
 
-        const adminId = data.adminId ? data.adminId : null;
+        const adminId = data.adminId === "undefined" ? null : data.adminId;
         const homestayName = data.name ? data.name : " ";
         const homestayPrice = data.price ? data.price : 0;
         const homestayType = data.type ? data.type : " ";
