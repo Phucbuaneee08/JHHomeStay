@@ -33,7 +33,7 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
     if (homestayPhotos) {
         for (let i = 0; i < homestayPhotos.length; i++) {
             const photo =  await Photos(db).create({
-                url: homestayPhotos[[i]]
+                url: homestayPhotos[i]
             });
             await Homestays(db).findByIdAndUpdate(homestay._id, {
                 $push: {photos: photo._id}

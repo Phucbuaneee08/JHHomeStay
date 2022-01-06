@@ -1,4 +1,4 @@
-const {Homestays, Amenities, GeneralServices, Bills} = require("../../../models");
+const {Homestays, Amenities, GeneralServices, Bills, Photos} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 const {compare} = require("bcrypt");
 const {Users} = require("../../../models");
@@ -204,15 +204,25 @@ exports.updateHomestay = async (homestayId, homestayName, homestayPrice, homesta
         setHomestay = {...setHomestay, "services": homestayServices};
     }
 
-    if( homestayPhotos ){
-        setHomestay = {...setHomestay, "photos": homestayPhotos};
-    }
-
     // Cập nhật vào database
     const homestay = await Homestays(db).updateOne(
         {_id: homestayId},
         {$set: setHomestay}
     );
+
+    if (homestayPhotos) {
+        await Homestays(db).findByIdAndUpdate(homestay._id, {
+            $set: {amenities: []}
+        })
+        for (let i = 0; i < homestayPhotos.length; i++) {
+            const photo =  await Photos(db).create({
+                url: homestayPhotos[i]
+            });
+            await Homestays(db).findByIdAndUpdate(homestay._id, {
+                $push: {photos: photo._id}
+            })
+        }
+    }
 
     if (homestayAmenities) {
         await Homestays(db).findByIdAndUpdate(homestay._id, {

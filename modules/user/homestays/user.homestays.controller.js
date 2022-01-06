@@ -133,9 +133,9 @@ exports.updateHomestay = async (req,res) => {
         if (data.amenities == '' || data.amenities == null) {
             homestayAmenities = null
         } else homestayAmenities = data.amenities;
-        if (data.photos == '' || data.photos == null) {
-            homestayPhotos = null
-        } else homestayPhotos = data.photos;
+        homestayPhotos = req.files.map((file) => {
+            return `/upload/homestays-photos/${file.originalname}`
+        });
 
         // Update homestays và trả về thông báo thành công
         const homestays = await HomestaysService.updateHomestay(homestayId, homestayName,
