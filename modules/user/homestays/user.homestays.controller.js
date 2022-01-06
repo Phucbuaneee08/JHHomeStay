@@ -111,7 +111,7 @@ exports.updateHomestay = async (req,res) => {
         const data = req.body;
 
         //Lấy thông tin các trường
-        const homestayId = data._id ? data._id : null;
+        const homestayId = data._id ? JSON.parse(data._id) : null;
         const adminId = data.adminId ? data.adminId : null;
         const homestayName = data.name ? data.name : null;
         const homestayPrice = data.price ? data.price : null;
@@ -127,13 +127,13 @@ exports.updateHomestay = async (req,res) => {
         let homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos;
         if (data.services == '' || data.services == null) {
             homestayServices = null
-        } else homestayServices = data.services;
+        } else homestayServices = JSON.parse(data.services);
         if (data.generalServices == '' || data.generalServices == null) {
             homestayGeneralServices = null
-        } else homestayGeneralServices = data.generalServices;
+        } else homestayGeneralServices = JSON.parse(data.generalServices);
         if (data.amenities == '' || data.amenities == null) {
             homestayAmenities = null
-        } else homestayAmenities = data.amenities;
+        } else homestayAmenities = JSON.parse(data.amenities);
         homestayPhotos = req.files.map((file) => {
             return `/upload/homestays-photos/${file.originalname}`
         });
@@ -153,6 +153,7 @@ exports.updateHomestay = async (req,res) => {
 
     }
     catch(Error){
+        console.log(Error)
         //Lỗi không xác định
         return res.status(400).json({
             success: false,

@@ -32,7 +32,10 @@ exports.createInformationForHomestay = async (req, res) => {
             return `/upload/homestays-photos/${file.originalname}`
         });
 
-        //Tạo homestay 
+        homestayAmenities = JSON.parse(homestayAmenities);
+        homestayServices = JSON.parse(homestayServices).map(o => o._id);
+        homestayGeneralServices = JSON.parse(homestayGeneralServices)
+        //Tạo homestay
         const homestay = await HomestayService.createHomestay(adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos );
 
         return res.status(200).json({

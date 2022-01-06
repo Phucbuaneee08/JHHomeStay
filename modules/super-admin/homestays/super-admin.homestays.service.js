@@ -16,6 +16,7 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
         description: homestayDescription,
         available: homestayAvailable,
     };
+
     if (homestayServices) {
         homestay = {...homestay, services: homestayServices};
     }
@@ -23,6 +24,7 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
     if (adminId) {
         homestay = {...homestay, admin: adminId};
     }
+
     homestay = await Homestays(db).create(homestay);
 
     await Users(db).findByIdAndUpdate(adminId,
