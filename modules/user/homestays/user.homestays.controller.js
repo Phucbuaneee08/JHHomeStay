@@ -112,6 +112,7 @@ exports.updateHomestay = async (req,res) => {
 
         //Lấy thông tin các trường
         const homestayId = data._id ? data._id : null;
+        const adminId = data.adminId ? data.adminId : null;
         const homestayName = data.name ? data.name : null;
         const homestayPrice = data.price ? data.price : null;
         const homestayType = data.type ? data.type : null;
@@ -141,7 +142,7 @@ exports.updateHomestay = async (req,res) => {
         const homestays = await HomestaysService.updateHomestay(homestayId, homestayName,
             homestayPrice, homestayType, homestayAddress, homestayProvince, homestayDistrict,
             homestayLatitude, homestayLongitude, homestayArea, homestayDescription,
-            homestayAvailable, homestayAmenities, homestayServices, homestayGeneralServices, homestayPhotos)
+            homestayAvailable, homestayAmenities, homestayServices, homestayGeneralServices, homestayPhotos, adminId)
 
         //Trả về thông báo thành công
         return res.status(200).json({
