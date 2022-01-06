@@ -21,7 +21,7 @@ exports.createInformationForHomestay = async (req, res) => {
         let homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos;
         if (data.services == '' || data.services == null) {
             homestayServices = null
-        } else homestayServices = data.services;
+        } else homestayServices = data.services?.map(o => o._id);
         if (data.generalServices == '' || data.generalServices == null) {
             homestayGeneralServices = null
         } else homestayGeneralServices = data.generalServices;
