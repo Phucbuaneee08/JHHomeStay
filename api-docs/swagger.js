@@ -481,8 +481,29 @@ const swaggerJsonData =
                         "required": true
                     },
                     "responses": {
-                        "200": {"description": "lấy dữ liệu homestay thành công "},
+                        "200": {"description": "Gán homestay cho admin thành công "},
                         "400": {"description": "không thành công ", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
+            "/super-admins/unassign-homestay": {
+                "post": {
+                    "tags": ["Super Admins"],
+                    "summary": "Unassign a homestay to an admin",
+                    "operationId": "unassignHomestayToAdmin",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập thông tin id của admin và homestay",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/AssignHomestay"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/AssignHomestay"}}
+                        },
+                        "required": true
+                    },
+                    "responses": {
+                        "200": {"description": "Bỏ gán homestay cho admin thành công "},
+                        "400": {"description": "Không thành công ", "content": {}}
                     },
                     "x-codegen-request-body-name": "body"
                 }
