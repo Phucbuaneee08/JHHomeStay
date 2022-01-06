@@ -151,7 +151,7 @@ exports.getCheckInAndOutDateByIdHomestay = async (id) => {
 }
 
 //Update Homestays Service
-exports.updateHomestay = async (homestayId, homestayName, homestayPrice, homestayType, homestayAddress,homestayProvince, homestayDistrict, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayAmenities, homestayServices, homestayGeneralServices, homestayPhotos, adminId) =>{
+exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homestayType, homestayAddress,homestayProvince, homestayDistrict, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayAmenities, homestayServices, homestayGeneralServices, homestayPhotos, adminId) =>{
     // Tạo object rỗng để chứa các thông tin cần cập nhật
     let setHomestay = {};
 

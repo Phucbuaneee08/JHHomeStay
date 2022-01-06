@@ -112,7 +112,7 @@ exports.updateHomestay = async (req,res) => {
 
         //Lấy thông tin các trường
         const homestayId = data._id ? JSON.parse(data._id) : null;
-        const adminId = data.adminId ? data.adminId : null;
+        const adminId = data.adminId || data.adminId === "undefined" ? data.adminId : null;
         const homestayName = data.name ? data.name : null;
         const homestayPrice = data.price ? data.price : null;
         const homestayType = data.type ? data.type : null;
