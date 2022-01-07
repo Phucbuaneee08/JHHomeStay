@@ -624,9 +624,36 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 }
             },
+            "/services/create": {
+                "post": {
+                    "tags": ["Admin"],
+                    "summary": "create new service",
+                    "operationId": "PostService",
+                    "parameters": [],
+                    "requestBody": {
+                        "description": "Nhập những trường cần cập nhật của admins",
+                        "content": {
+                            "application/json": {"schema": {"$ref": "#/components/schemas/CreateService"}},
+                            "application/xml": {"schema": {"$ref": "#/components/schemas/CreateService"}}
+                        },
+                    },
+                    "responses": {
+                        "200": {"description": "create new service success"},
+                        "400": {"description": "create new service false", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
         },
         "components": {
             "schemas": {
+                "CreateService": {
+                    "type": "object", "properties": {
+                        "name":  {"type": "string"},
+                        "pricePerUnit": {"type": "number"},
+                        "personServe": {"type": "number"},
+                    }
+                },
                 "Users": {
                     "type": "object", "properties": {
                         "email":  {"type": "string"},
