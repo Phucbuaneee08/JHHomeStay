@@ -4,6 +4,8 @@ const {compare} = require("bcrypt");
 const {Users} = require("../../../models");
 const {ObjectId} = require('mongodb');
 const {toInt} = require("validator");
+const path = require("path");
+const child_process = require("child_process");
 const qty = 20;                             // Số lượng homestays mỗi slice
 
 exports.getRankingHomestays = async (quantity) => {
@@ -151,7 +153,7 @@ exports.getCheckInAndOutDateByIdHomestay = async (id) => {
 }
 
 //Update Homestays Service
-exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homestayType, homestayAddress,homestayProvince, homestayDistrict, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayAmenities, homestayServices, homestayGeneralServices, homestayPhotos, adminId) =>{
+exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homestayType, homestayAddress,homestayProvince, homestayDistrict, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayAmenities, homestayServices, homestayGeneralServices, homestayPhotos, adminId, newHomestayPhotos) =>{
     // Tạo object rỗng để chứa các thông tin cần cập nhật
     let setHomestay = {};
 
@@ -208,19 +210,37 @@ exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homest
         setHomestay = {...setHomestay, "services": homestayServices};
     }
 
+    if( homestayPhotos ){
+        setHomestay = {...setHomestay, "photos": homestayPhotos};
+
+        // xóa các photos không được chọn để update
+        let oldPhotos = (await Homestays(db).findById(homestayId)
+            .populate('photos', "url")).photos;
+        let delPhotos = oldPhotos.filter((o) => {
+            return !homestayPhotos.includes(o._id.toString());
+        });
+        let path = path.resolve(__dirname, '../../..');
+        for(let i = 0; i < delPhotos.length; i++) {
+            child_process.exec(`del /f ${path}/${delPhotos[i]}`, (error, stdout, stderr) => {
+                if (error) {
+                    console.log(error);
+                }
+                console.log(`stdout: ${stdout}`);
+                console.error(`stderr: ${stderr}`);
+            });
+        }
+    }
+
     // Cập nhật vào database
     await Homestays(db).updateOne(
         {_id: homestayId},
         {$set: setHomestay}
     );
 
-    if (homestayPhotos) {
-        await Homestays(db).findByIdAndUpdate(homestayId, {
-            $set: {amenities: []}
-        })
-        for (let i = 0; i < homestayPhotos.length; i++) {
+    if (newHomestayPhotos) {
+        for (let i = 0; i < newHomestayPhotos.length; i++) {
             const photo =  await Photos(db).create({
-                url: homestayPhotos[i]
+                url: newHomestayPhotos[i]
             });
             await Homestays(db).findByIdAndUpdate(homestayId, {
                 $push: {photos: photo._id}

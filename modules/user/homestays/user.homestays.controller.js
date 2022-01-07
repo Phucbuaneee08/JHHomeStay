@@ -109,7 +109,6 @@ exports.updateHomestay = async (req,res) => {
     try{
         //Lấy dữ liệu từ request
         const data = req.body;
-
         //Lấy thông tin các trường
         const homestayId = data._id ? data._id : null;
         const adminId = data.adminId && (data.adminId !== "undefined") ? data.adminId : null;
@@ -134,16 +133,18 @@ exports.updateHomestay = async (req,res) => {
         if (data.amenities == '' || data.amenities == null) {
             homestayAmenities = null
         } else homestayAmenities = JSON.parse(data.amenities);
-
+        if (data.photos == '' || data.photos == null) {
+            homestayPhotos = null
+        } else homestayAmenities = JSON.parse(data.photos);
         console.log(req.files)
-        homestayPhotos = req.files?.map((file) => {
+        let newHomestayPhotos = req.files?.map((file) => {
             return `/upload/homestays-photos/${file.originalname}`
         });
         // Update homestays và trả về thông báo thành công
         const homestays = await HomestaysService.updateHomestay(homestayId, homestayName,
             homestayPrice, homestayType, homestayAddress, homestayProvince, homestayDistrict,
             homestayLatitude, homestayLongitude, homestayArea, homestayDescription,
-            homestayAvailable, homestayAmenities, homestayServices, homestayGeneralServices, homestayPhotos, adminId)
+            homestayAvailable, homestayAmenities, homestayServices, homestayGeneralServices, homestayPhotos, adminId, newHomestayPhotos)
 
         //Trả về thông báo thành công
         return res.status(200).json({
