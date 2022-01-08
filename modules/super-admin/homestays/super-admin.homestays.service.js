@@ -1,4 +1,4 @@
-const { Homestays, Bills, Amenities, GeneralServices, Users, Photos} = require("../../../models");
+const { Homestays, Bills, Amenities, GeneralServices, Users, Photos, Services} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 const {ObjectId} = require('mongodb');
 
@@ -17,10 +17,6 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
         available: homestayAvailable,
     };
 
-    if (homestayServices) {
-        homestay = {...homestay, services: homestayServices};
-    }
-
     if (adminId) {
         homestay = {...homestay, admin: adminId};
     }
@@ -31,6 +27,20 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
         {
             $push: {homestays: homestay._id}
         })
+    if (homestayServices) {
+        homestay = {...homestay, services: homestayServices};
+    }
+
+    if (homestayServices) {
+        for (let i = 0; i < homestayServices.length; i++) {
+            const service =  await Services(db).create({
+                url: homestayServices[i]
+            });
+            await Homestays(db).findByIdAndUpdate(homestay._id, {
+                $push: {services: service._id}
+            })
+        }
+    }
 
     if (homestayPhotos) {
         for (let i = 0; i < homestayPhotos.length; i++) {
