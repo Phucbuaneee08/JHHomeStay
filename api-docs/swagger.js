@@ -898,6 +898,10 @@ const swaggerJsonData =
                         "avatarUrl":  {
                             "type": "string",
                         },
+                        "dateAtWork":  {
+                            "type": "string",
+                            "default": "12-25-2019"
+                        },
                         "dateAtBirth":  {
                             "type": "string",
                             "default": "12-20-2001"

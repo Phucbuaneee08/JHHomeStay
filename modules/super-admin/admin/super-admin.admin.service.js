@@ -6,7 +6,7 @@ const {ObjectId} = require('mongodb');
 const bcrypt = require('bcrypt');
 
 //API để super admin chỉnh sửa thông tin Admin
-exports.updateAdminById = async (id, name, address, role, email, password, phone, status, gender, identification, avatarUrl, dateAtBirth, homestays) => {
+exports.updateAdminById = async (id, name, address, role, email, password, phone, status, gender, identification, avatarUrl, dateAtWork, dateAtBirth, homestays) => {
     let setKey = {};
     if (name) {
         setKey = {...setKey, "name": name}
@@ -37,6 +37,9 @@ exports.updateAdminById = async (id, name, address, role, email, password, phone
     }
     if (avatarUrl) {
         setKey = {...setKey, "avatarUrl": avatarUrl}
+    }
+    if (dateAtWork) {
+        setKey = {...setKey, "dateAtWork": new Date(dateAtWork)}
     }
     if (dateAtBirth) {
         setKey = {...setKey, "dateAtBirth": new Date(dateAtBirth)}
