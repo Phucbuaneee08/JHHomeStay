@@ -5,8 +5,8 @@ exports.sendEmail = (customerName, customerIdentification, customerEmail, custom
     let sender = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'admin@gmail.com', //email và pass word của người gửi - admin hoặc super admin
-            pass: 'password' // Password -> Phần người gửi có thể sẽ thống nhất tạo một email chung
+            user: 'jadehillhomestays@gmail.com', //email và pass word của người gửi - admin hoặc super admin
+            pass: 'jadehill2001' // Password -> Phần người gửi có thể sẽ thống nhất tạo một email chung
         }
     });
 

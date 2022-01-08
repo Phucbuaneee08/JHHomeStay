@@ -119,15 +119,19 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
         {_id: billId},
         {$set: setKey}
     )
+    console.log(billId);
     let bill = await Bills(db).findById(billId);
+    console.log(bill);
     await Homestays(db).findOneAndUpdate({_id : bill.homestay},
         {$set: {available: status}})
+
     if (status === 2) {
         let homestay = await Homestays(db).findById(bill.homestay);
         let customer = bill.customer;
         let admin = await Users(db).findById(homestay.admin);
         sendEmail(customer.name, customer.identification, customer.email, customer.phoneNumber, bill.checkinDate, bill.checkoutDate, bill.price, bill.customerTogether.length +1, homestay.name, admin.name, homestay.district, homestay.province);
     }
+
     return bill;
 }
 
