@@ -562,6 +562,26 @@ const swaggerJsonData =
                     "x-codegen-request-body-name": "body"
                 }
             },
+            "/super-admins/get/admin/{id}": {
+                "get": {
+                    "tags": ["Super Admins"],
+                    "summary": "Get an admin 's information with id",
+                    "operationId": "infoAdmin",
+                    "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Nhập id của admin cần lấy thông tin chi tiết",
+                        "schema": {"type": "string"},
+                        "require": true
+                    }],
+                    "requestBody": [],
+                    "responses": {
+                        "200": {"description": "lấy thành công "},
+                        "400": {"description": "id không đúng ", "content": {}}
+                    },
+                    "x-codegen-request-body-name": "body"
+                }
+            },
             "/super-admins/revenue/total?year={year}": {
                 "get": {
                     "tags": ["Super Admins"],
