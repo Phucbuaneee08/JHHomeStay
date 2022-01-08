@@ -10,5 +10,6 @@ router.post("/unassign-homestay", authToken, AdminController.unassignAdminToHome
 router.delete("/delete/admin/:id", authToken, AdminController.deleteAdmin);
 router.delete("/delete/homestay/:id", authToken, AdminController.deleteHomestay);
 router.get("/get/admins", authToken, AdminController.getAdmins);
+router.get("/get/admin/:id", authToken, AdminController.getAdminById);
 
 module.exports = router;

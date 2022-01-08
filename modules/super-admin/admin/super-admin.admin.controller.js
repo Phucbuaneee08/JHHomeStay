@@ -147,7 +147,7 @@ exports.unassignAdminToHomestay = async (req, res) => {
             if (admin) {
                 return res.status(200).json({
                     success: true,
-                    message: "Đã gán homestay cho admin thành công",
+                    message: "Đã bỏ gán homestay cho admin thành công",
                     content: admin
                 })
             }
@@ -237,6 +237,34 @@ exports.getAdmins = async (req, res) => {
             return res.status(400).json({
                 success: false,
                 message: "Failed to get all admins",
+                content: error
+            });
+        }
+    }
+}
+
+exports.getAdminById = async (req, res) => {
+    const role = req.currentRole;
+    // Kiểm tra là superadmin
+    if ( role !== "super_admin") {
+        return res.status(400).json({
+            success: false,
+            message: "Chưa đăng nhập với tư cách là Super Admin"
+        })
+    } else {
+        try {
+            const id = req.params;
+            console.log(id);
+            let admin = await AdminService.getAdminById(id);
+            return res.status(200).json({
+                success: true,
+                message: "Get admin successfully",
+                content: admin
+            })
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                message: "Failed to get admin",
                 content: error
             });
         }
