@@ -27,15 +27,14 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
         {
             $push: {homestays: homestay._id}
         })
+
     if (homestayServices) {
         homestay = {...homestay, services: homestayServices};
     }
 
     if (homestayServices) {
         for (let i = 0; i < homestayServices.length; i++) {
-            const service =  await Services(db).create({
-                url: homestayServices[i]
-            });
+            const service =  await Services(db).create(homestayServices[i]);
             await Homestays(db).findByIdAndUpdate(homestay._id, {
                 $push: {services: service._id}
             })

@@ -1,9 +1,6 @@
 const {Homestays, Amenities, GeneralServices, Bills, Photos, Services} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
-const {compare} = require("bcrypt");
-const {Users} = require("../../../models");
 const {ObjectId} = require('mongodb');
-const {toInt} = require("validator");
 const path = require("path");
 const child_process = require("child_process");
 const qty = 20;                             // Số lượng homestays mỗi slice
@@ -238,9 +235,12 @@ exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homest
             $set: {services: []}
         });
         for (let i = 0; i < homestayServices.length; i++) {
-            const service =  await Services(db).create({
-                url: homestayServices[i]
-            });
+            if (homestayServices[i]?._id) {
+                await Services(db).findOneAndRemove({
+                    _id: new ObjectId(homestayServices[i]._id)
+                })
+            }
+            const service = await Services(db).create(homestayServices[i]);
             await Homestays(db).findByIdAndUpdate(homestayId, {
                 $push: {services: service._id}
             })
@@ -263,6 +263,11 @@ exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homest
             $set: {amenities: []}
         })
         for (let i = 0; i < homestayAmenities.length; i++) {
+            if (homestayAmenities[i]?._id) {
+                await Amenities(db).findOneAndRemove({
+                    _id: new ObjectId(homestayAmenities[i]._id)
+                })
+            }
             const amenity =  await Amenities(db).create(homestayAmenities[i]);
             await Homestays(db).findByIdAndUpdate(homestayId, {
                 $push: {amenities: amenity._id}
@@ -275,6 +280,11 @@ exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homest
             $set: {generalServices: []}
         })
         for (let i = 0; i < homestayGeneralServices.length; i++) {
+            if (homestayGeneralServices[i]?._id) {
+                await GeneralServices(db).findOneAndRemove({
+                    _id: new ObjectId(homestayGeneralServices[i]._id)
+                })
+            }
             const generalService =  await GeneralServices(db).create(homestayGeneralServices[i]);
             await Homestays(db).findByIdAndUpdate(homestayId, {
                 $push: {generalServices: generalService._id}
