@@ -25,7 +25,7 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
 
     await Users(db).findByIdAndUpdate(adminId,
         {
-            $push: {homestays: homestay._id}
+            $push: {homestays: homestay._doc._id}
         })
 
     if (homestayServices) {
@@ -35,7 +35,7 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
     if (homestayServices) {
         for (let i = 0; i < homestayServices.length; i++) {
             const service =  await Services(db).create(homestayServices[i]);
-            await Homestays(db).findByIdAndUpdate(homestay._id, {
+            await Homestays(db).findByIdAndUpdate(homestay._doc._id, {
                 $push: {services: service._id}
             })
         }
@@ -46,7 +46,9 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
             const photo =  await Photos(db).create({
                 url: homestayPhotos[i]
             });
-            await Homestays(db).findByIdAndUpdate(homestay._id, {
+            console.log('photos', photo);
+            console.log('homestay ', homestay);
+            await Homestays(db).findByIdAndUpdate(homestay._doc._id, {
                 $push: {photos: photo._id}
             })
         }
@@ -55,7 +57,7 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
     if (homestayAmenities) {
         for (let i = 0; i < homestayAmenities.length; i++) {
             const amenity =  await Amenities(db).create(homestayAmenities[i]);
-            await Homestays(db).findByIdAndUpdate(homestay._id, {
+            await Homestays(db).findByIdAndUpdate(homestay._doc._id, {
                 $push: {amenities: amenity._id}
             })
         }
@@ -64,12 +66,12 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
     if (homestayGeneralServices) {
         for (let i = 0; i < homestayGeneralServices.length; i++) {
             const generalService =  await GeneralServices(db).create(homestayGeneralServices[i]);
-            await Homestays(db).findByIdAndUpdate(homestay._id, {
+            await Homestays(db).findByIdAndUpdate(homestay._doc._id, {
                 $push: {generalServices: generalService._id}
             })
         }
     }
-    return (await Homestays(db).findById(homestay._id)
+    return (await Homestays(db).findById(homestay._doc._id)
         .populate('amenities',"name")
         .populate('generalServices', "name")
         .populate('photos', "url")
