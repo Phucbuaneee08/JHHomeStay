@@ -34,7 +34,9 @@ exports.getBillsByAdminId = async (id) => {
                 "_id":1,"name":1,"bills":1
             }
         }
-    ])
+    ]);
+    console.log(bills);
+
     return bills;
 }
 
@@ -69,22 +71,23 @@ exports.getBillsByHomestayId = async (id, status) => {
         return bills;
     }
 
+    console.log(bills);
     //Cập nhật thêm tên và giá cho services trong bills
-    const length = bills[0].servicesPerBill.length;
-    const servicesPerBill = bills[0].servicesPerBill;
+    for(let k = 0; k < bills.length; k++) {
+        const length = bills[k].servicesPerBill.length;
+        const servicesPerBill = bills[k].servicesPerBill;
 
-    for( let i = 0; i < length; i++ )
-    {
-       const services = await Services(db).findById({ _id: servicesPerBill[i].services });
+        for (let i = 0; i < length; i++) {
+            const services = await Services(db).findById({_id: servicesPerBill[i].services});
 
-        // Thêm 2 trường name và price vào biến servicesPerBillAfterUpdate
-       servicesPerBill[i].name = services.name;
-       servicesPerBill[i].pricePerUnit = services.pricePerUnit;
+            // Thêm 2 trường name và price vào biến servicesPerBillAfterUpdate
+            servicesPerBill[i].name = services.name;
+            servicesPerBill[i].pricePerUnit = services.pricePerUnit;
+        }
+
+        //Thêm servicesPerBill vào bills
+        bills[k].servicesPerBill = servicesPerBill;
     }
-
-    //Thêm servicesPerBill vào bills
-    bills.servicesPerBill = servicesPerBill;
-
     return bills;
 }
 
