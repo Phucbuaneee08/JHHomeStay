@@ -5,7 +5,7 @@ const {ObjectId} = require('mongodb');
 const {compare} = require("bcrypt");
 const {home} = require("nodemon/lib/utils");
 const { restart } = require("nodemon");
-const {sendEmail} = require("../../../helpers/emailHelper");
+const {sendEmail, sendEmailWhenAcceptBill, sendEmailWhenIgnoreBill} = require("../../../helpers/emailHelper");
 
 //API trả về danh sách các bills theo admin (gửi về bills của các homestays mà admin X có)
 exports.getBillsByAdminId = async (id) => {
@@ -91,7 +91,7 @@ exports.getBillsByHomestayId = async (id, status) => {
     return bills;
 }
 
-exports.updateBillsByBillsId = async (billId, customer, customerTogether, homestayId,checkinDate, checkoutDate, status, servicesPerBill) => {
+exports.updateBillsByBillsId = async (billId, customer, customerTogether, checkinDate, checkoutDate, status, servicesPerBill) => {
     let setKey = {};
     if (customer) {
         if (customer.name) {setKey = {...setKey, "customer.name": customer.name}}
@@ -102,9 +102,6 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
     }
     if (customerTogether) {
         setKey = {...setKey, "customerTogether": customerTogether}
-    }
-    if (homestayId) {
-        setKey = {...setKey, "homestay": homestayId}
     }
     if (checkinDate) {
         setKey = {...setKey, "checkinDate": new Date(checkinDate)}
@@ -118,6 +115,7 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
     if (servicesPerBill) {
         setKey = {...setKey, "servicesPerBill": servicesPerBill}
     }
+    console.log("Bill OK");
     await Bills(db).updateOne(
         {_id: billId},
         {$set: setKey}
@@ -130,9 +128,10 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
 
     if (status === 2) {
         let homestay = await Homestays(db).findById(bill.homestay);
+        console.log(homestay);
         let customer = bill.customer;
-        let admin = await Users(db).findById(homestay.admin);
-        sendEmail(customer.name, customer.identification, customer.email, customer.phoneNumber, bill.checkinDate, bill.checkoutDate, bill.price, bill.customerTogether.length +1, homestay.name, admin.name, homestay.district, homestay.province);
+        console.log(customer);
+        sendEmailWhenAcceptBill(customer.name, customer.email, checkinDate, homestay.name);
     }
 
     return bill;
@@ -142,9 +141,14 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
 
 
 exports.deleteBillsById = async ( Bill_Id ) => {
+    // Gui email neu bill dang trong trang thai cho
+    let bill = await Bills(db).findById(Bill_Id);
+    let homestay = await Homestays(db).findById(bill.homestay);
+    if (bill.status === 1) {
+        sendEmailWhenIgnoreBill(bill.customer.name, bill.customer.email, homestay.name);
+    }
     //Lấy các service trong bill ra trước khi xóa bill
     let servicesPerBill = [];
-    let homestay;
 
     await Bills(db).findOne({_id: Bill_Id })
     .then(data => {
