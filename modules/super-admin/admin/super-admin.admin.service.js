@@ -173,3 +173,8 @@ exports.deleteHomestay = async (id) => {
 exports.getAdmins = async () => {
     return await Users(db).find({role: "admin", status: 1});
 }
+
+// Lấy admin theo id
+exports.getAdminById = async (id) => {
+    return await Users(db).findById(ObjectId(id));
+}

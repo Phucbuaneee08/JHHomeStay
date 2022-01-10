@@ -33,6 +33,7 @@ exports.createInformationForHomestay = async (req, res) => {
         homestayPhotos = req.files.map((file) => {
             return `/upload/homestays-photos/${file.originalname}`
         });
+        console.log(homestayPhotos);
 
         //Tạo homestay
         const homestay = await HomestayService.createHomestay(adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos );
