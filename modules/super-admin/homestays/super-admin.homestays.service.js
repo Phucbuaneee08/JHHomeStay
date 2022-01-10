@@ -5,6 +5,7 @@ const {ObjectId} = require('mongodb');
 exports.createHomestay = async (adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos ) => {
     let homestay = {
         name : homestayName,
+        admin: adminId,
         price : homestayPrice,
         type: homestayType,
         address : homestayAddress,
@@ -17,17 +18,14 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
         available: homestayAvailable,
     };
 
-    if (adminId) {
-        homestay = {...homestay, admin: adminId};
-    }
-
     homestay = await Homestays(db).create(homestay);
 
-    await Users(db).findByIdAndUpdate(adminId,
-        {
-            $push: {homestays: homestay._doc._id}
-        })
-
+    if (adminId) {
+        await Users(db).findByIdAndUpdate(adminId,
+            {
+                $push: {homestays: homestay._doc._id}
+            })
+    }
     if (homestayServices) {
         homestay = {...homestay, services: homestayServices};
     }
@@ -46,8 +44,6 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
             const photo =  await Photos(db).create({
                 url: homestayPhotos[i]
             });
-            console.log('photos', photo);
-            console.log('homestay ', homestay);
             await Homestays(db).findByIdAndUpdate(homestay._doc._id, {
                 $push: {photos: photo._id}
             })

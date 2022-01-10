@@ -1,4 +1,4 @@
-const {Homestays, Amenities, GeneralServices, Bills, Photos, Services} = require("../../../models");
+const {Homestays, Amenities, GeneralServices, Bills, Photos, Services, Users} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 const {ObjectId} = require('mongodb');
 const path = require("path");
@@ -158,6 +158,9 @@ exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homest
     // Kiểm tra và cập nhật
     if (adminId) {
         setHomestay = {...setHomestay, "admin": adminId};
+        await Users(db).findByIdAndUpdate(adminId, {
+            $push: {homestays: homestayId}
+        });
     }
 
     if( homestayName ){
