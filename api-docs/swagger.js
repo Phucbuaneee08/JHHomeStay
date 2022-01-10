@@ -806,7 +806,6 @@ const swaggerJsonData =
                                 }
                             }
                         },
-                        "homestayId": {"type": "string"},
                         "checkinDate": {"type": "string"},
                         "checkoutDate": {"type": "string"},
                         "status": {"type": "number"},

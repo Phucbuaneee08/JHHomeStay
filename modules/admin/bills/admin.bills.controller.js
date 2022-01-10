@@ -32,13 +32,12 @@ exports.updateBillsById = async (req, res) => {
         const billId = data._id;
         const customer = data.customer? data.customer: null;
         const customerTogether = data.customerTogether ?data.customerTogether: null;
-        const homestayId = data.homestayId? data.homestayId: null;
         const checkinDate = data.checkinDate? data.checkinDate: null;
         const checkoutDate = data.checkoutDate? data.checkoutDate: null;
         const status = data.status? data.status: 1;
         const servicesPerBill = data.servicesPerBill? data.servicesPerBill: null;
 
-        let bill = await BillsService.updateBillsByBillsId(billId, customer, customerTogether, homestayId,checkinDate, checkoutDate, status, servicesPerBill);
+        let bill = await BillsService.updateBillsByBillsId(billId, customer, customerTogether,checkinDate, checkoutDate, status, servicesPerBill);
         return res.status(200).json({
             success: true,
             content: bill

@@ -71,9 +71,7 @@ exports.createBill = async ( data ) => {
 
     // Gửi email sau khi tao bill xong
     let customer = data.customer;
-    let admin = await Users(db).findById(homestay.admin);
     let bill = await Bills(db).findById(_idBill);
-    console.log(bill);
-    sendEmailWhenCreateBill(customer.name, customer.identification, customer.email, customer.phoneNumber, bill.checkinDate, bill.checkoutDate, bill.price, bill.customerTogether.length +1, homestay.name, admin.name, homestay.district, homestay.province);
+    sendEmailWhenCreateBill(customer.name, customer.identification, customer.email, customer.phoneNumber, bill.checkinDate, bill.checkoutDate, bill.price, bill.customerTogether.length +1, homestay.name, homestay.district, homestay.province);
 }
 

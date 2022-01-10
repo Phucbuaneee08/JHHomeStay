@@ -9,7 +9,7 @@ const sender = nodemailer.createTransport({
 });
 
 exports.sendEmailWhenCreateBill = (customerName, customerIdentification, customerEmail, customerPhoneNumber, checkinDate,
-                     checkoutDate, price, peopleNumber, homestayName, homestayAdmin, district, province ) => {
+                     checkoutDate, price, peopleNumber, homestayName, district, province ) => {
 
     let markup = `
 <!doctype html>
@@ -370,8 +370,7 @@ exports.sendEmailWhenCreateBill = (customerName, customerIdentification, custome
                         <p><b>Về phía homestay bạn đặt:</b> ${homestayName}, tại ${district}, ${province}. Chi phí dự kiến sẽ là ${price} VND. Ðương nhiên, chúng tôi sẽ phục vụ cho bạn thêm cả những dịch vụ tốt nhất. Giá của homestay có thể sẽ giảm xuống, nếu như người quản lí đồng ý với bạn.</p>
                         <p>Ðọc kĩ và chắc chắn những thông tin trên là chính xác. Nếu có bất cứ thông tin nào bị sai lệch, hãy gửi lại email cho chúng tôi ngay nhé!</p>
                         <p>Chúng tôi sẽ gửi email và gọi điện cho bạn trong vài tiếng nữa!</p>
-                        <p>Người quản lí của ${homestayName}</p>
-                        <p>${homestayAdmin}</p>
+                        <p>${homestayName}</p>
                       </td>
                     </tr>
                   </table>
@@ -420,7 +419,7 @@ exports.sendEmailWhenCreateBill = (customerName, customerIdentification, custome
     return sender.sendMail(mail);
 }
 
-exports.sendEmailWhenAcceptBill = (customerName, customerEmail, checkInDate, homestayName, homestayAdmin) => {
+exports.sendEmailWhenAcceptBill = (customerName, customerEmail, checkInDate, homestayName) => {
     let markup = `
 <!doctype html>
 <html>
@@ -777,8 +776,7 @@ exports.sendEmailWhenAcceptBill = (customerName, customerEmail, checkInDate, hom
                         <p>Jade Hill Homestays trân trọng và rất hoan nghênh bạn dành thời gian kì nghỉ với chuỗi homestays của chúng tôi.</p>
                         <p>Đơn đặt phòng của bạn đã được duyệt! Chúng tôi đã chuẩn bị kĩ càng cho kì nghỉ của bạn sắp tới. Nếu muốn hủy đặt phòng, liên hệ với chúng tôi trong vòng 2 tiếng sau khi nhận được email này.</p>
                         <p>Hẹn gặp bạn trong ngày ${checkInDate} ! Bạn sẽ rất ngạc nhiên đó! </p>
-                        <p>Người quản lí của ${homestayName}</p>
-                        <p>${homestayAdmin}</p>
+                        <p>${homestayName}</p>
                       </td>
                     </tr>
                   </table>
@@ -826,7 +824,7 @@ exports.sendEmailWhenAcceptBill = (customerName, customerEmail, checkInDate, hom
     return sender.sendMail(mail);
 }
 
-exports.sendEmailWhenIgnoreBill = (customerName, customerEmail, homestayName, homestayAdmin) => {
+exports.sendEmailWhenIgnoreBill = (customerName, customerEmail, homestayName) => {
     let markup = `
 <!doctype html>
 <html>
@@ -1183,9 +1181,8 @@ exports.sendEmailWhenIgnoreBill = (customerName, customerEmail, homestayName, ho
                         <p>Jade Hill Homestays trân trọng và rất hoan nghênh bạn dành thời gian kì nghỉ với chuỗi homestays của chúng tôi.</p>
                         <p>Cám ơn bạn đã theo dõi và đặt phòng trong hệ thống. Tuy nhiên, rất xin lỗi bạn khi ${homestayName} đang gặp sự cố và không thể phục vụ được khách. Do đó, chúng tôi gửi email thông báo hủy đặt phòng cho bạn.<\p>
                         <p>Thực sự xin lỗi vì đã làm lỡ kì nghỉ của bạn. Nếu bạn đặt một homestays khác trong hệ thống, hãy sử dụng email này để được hưởng dịch vụ giảm giá nhé!</p>
-                        <p>Một lần nữa, xin lỗi bạn!</p>
-                        <p>Người quản lí của ${homestayName}</p>
-                        <p>${homestayAdmin}</p>
+                        <p>Một lần nữa, xin lỗi bạn rất nhiều!</p>
+                        <p>${homestayName}</p>
                       </td>
                     </tr>
                   </table>
