@@ -1,6 +1,8 @@
 const {Bills, Services, Homestays} = require('./../../../models/index');
 const {db} = require("../../../helpers/dbHelper");
 const {ObjectId} = require("mongodb");
+const {sendEmailWhenCreateBill, sendEmail} = require("../../../helpers/emailHelper");
+const {Users} = require("../../../models");
 
 
 //Tạo bills với những thông tin nhận được
@@ -66,5 +68,12 @@ exports.createBill = async ( data ) => {
 
     // đẩy bill vào homestays
     await Homestays(db).findByIdAndUpdate(data._id, { $push: {bills: _idBill}});
+
+    // Gửi email sau khi tao bill xong
+    let customer = data.customer;
+    let admin = await Users(db).findById(homestay.admin);
+    let bill = await Bills(db).findById(_idBill);
+    console.log(bill);
+    sendEmailWhenCreateBill(customer.name, customer.identification, customer.email, customer.phoneNumber, bill.checkinDate, bill.checkoutDate, bill.price, bill.customerTogether.length +1, homestay.name, admin.name, homestay.district, homestay.province);
 }
 

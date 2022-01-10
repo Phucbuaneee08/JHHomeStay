@@ -44,7 +44,7 @@ const BillsSchema= new Schema({
         type: Number,
         required: false
     },
-    status: { // trạng thái của bills: 1 - đang chờ || 2 - đã duyệt || 3 - đã thanh toán
+    status: { // trạng thái của bills: 1 - đang chờ || 2 - đã duyệt || 3 - đã thanh toán || 4 - bill bi huy
         type: Number,
         required: false,
         default: 1

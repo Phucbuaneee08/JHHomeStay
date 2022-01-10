@@ -5,7 +5,7 @@ const {ObjectId} = require('mongodb');
 const {compare} = require("bcrypt");
 const {home} = require("nodemon/lib/utils");
 const { restart } = require("nodemon");
-const {sendEmail} = require("../../../helpers/emailHelper");
+const {sendEmail, sendEmailWhenAcceptBill, sendEmailWhenIgnoreBill} = require("../../../helpers/emailHelper");
 
 //API trả về danh sách các bills theo admin (gửi về bills của các homestays mà admin X có)
 exports.getBillsByAdminId = async (id) => {
@@ -122,11 +122,17 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
     let bill = await Bills(db).findById(billId);
     await Homestays(db).findOneAndUpdate({_id : bill.homestay},
         {$set: {available: status}})
-    if (status === 2) {
+
+    if (status %2 === 0) {
         let homestay = await Homestays(db).findById(bill.homestay);
         let customer = bill.customer;
         let admin = await Users(db).findById(homestay.admin);
-        sendEmail(customer.name, customer.identification, customer.email, customer.phoneNumber, bill.checkinDate, bill.checkoutDate, bill.price, bill.customerTogether.length +1, homestay.name, admin.name, homestay.district, homestay.province);
+        if (status === 2) {
+            sendEmailWhenAcceptBill(customer.name, customer.email, checkinDate, homestay.name, admin.name);
+        }
+        if (status === 4) {
+            sendEmailWhenIgnoreBill(customer.name, customer.email, homestay.name, admin.name);
+        }
     }
     return bill;
 }
