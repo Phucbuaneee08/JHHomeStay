@@ -210,7 +210,6 @@ exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homest
     if( homestayPhotos ) {
         setHomestay = {...setHomestay, "photos": homestayPhotos.map(photo => photo._id)};
         // xóa các photos không được chọn để update
-        /**
         let oldPhotos = (await Homestays(db).findById(homestayId)
             .populate('photos', "url")).photos;
         let delPhotos = oldPhotos.filter((o) => {
@@ -218,14 +217,15 @@ exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homest
         });
         let newPath = path.resolve(__dirname, '../../..');
         for(let i = 0; i < delPhotos.length; i++) {
-            child_process.exec(`del /f ${newPath}${delPhotos[i].url.replace('/', '\\')}`, (error, stdout, stderr) => {
+            child_process.exec(`del /f ${newPath}${delPhotos[i].url.replace(/\//g, '\\').replace(/ /g, '*')}`, (error, stdout, stderr) => {
                 if (error) {
                     console.log(error);
                 }
+                console.log('del file success')
                 console.log(`stdout: ${stdout}`);
                 console.error(`stderr: ${stderr}`);
             });
-        }*/
+        }
     }
 
     // Cập nhật vào database
