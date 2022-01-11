@@ -1,10 +1,11 @@
-const {Homestays, Bills, Services} = require("../../../models");
+const {Homestays, Bills, Services, Users} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 const mongoose  = require('mongoose');
 const {ObjectId} = require('mongodb');
 const {compare} = require("bcrypt");
 const {home} = require("nodemon/lib/utils");
 const { restart } = require("nodemon");
+const {sendEmail, sendEmailWhenAcceptBill, sendEmailWhenIgnoreBill} = require("../../../helpers/emailHelper");
 
 //API trả về danh sách các bills theo admin (gửi về bills của các homestays mà admin X có)
 exports.getBillsByAdminId = async (id) => {
@@ -33,7 +34,9 @@ exports.getBillsByAdminId = async (id) => {
                 "_id":1,"name":1,"bills":1
             }
         }
-    ])
+    ]);
+    console.log(bills);
+
     return bills;
 }
 
@@ -68,26 +71,27 @@ exports.getBillsByHomestayId = async (id, status) => {
         return bills;
     }
 
+    console.log(bills);
     //Cập nhật thêm tên và giá cho services trong bills
-    const length = bills[0].servicesPerBill.length;
-    const servicesPerBill = bills[0].servicesPerBill;
+    for(let k = 0; k < bills.length; k++) {
+        const length = bills[k].servicesPerBill.length;
+        const servicesPerBill = bills[k].servicesPerBill;
 
-    for( let i = 0; i < length; i++ )
-    {
-       const services = await Services(db).findById({ _id: servicesPerBill[i].services });
+        for (let i = 0; i < length; i++) {
+            const services = await Services(db).findById({_id: servicesPerBill[i].services});
 
-        // Thêm 2 trường name và price vào biến servicesPerBillAfterUpdate
-       servicesPerBill[i].name = services.name;
-       servicesPerBill[i].pricePerUnit = services.pricePerUnit;
+            // Thêm 2 trường name và price vào biến servicesPerBillAfterUpdate
+            servicesPerBill[i].name = services.name;
+            servicesPerBill[i].pricePerUnit = services.pricePerUnit;
+        }
+
+        //Thêm servicesPerBill vào bills
+        bills[k].servicesPerBill = servicesPerBill;
     }
-
-    //Thêm servicesPerBill vào bills
-    bills.servicesPerBill = servicesPerBill;
-
     return bills;
 }
 
-exports.updateBillsByBillsId = async (billId, customer, customerTogether, homestayId,checkinDate, checkoutDate, status, servicesPerBill) => {
+exports.updateBillsByBillsId = async (billId, customer, customerTogether, checkinDate, checkoutDate, status, servicesPerBill) => {
     let setKey = {};
     if (customer) {
         if (customer.name) {setKey = {...setKey, "customer.name": customer.name}}
@@ -98,9 +102,6 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
     }
     if (customerTogether) {
         setKey = {...setKey, "customerTogether": customerTogether}
-    }
-    if (homestayId) {
-        setKey = {...setKey, "homestay": homestayId}
     }
     if (checkinDate) {
         setKey = {...setKey, "checkinDate": new Date(checkinDate)}
@@ -114,13 +115,25 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
     if (servicesPerBill) {
         setKey = {...setKey, "servicesPerBill": servicesPerBill}
     }
+    console.log("Bill OK");
     await Bills(db).updateOne(
         {_id: billId},
         {$set: setKey}
     )
+    console.log(billId);
     let bill = await Bills(db).findById(billId);
+    console.log(bill);
     await Homestays(db).findOneAndUpdate({_id : bill.homestay},
         {$set: {available: status}})
+
+    if (status === 2) {
+        let homestay = await Homestays(db).findById(bill.homestay);
+        console.log(homestay);
+        let customer = bill.customer;
+        console.log(customer);
+        sendEmailWhenAcceptBill(customer.name, customer.email, checkinDate, homestay.name);
+    }
+
     return bill;
 }
 
@@ -128,9 +141,14 @@ exports.updateBillsByBillsId = async (billId, customer, customerTogether, homest
 
 
 exports.deleteBillsById = async ( Bill_Id ) => {
+    // Gui email neu bill dang trong trang thai cho
+    let bill = await Bills(db).findById(Bill_Id);
+    let homestay = await Homestays(db).findById(bill.homestay);
+    if (bill.status === 1) {
+        sendEmailWhenIgnoreBill(bill.customer.name, bill.customer.email, homestay.name);
+    }
     //Lấy các service trong bill ra trước khi xóa bill
     let servicesPerBill = [];
-    let homestay;
 
     await Bills(db).findOne({_id: Bill_Id })
     .then(data => {

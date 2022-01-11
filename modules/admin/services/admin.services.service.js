@@ -13,3 +13,9 @@ exports.getAllServices = async () => {
     console.log(services);
     return services;
 }
+
+exports.createService = async (name, pricePerUnit, personServe) => {
+    const service = await Services(db).create({name, pricePerUnit, personServe});
+    console.log(service);
+    return service;
+}

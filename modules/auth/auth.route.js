@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const AuthController  = require('./auth.controller');
-const { authToken, authRole } = require('../../middleware/auth');
+const { authToken, authRole } = require('../../middleware');
 
 // Các api xác thực người dùng
 router.post("/login", authRole,AuthController.login);

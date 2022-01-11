@@ -10,23 +10,18 @@ const HomestaysSchema = new Schema(
         },
         price: { // Giá homestay
             type: Number,
-            required: true
         },
         type: { // Loại homestay -> đổi thành 1 collection
             type: String,
-            required: true
         },
         address: { // địa chỉ cụ thể của homestay
             type: String,
-            required: true
         },
         province: { // Địa chỉ tỉnh
             type: String,
-            required: true
         },
         district: { // Địa chỉ huyện
             type: String,
-            required: true
         },
         latitude: { // Tọa độ: Vĩ độ
             type: String

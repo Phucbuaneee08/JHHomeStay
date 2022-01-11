@@ -1,10 +1,11 @@
-const { Homestays, Bills, Amenities, GeneralServices} = require("../../../models");
+const { Homestays, Bills, Amenities, GeneralServices, Users, Photos, Services} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
 const {ObjectId} = require('mongodb');
 
-exports.createHomestay = async (homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos ) => {
+exports.createHomestay = async (adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos ) => {
     let homestay = {
         name : homestayName,
+        admin: adminId,
         price : homestayPrice,
         type: homestayType,
         address : homestayAddress,
@@ -16,18 +17,43 @@ exports.createHomestay = async (homestayName, homestayProvince, homestayDistrict
         description: homestayDescription,
         available: homestayAvailable,
     };
+
+    homestay = await Homestays(db).create(homestay);
+
+    if (adminId) {
+        await Users(db).findByIdAndUpdate(adminId,
+            {
+                $push: {homestays: homestay._doc._id}
+            })
+    }
     if (homestayServices) {
         homestay = {...homestay, services: homestayServices};
     }
-    if (homestayPhotos) {
-        homestay = {...homestay, photos: homestayPhotos};
+
+    if (homestayServices) {
+        for (let i = 0; i < homestayServices.length; i++) {
+            const service =  await Services(db).create(homestayServices[i]);
+            await Homestays(db).findByIdAndUpdate(homestay._doc._id, {
+                $push: {services: service._id}
+            })
+        }
     }
-    homestay = await Homestays(db).create(homestay);
+
+    if (homestayPhotos) {
+        for (let i = 0; i < homestayPhotos.length; i++) {
+            const photo =  await Photos(db).create({
+                url: homestayPhotos[i]
+            });
+            await Homestays(db).findByIdAndUpdate(homestay._doc._id, {
+                $push: {photos: photo._id}
+            })
+        }
+    }
 
     if (homestayAmenities) {
         for (let i = 0; i < homestayAmenities.length; i++) {
             const amenity =  await Amenities(db).create(homestayAmenities[i]);
-            await Homestays(db).findByIdAndUpdate(homestay._id, {
+            await Homestays(db).findByIdAndUpdate(homestay._doc._id, {
                 $push: {amenities: amenity._id}
             })
         }
@@ -36,12 +62,12 @@ exports.createHomestay = async (homestayName, homestayProvince, homestayDistrict
     if (homestayGeneralServices) {
         for (let i = 0; i < homestayGeneralServices.length; i++) {
             const generalService =  await GeneralServices(db).create(homestayGeneralServices[i]);
-            await Homestays(db).findByIdAndUpdate(homestay._id, {
+            await Homestays(db).findByIdAndUpdate(homestay._doc._id, {
                 $push: {generalServices: generalService._id}
             })
         }
     }
-    return (await Homestays(db).findById(homestay._id)
+    return (await Homestays(db).findById(homestay._doc._id)
         .populate('amenities',"name")
         .populate('generalServices', "name")
         .populate('photos', "url")

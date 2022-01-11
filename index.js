@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const bodyParser = require("body-parser");
 var logger = require('morgan');
 var i18n = require("i18n");
 var cors = require('cors');
@@ -22,7 +23,7 @@ process.env.TZ = 'Asia/Ho_Chi_Minh';
 app.use('/upload', express.static('upload'));
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: false, limit: '50mb', parameterLimit: 50000 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors(corsOptions));

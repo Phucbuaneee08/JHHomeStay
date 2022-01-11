@@ -6,33 +6,37 @@ exports.createInformationForHomestay = async (req, res) => {
         //Lấy về dữ liệu trong body của request
         const data = req.body;
 
-        const homestayName = data.name ? data.name : " ";
+        const adminId = data.adminId && (data.adminId !== "undefined") ? data.adminId : null;
+        const homestayName = data.name ? data.name : null;
         const homestayPrice = data.price ? data.price : 0;
-        const homestayType = data.type ? data.type : " ";
-        const homestayAddress = data.address ? data.address : " ";
-        const homestayProvince = data.province ? data.province : " ";
-        const homestayDistrict = data.district ? data.district : " ";
-        const homestayLatitude = data.latitude ? data.latitude : " ";
-        const homestayLongitude = data.longitude ? data.longitude : " ";
+        const homestayType = data.type ? data.type : null;
+        const homestayAddress = data.address ? data.address : null;
+        const homestayProvince = data.province ? data.province : null;
+        const homestayDistrict = data.district ? data.district : null;
+        const homestayLatitude = data.latitude ? data.latitude : null;
+        const homestayLongitude = data.longitude ? data.longitude : null;
         const homestayArea = data.area ? data.area : 0;
-        const homestayDescription = data.description ? data.description : " ";
+        const homestayDescription = data.description ? data.description : null;
         const homestayAvailable = data.available ? data.available : 0;
         let homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos;
         if (data.services == '' || data.services == null) {
             homestayServices = null
-        } else homestayServices = data.services;
+        } else homestayServices = JSON.parse(data.services);
         if (data.generalServices == '' || data.generalServices == null) {
             homestayGeneralServices = null
-        } else homestayGeneralServices = data.generalServices;
+        } else homestayGeneralServices = JSON.parse(data.generalServices);
         if (data.amenities == '' || data.amenities == null) {
             homestayAmenities = null
-        } else homestayAmenities = data.amenities;
-        if (data.photos == '' || data.photos == null) {
-            homestayPhotos = null
-        } else homestayPhotos = data.photos;
+        } else homestayAmenities = JSON.parse(data.amenities);
 
-        //Tạo homestay 
-        const homestay = await HomestayService.createHomestay(homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos );
+        console.log(req.files);
+        homestayPhotos = req.files.map((file) => {
+            return `/upload/homestays-photos/${file.originalname}`
+        });
+        console.log(homestayPhotos);
+
+        //Tạo homestay
+        const homestay = await HomestayService.createHomestay(adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos );
 
         return res.status(200).json({
             success: true,
@@ -43,6 +47,7 @@ exports.createInformationForHomestay = async (req, res) => {
     }
     catch(Error){
         //Lỗi không xác định
+        console.log(Error)
         return res.status(400).json({
             success: false,
             message: "Create homestay fail",

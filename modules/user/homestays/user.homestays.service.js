@@ -1,9 +1,9 @@
-const {Homestays, Amenities, GeneralServices, Bills} = require("../../../models");
+const {Homestays, Amenities, GeneralServices, Bills, Photos, Services, Users} = require("../../../models");
 const {db} = require("../../../helpers/dbHelper");
-const {compare} = require("bcrypt");
-const {Users} = require("../../../models");
 const {ObjectId} = require('mongodb');
-const {toInt} = require("validator");
+const path = require("path");
+const child_process = require("child_process");
+const {set} = require("mongoose");
 const qty = 20;                             // Số lượng homestays mỗi slice
 
 exports.getRankingHomestays = async (quantity) => {
@@ -151,11 +151,18 @@ exports.getCheckInAndOutDateByIdHomestay = async (id) => {
 }
 
 //Update Homestays Service
-exports.updateHomestay = async (homestayId, homestayName, homestayPrice, homestayType, homestayAddress,homestayProvince, homestayDistrict, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayAmenities, homestayServices, homestayGeneralServices, homestayPhotos) =>{
+exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homestayType, homestayAddress,homestayProvince, homestayDistrict, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayAmenities, homestayServices, homestayGeneralServices, homestayPhotos, adminId, newHomestayPhotos) =>{
     // Tạo object rỗng để chứa các thông tin cần cập nhật
     let setHomestay = {};
 
     // Kiểm tra và cập nhật
+    if (adminId) {
+        setHomestay = {...setHomestay, "admin": adminId};
+        await Users(db).findByIdAndUpdate(adminId, {
+            $push: {homestays: homestayId}
+        });
+    }
+
     if( homestayName ){
         setHomestay = {...setHomestay, "name": homestayName};
     }
@@ -200,44 +207,95 @@ exports.updateHomestay = async (homestayId, homestayName, homestayPrice, homesta
         setHomestay = {...setHomestay, "available": homestayAvailable};
     }
 
-    if( homestayServices ){
-        setHomestay = {...setHomestay, "services": homestayServices};
-    }
-
-    if( homestayPhotos ){
-        setHomestay = {...setHomestay, "photos": homestayPhotos};
+    if( homestayPhotos ) {
+        setHomestay = {...setHomestay, "photos": homestayPhotos.map(photo => photo._id)};
+        // xóa các photos không được chọn để update
+        let oldPhotos = (await Homestays(db).findById(homestayId)
+            .populate('photos', "url")).photos;
+        let delPhotos = oldPhotos.filter((o) => {
+            return !homestayPhotos.includes(o._id.toString());
+        });
+        let newPath = path.resolve(__dirname, '../../..');
+        for(let i = 0; i < delPhotos.length; i++) {
+            child_process.exec(`del /f ${newPath}${delPhotos[i].url.replace(/\//g, '\\').replace(/ /g, '*')}`, (error, stdout, stderr) => {
+                if (error) {
+                    console.log(error);
+                }
+                console.log('del file success')
+                console.log(`stdout: ${stdout}`);
+                console.error(`stderr: ${stderr}`);
+            });
+        }
     }
 
     // Cập nhật vào database
-    const homestay = await Homestays(db).updateOne(
+    await Homestays(db).updateOne(
         {_id: homestayId},
         {$set: setHomestay}
     );
 
+    if (homestayServices) {
+        await Homestays(db).findByIdAndUpdate(homestayId, {
+            $set: {services: []}
+        });
+        for (let i = 0; i < homestayServices.length; i++) {
+            if (homestayServices[i]?._id) {
+                await Services(db).findOneAndRemove({
+                    _id: new ObjectId(homestayServices[i]._id)
+                })
+            }
+            const service = await Services(db).create(homestayServices[i]);
+            await Homestays(db).findByIdAndUpdate(homestayId, {
+                $push: {services: service._id}
+            })
+        }
+    }
+
+    if (newHomestayPhotos) {
+        for (let i = 0; i < newHomestayPhotos.length; i++) {
+            const photo =  await Photos(db).create({
+                url: newHomestayPhotos[i]
+            });
+            await Homestays(db).findByIdAndUpdate(homestayId, {
+                $push: {photos: photo._id}
+            })
+        }
+    }
+
     if (homestayAmenities) {
-        await Homestays(db).findByIdAndUpdate(homestay._id, {
+        await Homestays(db).findByIdAndUpdate(homestayId, {
             $set: {amenities: []}
         })
         for (let i = 0; i < homestayAmenities.length; i++) {
+            if (homestayAmenities[i]?._id) {
+                await Amenities(db).findOneAndRemove({
+                    _id: new ObjectId(homestayAmenities[i]._id)
+                })
+            }
             const amenity =  await Amenities(db).create(homestayAmenities[i]);
-            await Homestays(db).findByIdAndUpdate(homestay._id, {
+            await Homestays(db).findByIdAndUpdate(homestayId, {
                 $push: {amenities: amenity._id}
             })
         }
     }
 
     if (homestayGeneralServices) {
-        await Homestays(db).findByIdAndUpdate(homestay._id, {
+        await Homestays(db).findByIdAndUpdate(homestayId, {
             $set: {generalServices: []}
         })
         for (let i = 0; i < homestayGeneralServices.length; i++) {
+            if (homestayGeneralServices[i]?._id) {
+                await GeneralServices(db).findOneAndRemove({
+                    _id: new ObjectId(homestayGeneralServices[i]._id)
+                })
+            }
             const generalService =  await GeneralServices(db).create(homestayGeneralServices[i]);
-            await Homestays(db).findByIdAndUpdate(homestay._id, {
+            await Homestays(db).findByIdAndUpdate(homestayId, {
                 $push: {generalServices: generalService._id}
             })
         }
     }
-    return (await Homestays(db).findById(homestay._id)
+    return (await Homestays(db).findById(homestayId)
         .populate('amenities',"name")
         .populate('generalServices', "name")
         .populate('photos', "url")

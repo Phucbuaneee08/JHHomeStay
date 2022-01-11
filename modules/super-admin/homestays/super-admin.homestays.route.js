@@ -1,9 +1,9 @@
 const express = require("express");
 const HomestayController = require("./super-admin.homestays.controller");
 const router = express.Router();
-const { authToken } = require('../../../middleware/auth');
+const { authToken, uploadBackupFiles} = require('../../../middleware');
 
-router.post('/create/homestays',HomestayController.createInformationForHomestay);
+router.post('/create/homestays', uploadBackupFiles() ,HomestayController.createInformationForHomestay);
 router.post('/getIdAdmin',HomestayController.getIdAdmin);
 router.get('/homestays', HomestayController.getAllHomestays);
 

@@ -5,11 +5,9 @@ const Schema = mongoose.Schema;
 const AmenitiesSchema = new Schema({
     name: { // Tên nội thất, ví dụ: Bếp ga, Tủ lạnh toshiba,...
         type: String,
-        required: true
     },
     type: { // Loại nội thất, ví dụ: Bếp, Tủ lạnh..
         type: String,
-        required: true
     },
     rooms: [{
         type: Schema.Types.ObjectId,

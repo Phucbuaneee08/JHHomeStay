@@ -10,6 +10,8 @@ const jwt = require('jsonwebtoken');
 const { Users } = require('../models/index');
 const path = require('path');
 const {db} = require("../helpers/dbHelper");
+const fs = require("fs");
+const multer = require("multer");
 
 // Chuyển file .env sang dạng có thể sử dụng được
 require('dotenv').config({path: path.resolve(__dirname, '../.env')});
@@ -97,4 +99,29 @@ exports.authRole = async function ( req, res, next) {
             }
         } else next();
     }
+}
+
+exports.uploadBackupFiles = () => {
+    // 2. copy file được gửi lên vào backup/all/'version'/data
+    const getFile = multer({
+        storage: multer.diskStorage({
+            destination: (req, file, cb) => {
+                let newPath = `${path.resolve(__dirname, "..", "upload")}/homestays-photos`;
+                if (!fs.existsSync(newPath)) {
+                    fs.mkdirSync(newPath, {
+                        recursive: true
+                    });
+                }
+                console.log(`create folder : ${newPath} : in multer`)
+                cb(null, newPath)
+            },
+            filename: function (req, file, cb) {
+                console.log(`create name file : ${file.originalname} : in multer`);
+                cb(null, file.originalname);
+            },
+        }),
+        limits: { fieldSize: 25 * 1024 * 1024 }
+    });
+
+    return getFile.array('files',10);
 }
