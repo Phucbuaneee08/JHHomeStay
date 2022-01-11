@@ -48,7 +48,7 @@ router.use("/admins", require("./modules/admin/bills/admin.bills.route"));
 router.use("/services", require("./modules/admin/services/admin.services.route"));
 
 //Trỏ tới router ở file create-bills
-router.use('/users',require('./modules/user/bills/user.bill.router'));
+router.use('/users',require('./modules/user/bills/user.bill.route'));
 
 //Trỏ tới router ở file super-admin/admin
 router.use('/super-admins', require('./modules/super-admin/admin/super-admin.admin.route'))
