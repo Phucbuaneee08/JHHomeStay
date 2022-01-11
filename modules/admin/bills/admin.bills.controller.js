@@ -58,10 +58,10 @@ exports.deleteBillsById = async ( req, res) =>{
     try{
         //Lấy id của bills
         const Bill_Id = req.params.id;
-
+        
         //Kiểm trả xem bill có tồn tại không bằng Id
         const Bills = await BillsService.findBillsById( Bill_Id );
-
+        
         if( typeof( Bills ) == "undefined" || Bills === null ){
             return res.status(403).json({
                 success: false,
@@ -70,7 +70,7 @@ exports.deleteBillsById = async ( req, res) =>{
             })
         }
 
-        //Xóa bills ra khỏi danh sách bills
+        // //Xóa bills ra khỏi danh sách bills
         await BillsService.deleteBillsById( Bill_Id );
 
         //Nếu thành công gửi về thông báo thành công
