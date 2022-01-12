@@ -21,7 +21,7 @@ exports.updateAdminById = async (id, name, address, role, email, password, phone
         setKey = {...setKey, "email": email}
     }
     if (password) {
-        setKey = {...setKey, "password": password}
+        setKey = {...setKey, "password": await bcrypt.hash(password, 10)}
     }
     if (phone) {
         setKey = {...setKey, "phone": phone}
