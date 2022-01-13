@@ -5,7 +5,6 @@ const {ObjectId} = require('mongodb');
 exports.createHomestay = async (adminId, homestayName, homestayProvince, homestayDistrict, homestayAddress, homestayType, homestayPrice, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayServices, homestayGeneralServices, homestayAmenities, homestayPhotos ) => {
     let homestay = {
         name : homestayName,
-        admin: adminId,
         price : homestayPrice,
         type: homestayType,
         address : homestayAddress,
