@@ -6,6 +6,7 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
     let homestay = {
         name : homestayName,
         price : homestayPrice,
+        admin: adminId,
         type: homestayType,
         address : homestayAddress,
         province : homestayProvince,
@@ -20,6 +21,8 @@ exports.createHomestay = async (adminId, homestayName, homestayProvince, homesta
     homestay = await Homestays(db).create(homestay);
 
     if (adminId) {
+        console.log(adminId);
+        console.log(adminId);
         await Users(db).findByIdAndUpdate(adminId,
             {
                 $push: {homestays: homestay._doc._id}
