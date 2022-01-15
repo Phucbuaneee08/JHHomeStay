@@ -113,7 +113,16 @@ exports.getAllHomestays = async (page, perPage, role, email) => {
                     "name":1,"province":1, "district":1, "area":1, "rates":1
                 }
             }
-            ])
+            ]);
+
+        homestays = homestays.map((homestay) => {
+            let hasAdmin = true;
+            return {
+                ...homestay,
+                hasAdmin
+            };
+        });
+
         return homestays;
     } else {
         let skip = 0;
