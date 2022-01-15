@@ -113,10 +113,12 @@ exports.getAllHomestays = async (page, perPage, role, email) => {
             ]);
 
         homestays = homestays.map((homestay) => {
+            let adminName = admin[0].name;
             let hasAdmin = true;
             return {
                 ...homestay,
-                hasAdmin
+                hasAdmin,
+                adminName
             };
         });
 
