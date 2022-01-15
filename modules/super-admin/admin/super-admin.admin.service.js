@@ -157,13 +157,31 @@ exports.deleteAdmin = async (id) => {
 
 // Xóa homestay và tham chiếu
 exports.deleteHomestay = async (id) => {
+    const deleteHomestay = await Homestays(db).findById(id);
     await Homestays(db).deleteOne({ _id: ObjectId(id) });
     // Xóa tham chiếu
-    await Users(db).updateMany(
+
+    /*await Users(db).updateMany(
         {},
         { $set: { "homestays.$[element]": null } },
         { arrayFilters: [ { "element": ObjectId(id) } ] }
-    );
+    );*/
+    let user = await Users(db).findById(deleteHomestay.admin);
+    console.log(user);
+    let listNewHomestay = [];
+    const listOLdHomestay = user.homestays;
+    console.log(deleteHomestay._id);
+    console.log(typeof (deleteHomestay._id));
+    listOLdHomestay.forEach(x => {
+        if ( x == deleteHomestay._id ) {}
+        else { listNewHomestay = [...listNewHomestay, x];console.log(x);
+            console.log(typeof(x))};
+    })
+    user.homestays = listNewHomestay;
+    console.log(user);
+    await Users(db).findByIdAndUpdate(user._id,
+        { $set: user },
+        { new : true });
     await Bills(db).deleteMany(
         { homestay: ObjectId(id) }
     );

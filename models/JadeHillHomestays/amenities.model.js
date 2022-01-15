@@ -10,8 +10,7 @@ const AmenitiesSchema = new Schema({
         type: String,
     },
     rooms: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Rooms',
+        type: String,
         required: false,
     }],
     homestays:[{
