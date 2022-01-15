@@ -110,7 +110,7 @@ exports.getAllHomestays = async (page, perPage, role, email) => {
             },
             {
                 $project:{
-                    "name ":1,"province":1, "district":1, "area":1, "rates":1
+                    "name":1,"province":1, "district":1, "area":1, "rates":1
                 }
             }
             ])
