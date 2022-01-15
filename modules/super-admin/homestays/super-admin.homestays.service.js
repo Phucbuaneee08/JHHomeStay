@@ -100,31 +100,47 @@ exports.getIdAdminByProvince = async ( Province ) => {
     
     return Admins;
 }
-exports.getAllHomestays = async (page, perPage) => {
-    let skip = 0;
-    if (perPage >= 0) {
-        perPage = Number(perPage);
-        if (page) {
-            page = Number(page);
-            skip = perPage * (page - 1);
-        }
-    }
-    let homestays = await Homestays(db).find({}, 'name province district area admin rates')
-        .populate('admin', 'email status name')
-        .limit(perPage)
-        .skip(skip);
-    homestays = homestays.map((homestay) => {
-        let hasAdmin = false;
-        if (homestay.admin !== undefined) {
-            hasAdmin = true;
-        }
-        return {
-            ...homestay._doc,
-            hasAdmin
-        };
-    });
+exports.getAllHomestays = async (page, perPage, role, email) => {
 
-    return homestays;
+    if (role == "admin") {
+        const admin = await Users(db).find({ email: email });
+        let homestays = await Homestays(db).aggregate([
+            {
+                $match: { admin: ObjectId(admin[0]._id) }
+            },
+            {
+                $project:{
+                    "name ":1,"province":1, "district":1, "area":1, "rates":1
+                }
+            }
+            ])
+        return homestays;
+    } else {
+        let skip = 0;
+        if (perPage >= 0) {
+            perPage = Number(perPage);
+            if (page) {
+                page = Number(page);
+                skip = perPage * (page - 1);
+            }
+        }
+        let homestays = await Homestays(db).find({}, 'name province district area admin rates')
+            .populate('admin', 'email status name')
+            .limit(perPage)
+            .skip(skip);
+        homestays = homestays.map((homestay) => {
+            let hasAdmin = false;
+            if (homestay.admin !== undefined) {
+                hasAdmin = true;
+            }
+            return {
+                ...homestay._doc,
+                hasAdmin
+            };
+        });
+
+        return homestays;
+    }
 }
 
 // Thống kê tổng doanh thu của toàn bộ homestays theo từng tháng

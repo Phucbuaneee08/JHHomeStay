@@ -82,8 +82,13 @@ exports.getIdAdmin = async ( req, res ) => {
 //Lấy toàn bộ homestays
 exports.getAllHomestays = async (req, res) => {
     try {
+        // Dữ liệu role và email lấy từ token
+        // Role superadmin -> trả về hết, admin -> trả về danh sách homestay admin đó quản lý
+        // Email để tìm ra admin, từ id admin -> Danh sách homestay admin đó quản lý
+        const role = req.currentRole;
+        const email = req.currentEmail;
         const {page, perPage} = req.query;
-        let homestays = await HomestayService.getAllHomestays(page, perPage);
+        let homestays = await HomestayService.getAllHomestays(page, perPage, role, email);
 
         return res.status(200).json({
             success: true,
