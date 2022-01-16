@@ -141,7 +141,7 @@ exports.getAllHomestays = async (page, perPage, role, email) => {
             .skip(skip);
         homestays = homestays.map((homestay) => {
             let hasAdmin = false;
-            if (homestay.admin !== undefined) {
+            if ((homestay.admin !== undefined) && (homestay.admin !== null)) {
                 hasAdmin = true;
             }
             return {
