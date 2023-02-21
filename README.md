@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Hướng dẫn cài đặt và triển khai ứng dụng:
 - Bước 1: Clone project NPMCNPM-BE
 
@@ -58,3 +59,6 @@ PORT = 8000
     + npm start -> server sẽ không khởi lại khi mã nguồn có sự thay đổi.
 
 
+=======
+# JHHomestays
+>>>>>>> c6c875966234db61964b44069c25058d631e62c8

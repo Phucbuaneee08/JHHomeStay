@@ -3,8 +3,8 @@ const nodemailer = require("nodemailer");
 const sender = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'jadehillhomestays@gmail.com', //email và pass word của người gửi - admin hoặc super admin
-        pass: 'jadehill2001' // Password -> Phần người gửi có thể sẽ thống nhất tạo một email chung
+        user: 'phuc.nb200471@sis.hust.edu.vn', //email và pass word của người gửi - admin hoặc super admin
+        pass: '113773298' // Password -> Phần người gửi có thể sẽ thống nhất tạo một email chung
     }
 });
 
