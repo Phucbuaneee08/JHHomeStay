@@ -6,4 +6,5 @@ module.exports = {
     Photos: require('./JadeHillHomestays/photos.model'),
     Services: require('./JadeHillHomestays/services.model'),
     Users: require('./JadeHillHomestays/users.model'),
+    Discounts: require('./JadeHillHomestays/discount.model')
 }
