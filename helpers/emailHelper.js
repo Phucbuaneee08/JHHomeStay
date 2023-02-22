@@ -4,9 +4,7 @@ const user = '';
 const pass = '';
 
 const sender = nodemailer.createTransport({
-  host: 'smtp-mail.outlook.com',
-  port: 587,
-  secure: false,
+  service: 'outlook',
   auth: {
     user: user, //email và pass word của người gửi - admin hoặc super admin
     pass: pass// Password -> Phần người gửi có thể sẽ thống nhất tạo một email chung
@@ -421,6 +419,14 @@ exports.sendEmailWhenCreateBill = (customerName, customerIdentification, custome
     html: markup
   };
 
-  return sender.sendMail(mail);
+  return sender.sendMail(mail, (error, info) => {
+    if(error)
+    {
+      console.log(error);
+    }
+    else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
 }
 
