@@ -1,20 +1,16 @@
 const { Discounts } = require("../../../models");
 const { db } = require('../../../helpers/dbHelper');
 
-exports.CreateDiscount = async (discountName, discountValue) => {
-    const discount = await Discounts(db).create({ name: discountName, value: discountValue });
-    console.log(discount);
+exports.CreateDiscount = async (name, code, value, startDate, expiredDate, quantity) => {
+    const sDate = new Date(startDate);
+    const eDate = new Date(expiredDate);
+    const discount = await Discounts(db).create({ name, code, value, startDate: sDate, expiredDate: eDate, quantity });
     return discount;
 }
 
 exports.GetAllDiscounts = async () => {
     console.log('Get all discounts');
-    const discounts = await Discounts(db).aggregate([{
-        $project: {
-            "name": 1, "value": 1
-        }
-    }])
-
+    const discounts = await Discounts(db).find({});
     console.log(discounts)
     return discounts;
 }
@@ -25,13 +21,13 @@ exports.FindDiscountById = async (discountId) => {
     return discount;
 }
 
-exports.UpdateDiscount = async (discountId, discountName, discountValue) => {
+exports.UpdateDiscount = async (discountId, name, code, value, startDate, expiredDate, quantity) => {
 
     const discount = await this.FindDiscountById(discountId);
     if (discount) {
         await Discounts(db).updateOne(
             { _id: discountId },
-            { $set: { name: discountName, value: discountValue } }
+            { $set: { name, code, value, startDate, expiredDate, quantity} }
         );
         return "Discount updated";
     }

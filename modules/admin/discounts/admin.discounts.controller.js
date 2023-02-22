@@ -2,10 +2,14 @@ const DiscountService = require('./admin.discounts.service');
 
 exports.CreateDiscount = async (req, res) => {
     try {
-        const name = req.body.discountName;
-        const value = req.body.discountValue;
+        const name = req.body.name;
+        const code = req.body.code;
+        const value = req.body.value;
+        const startDate = req.body.startDate? req.body.startDate : null;
+        const expiredDate = req.body.expiredDate? req.body.expiredDate : null;
+        const quantity = req.body.quantity;
 
-        let discount = await DiscountService.CreateDiscount(name, value);
+        let discount = await DiscountService.CreateDiscount(name, code, value, startDate, expiredDate, quantity);
 
         return res.status(200).json({
             success: true,
@@ -48,12 +52,15 @@ exports.DeleteDiscount = async (req, res) => {
 exports.UpdateDiscount = async (req, res) => {
     try {
 
-        const id = req.params.id;
-        const newName = req.body.discountName;
-        const newValue = req.body.discountValue;
+        const id = req.body.id;
+        const name = req.body.name;
+        const code = req.body.code;
+        const value = req.body.value;
+        const startDate = req.body.startDate? req.body.startDate : null;
+        const expiredDate = req.body.expiredDate? req.body.expiredDate : null;
+        const quantity = req.body.quantity;
 
-        console.log(id, newName, newValue);
-        const message = await DiscountService.UpdateDiscount(id, newName, newValue);
+        const message = await DiscountService.UpdateDiscount(id, name, code, value, startDate, expiredDate);
         return res.status(200).json({
             success: true, 
             content: {message: message},
