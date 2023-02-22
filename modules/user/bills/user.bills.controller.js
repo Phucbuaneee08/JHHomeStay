@@ -7,6 +7,7 @@ exports.createBills = async (req,res)=>{
         //Lấy dữ liệu từ body
         const data = req.body;
 
+        console.log(data._id);
         // Lấy thông tin homestays bằng _id
         const homestay = await Homestays(db).findById({ _id:data._id })
         .then( homestay => {
@@ -52,6 +53,7 @@ exports.createBills = async (req,res)=>{
     }
 
     catch(Error){
+        console.error(Error);
         res.status(400).json({
             success:false,
             message:"Exception",
