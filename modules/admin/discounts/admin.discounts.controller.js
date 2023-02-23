@@ -124,7 +124,7 @@ exports.GetAllDiscounts = async(req, res) => {
 exports.GetAllDiscountsByAdminId = async(req, res) => {
     try 
     {
-        const adminId = req.AdminId;
+        const adminId = req.query.adminId;
         const discounts = await DiscountService.GetAllDiscountsByAdminId(adminId);
         return res.status(200).json(
             {

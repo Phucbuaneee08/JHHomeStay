@@ -34,7 +34,7 @@ exports.login = async (req, res) => {
                    });
                }
            }
-
+            console.log(user);
            // Nếu xác thực đăng nhập thành công, trả lại res 200 và token, thông tin dùng để đăng nhập
            return res.header('Authorization', 'Bearer '+ access_token).status(200).json({
                success: true,

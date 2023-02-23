@@ -151,7 +151,9 @@ exports.getCheckInAndOutDateByIdHomestay = async (id) => {
 }
 
 //Update Homestays Service
-exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homestayType, homestayAddress,homestayProvince, homestayDistrict, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable, homestayAmenities, homestayServices, homestayGeneralServices, homestayPhotos, adminId, newHomestayPhotos) =>{
+exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homestayType, homestayAddress,homestayProvince,
+homestayDistrict, homestayLatitude, homestayLongitude, homestayArea, homestayDescription, homestayAvailable,
+homestayAmenities, homestayServices, homestayGeneralServices, homestayPhotos, adminId, discountId, newHomestayPhotos) =>{
     // Tạo object rỗng để chứa các thông tin cần cập nhật
     let setHomestay = {};
 
@@ -161,6 +163,16 @@ exports. updateHomestay = async (homestayId, homestayName, homestayPrice, homest
         await Users(db).findByIdAndUpdate(adminId, {
             $push: {homestays: homestayId}
         });
+    }
+       console.log(discountId);
+
+    if(discountId)
+    {
+       setHomestay = {...setHomestay, "discountId": discountId};
+    }
+    else
+    {
+     setHomestay = {...setHomestay, "discountId": null};
     }
 
     if( homestayName ){

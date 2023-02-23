@@ -79,6 +79,10 @@ const HomestaysSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'Users'
         },
+         discountId: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'Users'
+                },
         superAdmin: {
             type: Schema.Types.ObjectId,
             ref: 'Users'
