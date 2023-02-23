@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const HomestaysService = require('./user.homestays.service');
 
 exports.getRankingHomestays = async (req, res) => {
@@ -112,7 +113,7 @@ exports.updateHomestay = async (req,res) => {
         //Lấy thông tin các trường
         const homestayId = data._id ? data._id : null;
         const adminId = data.adminId && (data.adminId !== "undefined") ? data.adminId : null;
-        const discountId = data.discountId && (data.discountId !== "undefined" && data.discountId != "-- null --") ? data.discountId : null;
+        const discountId = data.discountId && (data.discountId !== "undefined" && data.discountId !== "-- null --" && ObjectId.isValid(data.discountId)) ? data.discountId : null;
         const homestayName = data.name ? data.name : null;
         const homestayPrice = data.price ? data.price : null;
         const homestayType = data.type ? data.type : null;
