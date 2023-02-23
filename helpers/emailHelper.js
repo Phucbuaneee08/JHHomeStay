@@ -1,26 +1,15 @@
 const nodemailer = require("nodemailer");
 
-const user = '';
-const pass = '';
+const user = 'phuc.nb200471@sis.hust.edu.vn';
+const pass = '113773298';
 
 const sender = nodemailer.createTransport({
-<<<<<<< HEAD
-    service: 'gmail',
-    auth: {
-        user: 'phuc.nb200471@sis.hust.edu.vn', //email và pass word của người gửi - admin hoặc super admin
-        pass: '113773298' // Password -> Phần người gửi có thể sẽ thống nhất tạo một email chung
-    }
-=======
-  host: 'smtp-mail.outlook.com',
-  port: 587,
-  secure: false,
+  service: 'outlook',
   auth: {
     user: user, //email và pass word của người gửi - admin hoặc super admin
     pass: pass// Password -> Phần người gửi có thể sẽ thống nhất tạo một email chung
   }
->>>>>>> b823a51a5a2a69145e47931d5491080ed37482e9
 });
-
 exports.sendEmailWhenCreateBill = (customerName, customerIdentification, customerEmail, customerPhoneNumber, checkinDate,
   checkoutDate, price, peopleNumber, homestayName, district, province) => {
 

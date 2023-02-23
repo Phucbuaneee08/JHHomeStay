@@ -21,7 +21,7 @@ exports.login = async (req, res) => {
                    access_token = jwt.sign({
                        email: user.email,
                        role: user.role,
-                   }, process.env.TOKEN_SECRET, {expiresIn: 60 * 60 * 24 * 7});
+                   }, process.env.TOKEN_SECRET, {expiresIn: 60 * 60 * 24 * 7 });
                    user.token = access_token;
 
                    // Thêm token cho user trong database
