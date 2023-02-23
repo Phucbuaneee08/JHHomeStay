@@ -1,7 +1,12 @@
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const DiscountSchema = new Schema({
+    adminId: {
+        type: Schema.Types.ObjectId,
+        ref: "Users",
+    },
     code: {
         type: String
     },

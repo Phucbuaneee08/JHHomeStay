@@ -1,10 +1,10 @@
 const { Discounts } = require("../../../models");
 const { db } = require('../../../helpers/dbHelper');
 
-exports.CreateDiscount = async (name, code, value, startDate, expiredDate, quantity) => {
+exports.CreateDiscount = async (adminId, name, code, value, startDate, expiredDate, quantity) => {
     const sDate = new Date(startDate);
     const eDate = new Date(expiredDate);
-    const discount = await Discounts(db).create({ name, code, value, startDate: sDate, expiredDate: eDate, quantity });
+    const discount = await Discounts(db).create({adminId, name, code, value, startDate: sDate, expiredDate: eDate, quantity });
     return discount;
 }
 
@@ -12,6 +12,13 @@ exports.GetAllDiscounts = async () => {
     console.log('Get all discounts');
     const discounts = await Discounts(db).find({});
     console.log(discounts)
+    return discounts;
+}
+
+exports.GetAllDiscountsByAdminId = async (adminId) => {
+    console.log(adminId);
+    const discounts = await Discounts(db).find({adminId});
+    console.log(discounts);
     return discounts;
 }
 
